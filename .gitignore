@@ -1,4 +1,10 @@
-*.DS_Store
-*.idea/
-*.iml
-*.class
+
+.idea/
+.iml
+.class
+
+# IntelliJ
+out/
+
+# Mac OS
+.DS_Store
