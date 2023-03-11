@@ -1,11 +1,11 @@
 
 .idea/
-.iml
+*.iml
 *.class
 
 # IntelliJ
-.out/
-.out/production/projet
-.out/production/
+out/
+out/production/projet
+out/production/
 # Mac OS
 .DS_Store
