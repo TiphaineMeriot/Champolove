@@ -9,6 +9,7 @@ public class CreationProfil extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(CreationProfil.class.getResource("creationp.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 602 , 406);
+        stage.setResizable(false);
         stage.setTitle("Créer un nouveau profil");
         stage.setScene(scene);
         stage.show();
