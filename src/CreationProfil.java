@@ -9,17 +9,18 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 public class CreationProfil extends Application {
 
     Button buttonCréer;
+    String prenom ="vide";
+    String date = "00/00/00";
+    String genree="HOMME";
+    String statut="HOMME";
+    String ville="HOMME";
+    String recherche="HOMME";
 
-    @FXML
-    private Label nom;
-
-    public void créer(){
-
-    }
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -29,11 +30,11 @@ public class CreationProfil extends Application {
         stage.setTitle("Créer un nouveau profil");
         stage.setScene(scene);
         stage.show();
-
+        buttonCréer = (Button) scene.lookup("#buttonCréer");
         buttonCréer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                créer();
+                System.exit(0);
             }
         });
     }

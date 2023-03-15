@@ -1,3 +1,5 @@
+import javafx.scene.control.Label;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -22,7 +24,7 @@ public class Profil implements Comparable<Profil>{
     int age;
     double taille;
 
-    public Profil(String nom,String prenom,String date_de_naissance,String genre,String statut,String ville,String recherche) throws ParseException {
+    public Profil(String nom, String prenom, String date_de_naissance, String genre, String statut, String ville, String recherche) throws ParseException {
 
         this.nom = nom.toUpperCase(Locale.ROOT);
         this.prenom = prenom;
@@ -33,6 +35,8 @@ public class Profil implements Comparable<Profil>{
         this.ville = ville;
         this.recherche=recherche;
     }
+
+
     //Je calcule l'âge de la personne en fonction du mois, du jour et de l'année
     public void calcul_age() throws ParseException {
         String date_de_naissance=this.date_de_naissance;
@@ -59,8 +63,8 @@ public class Profil implements Comparable<Profil>{
         hobbies.add("les jeux vidéos");
         hobbies.add("manger");
         hobbies.add("regarder des animés");
-        Profil p=new Profil("IeqPa", "Nalyd",Genre.HOMME.name(), "01/02/2003", Statut.CELIBATAIRE.name(), "Chômage", "Albi", 1.85, hobbies,Genre.FEMME.name());
-        System.out.println(p);
+       // Profil p=new Profil("IeqPa", "Nalyd",Genre.HOMME.name(), "01/02/2003", Statut.CELIBATAIRE.name(), "Chômage", "Albi", 1.85, hobbies,Genre.FEMME.name());
+       // System.out.println(p);
     }
 //À la base je voulais faire la distance entre 2 villes, mais pour ça il faudrait d'abord connaitre les coordonnées GPS des 2 villes ^^
 // En attendant je fais en fonction de l'âge

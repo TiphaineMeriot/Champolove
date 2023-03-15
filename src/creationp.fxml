@@ -18,7 +18,7 @@
    <children>
       <BorderPane prefHeight="406.0" prefWidth="602.0">
          <bottom>
-            <Button mnemonicParsing="false" text="Créer" BorderPane.alignment="CENTER">
+            <Button id="buttonCréer" mnemonicParsing="false" text="Créer" BorderPane.alignment="CENTER">
                <opaqueInsets>
                   <Insets bottom="30.0" />
                </opaqueInsets>
