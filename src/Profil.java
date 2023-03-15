@@ -57,14 +57,15 @@ public class Profil implements Comparable<Profil>{
         }
         return(exit);
     }
-        public static void main (String[]args) throws ParseException {
-            ArrayList<String> hobbies = new ArrayList<>();
-            hobbies.add("les jeux vidéos");
-            hobbies.add("manger");
-            hobbies.add("regarder des animés");
-            Profil p=new Profil("IeqPa", "Nalyd",Genre.HOMME.name(), "01/02/2003", Statut.CELIBATAIRE.name(), "Chômage", "Albi", 1.85, hobbies,Genre.FEMME.name());
-            System.out.println(p);
-        }
+
+    public static void main (String[]args) throws ParseException {
+        ArrayList<String> hobbies = new ArrayList<>();
+        hobbies.add("les jeux vidéos");
+        hobbies.add("manger");
+        hobbies.add("regarder des animés");
+        Profil p=new Profil("IeqPa", "Nalyd",Genre.HOMME.name(), "01/02/2003", Statut.CELIBATAIRE.name(), "Chômage", "Albi", 1.85, hobbies,Genre.FEMME.name());
+        System.out.println(p);
+    }
 //À la base je voulais faire la distance entre 2 villes, mais pour ça il faudrait d'abord connaitre les coordonnées GPS des 2 villes ^^
 // En attendant je fais en fonction de l'âge
     @Override
