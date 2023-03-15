@@ -21,8 +21,28 @@ public class Authentification extends Application {
     TextField userField;
     PasswordField passwordField;
     public Authentification(){
-        this.data.put("admin", "admin");
-        this.data.put("user", "user");
+        data.put("admin", "admin");
+        data.put("user", "user");
+        data.put("karen.mireille@gmail.com", "ChaiseBleuex79!");
+        data.put("laurent.gabriel@gmail.com", "CeriseRosey47!");
+        data.put("emilie.mouche@gmail.com", "LivreNoirz77!");
+        data.put("sophie.sabine@gmail.com", "TasDeTerreu21!");
+        data.put("alexandre.sacha@gmail.com", "CoupeDeLuneq12!");
+        data.put("jean.pierre@gmail.com", "TableauVertj71!");
+        data.put("julie.lola@gmail.com", "SoleilBlancj67!");
+        data.put("pierre.antoine@gmail.com", "MontagneGrisw64!");
+        data.put("paul.sylvain@gmail.com", "EtoileRougez31!");
+        data.put("claire.justine@gmail.com", "FeuilleVertee12!");
+        data.put("louise.maelle@gmail.com", "EtangBleuq74!");
+        data.put("anna.julien@gmail.com", "RiviereNoirz85!");
+        data.put("sandra.david@gmail.com", "OiseauJauneo77!");
+        data.put("cecile.laurent@gmail.com", "ArcEnCielu91!");
+        data.put("benjamin.louis@gmail.com", "NeigeBlancheb61!");
+        data.put("thomas.anais@gmail.com", "RueRougeh44!");
+        data.put("chloe.martin@gmail.com", "VentVertt12!");
+        data.put("pauline.benoit@gmail.com", "RocheNoirx92!");
+        data.put("kevin.robert@gmail.com", "FleurJauneg22!");
+        data.put("victor.victoire@gmail.com", "LuneBlanchev54!");
 
     }
 
