@@ -99,7 +99,7 @@
                                   </image>
                               </ImageView>
                               <Button mnemonicParsing="false" style="-fx-background-color: blue;" text="Recherche avancée" textAlignment="RIGHT" textFill="WHITE" GridPane.columnIndex="2" />
-                              <TextField prefHeight="27.0" prefWidth="209.0" promptText="Rechercher par mots clés..." GridPane.columnIndex="1">
+                              <TextField id="ZonedeRecherche" prefHeight="27.0" prefWidth="209.0" promptText="Rechercher par mots clés..." GridPane.columnIndex="1">
                                   <font>
                                       <Font name="Calibri Italic" size="18.0" />
                                   </font>
@@ -110,7 +110,7 @@
                 </Pane>
             </content>
         </ScrollPane>
-        <Button layoutX="862.0" layoutY="24.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="169.0" style="-fx-background-color: blue;" text="Créer un nouveau profil" textFill="WHITE" />
+        <Button id="boutonCreerProfil" layoutX="862.0" layoutY="24.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="169.0" style="-fx-background-color: blue;" text="Créer un nouveau profil" textFill="WHITE" />
         <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="28.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@images/logo.png" />
