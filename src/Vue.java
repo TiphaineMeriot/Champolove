@@ -13,11 +13,14 @@ public class Vue extends Application {
     Button boutonCreerProfil;
     String profilRecherche;
     String profilClick;
+
+
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(CreationProfil.class.getResource("Vue.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200 , 800);
         stage.setResizable(false);
+        stage.centerOnScreen();
         stage.setTitle("Vue");
         stage.setScene(scene);
         stage.show();
