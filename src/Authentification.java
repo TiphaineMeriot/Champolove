@@ -3,9 +3,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
@@ -18,6 +16,7 @@ public class Authentification extends Application {
     String username;
     String password;
     Button btn;
+    ToggleButton btnDarkMode;
     TextField userField;
     PasswordField passwordField;
     public Authentification(){
@@ -57,6 +56,8 @@ public class Authentification extends Application {
         stage.setScene(scene);
         stage.show();
 
+        //ajout d'une icone
+        stage.getIcons().add(new javafx.scene.image.Image("images/logo.png"));
         //si le bouton "Se connecter" est cliqué
         //on récupère le username et le password
         //on vérifie si le username et le password sont dans le dictionnaire
@@ -88,6 +89,25 @@ public class Authentification extends Application {
                 }
             }
         });
+        //ajout d'une image de fond sur le bouton d'id "btnDarkMode"
+        btnDarkMode = (ToggleButton) scene.lookup("#btnDarkMode");
+        //ajout d'une image de fond sur btnDarkMode sans modifier le css
+        btnDarkMode.setStyle("-fx-background-image: url('images/dark.png'); -fx-background-size: 100% 100%;");
+
+        //quand le bouton "btnDarkMode" est cliqué
+        //on change le css de la scene pour passer en mode sombre
+
+        btnDarkMode.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(btnDarkMode.isSelected()){
+                    //on passe en mode sombre
+                    scene.getStylesheets().add("css/dark.css");
+                }
+
+            }
+        });
+
 
 
     }

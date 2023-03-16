@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -30,5 +31,6 @@
             <Button id="boutonSeConnecter" mnemonicParsing="false" prefHeight="30.0" prefWidth="213.0" style="-fx-background-color: #074dff;" text="CONNEXION" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="4" />
          </children>
       </GridPane>
+      <ToggleButton id="btnDarkMode" layoutX="625.0" layoutY="427.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="46.0" style="-fx-background-color: GREY;" />
    </children>
 </AnchorPane>

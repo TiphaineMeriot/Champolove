@@ -9,6 +9,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+
+
+
 public class Vue extends Application {
     Button boutonCreerProfil;
     String profilRecherche;
@@ -17,6 +20,7 @@ public class Vue extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
         FXMLLoader fxmlLoader = new FXMLLoader(CreationProfil.class.getResource("Vue.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200 , 800);
         stage.setResizable(false);
