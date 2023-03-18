@@ -17,6 +17,7 @@ public class Profil implements Comparable<Profil>{
     String nom,prenom;
     String genre;
     String date_de_naissance;
+    String signe;
     String ville;
     double latitude,longitude;
     String statut;
@@ -37,6 +38,7 @@ public class Profil implements Comparable<Profil>{
         this.recherche=recherche;
         //J'appelle la méthode pour calculer l'âge
         calcul_age();
+        calcul_signe();
         calcul_latitude_longitude();
     }
 
@@ -55,6 +57,55 @@ public class Profil implements Comparable<Profil>{
             this.age = today.get(Calendar.YEAR) - birth.get(Calendar.YEAR) - 1;
         }
     }
+    public void calcul_signe() throws Exception{
+        //Bah comme son nom l'indique ça calcule le signe astrologique en fonction du jour/mois de naissance
+        //C'est ma mère qui m'a fait penser à rajouter ça x)
+        String date_de_naissance=this.date_de_naissance;
+        Calendar birth = new GregorianCalendar();
+        //Là, je formate le string qu'on récupère en calendrier
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        birth.setTime(s.parse(date_de_naissance));
+        int mois=birth.get(Calendar.MONTH)+1; //Je met plus 1 parce que pour calendar, le premier mois, c'est 0 (janvier)
+        int jour=birth.get(Calendar.DAY_OF_MONTH);
+        //Je voulais faire avec des modulos, mais je n'ai pas pu donc c'est dégueu.
+        //Il y a une possible factorisation, mais là je ne la vois pas donc bon...
+        if ((mois==1 && jour>=21) || (mois==2 && jour<=19)){
+            this.signe="Verseau";
+        }
+        else if ((mois==2 && jour>=20) || (mois==3 && jour<=20)){
+            this.signe="Poissons";
+        }
+        else if ((mois==3 && jour>=21) || (mois==4 && jour<=20)){
+            this.signe="Bélier";
+        }
+        else if ((mois==4 && jour>=21) || (mois==5 && jour<=21)){
+            this.signe="Taureau";
+        }
+        else if ((mois==5 && jour>=22) || (mois==6 && jour<=21)){
+            this.signe="Gémeaux";
+        }
+        else if ((mois==6 && jour>=22) || (mois==7 && jour<=22)){
+            this.signe="Cancer";
+        }
+        else if ((mois==7 && jour>=23) || (mois==8 && jour<=22)){
+            this.signe="Lion";
+        }
+        else if ((mois==8 && jour>=23) || (mois==9 && jour<=22)){
+            this.signe="Vierge";
+        }
+        else if ((mois==9 && jour>=23) || (mois==10 && jour<=22)){
+            this.signe="Balance";
+        }
+        else if ((mois==10 && jour>=23) || (mois==11 && jour<=22)){
+            this.signe="Scorpion";
+        }
+        else if ((mois==11 && jour>=23) || (mois==12 && jour<=21)){
+            this.signe="Sagitaire";
+        }
+        else if ((mois==12 && jour>=22) || (mois==1 && jour<=20)){
+            this.signe="Capricorne";
+        }
+    }
     public void calcul_latitude_longitude() throws Exception {
         URL url = new URL(String.format("https://api-adresse.data.gouv.fr/search/?q=%scity=%s",this.ville,this.ville));
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -68,19 +119,16 @@ public class Profil implements Comparable<Profil>{
                 i++;
             }
             String[] s= coord.toString().split(",");
-            String exit;
             this.latitude=Double.parseDouble(s[0]);
             this.longitude=Double.parseDouble(s[1]);
         }
         else{
             throw new ExceptionVilleInexistante();
         }
-
-        System.out.println(text);
     }
     public String toString(){
-        String exit=String.format("Nom:%s\nPrenom:%s\nSexe:%s\nAge:%d\nStatut:%s\nVille:%s\nLatitude:%f\nLongitude:%f\nRecherche:%s",
-        this.nom,this.prenom,this.genre,this.age,this.statut,this.ville,this.latitude,this.longitude,this.recherche);
+        String exit=String.format("Nom:%s\nPrenom:%s\nSexe:%s\nAge:%d\nSigne Astrologique:%s\nStatut:%s\nVille:%s\nLatitude:%f\nLongitude:%f\nRecherche:%s",
+        this.nom,this.prenom,this.genre,this.age,this.signe,this.statut,this.ville,this.latitude,this.longitude,this.recherche);
         return(exit);
     }
 
@@ -90,7 +138,7 @@ public class Profil implements Comparable<Profil>{
         hobbies.add("les jeux vidéos");
         hobbies.add("manger");
         hobbies.add("regarder des animés");
-        Profil p=new Profil("IeqPa", "Nalyd", "01/02/2003",Genre.HOMME.name(), Statut.CELIBATAIRE.name(),"Toulouse", Genre.FEMME.name());
+        Profil p=new Profil("IeqPa", "Nalyd", "23/12/2003",Genre.HOMME.name(), Statut.CELIBATAIRE.name(),"Toulouse", Genre.FEMME.name());
         System.out.println(p);
     }
 //Distance entre 2 Profils (et donc 2 villes par extension)
