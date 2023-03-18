@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CreationProfil">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CreationProfilControleur">
    <children>
       <BorderPane prefHeight="406.0" prefWidth="602.0">
          <bottom>
-            <Button id="buttonCréer" mnemonicParsing="false" text="Créer" BorderPane.alignment="CENTER">
+            <Button fx:id="buttonCréer" mnemonicParsing="false" text="Créer" BorderPane.alignment="CENTER" onAction="#buttonCréerAction">
                <opaqueInsets>
                   <Insets bottom="30.0" />
                </opaqueInsets>
@@ -42,19 +42,19 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField GridPane.columnIndex="1" GridPane.columnSpan="2">
+                  <TextField id="nomtxt" fx:id="nomtxt" GridPane.columnIndex="1" GridPane.columnSpan="2">
                      <GridPane.margin>
                         <Insets left="5.0" right="5.0" />
                      </GridPane.margin></TextField>
-                  <TextField GridPane.columnIndex="4" GridPane.columnSpan="2">
+                  <TextField id="prénomtxt" fx:id="prénomtxt" GridPane.columnIndex="4" GridPane.columnSpan="2">
                      <GridPane.margin>
                         <Insets left="5.0" right="5.0" />
                      </GridPane.margin></TextField>
-                   <DatePicker fx:id="datepicker" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                   <DatePicker fx:id="dateNaissancetxt" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="5.0" right="5.0" />
                      </GridPane.margin></DatePicker>
-                  <Label id="nom" alignment="CENTER" text="Nom">
+                  <Label alignment="CENTER" text="Nom">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
@@ -69,7 +69,7 @@
                         <Insets />
                      </GridPane.margin>
                   </Label>
-                   <ComboBox fx:id="genre" layoutX="347.0" layoutY="50.0" prefHeight="10" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                   <ComboBox id="genretxt" fx:id="genretxt" layoutX="347.0" layoutY="50.0" prefHeight="10" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                        <items>
                            <FXCollections fx:factory="observableArrayList">
                                <String fx:value="Homme" />
@@ -81,7 +81,7 @@
                         <Insets left="5.0" right="5.0" />
                      </GridPane.margin>
                    </ComboBox>
-                   <ComboBox fx:id="statut" layoutX="347.0" layoutY="50.0" prefHeight="10" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                   <ComboBox id="statuttxt" fx:id="statuttxt" layoutX="347.0" layoutY="50.0" prefHeight="10" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
                        <items>
                            <FXCollections fx:factory="observableArrayList">
                                <String fx:value="Célibataire" />
@@ -94,7 +94,7 @@
                      </GridPane.margin>
                    </ComboBox>
                   <Label alignment="CENTER" text="Profession" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                   <ComboBox fx:id="Profession" layoutX="347.0" layoutY="50.0" prefHeight="10" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                   <ComboBox id="professiontxt" fx:id="professiontxt" layoutX="347.0" layoutY="50.0" prefHeight="10" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                        <items>
                            <FXCollections fx:factory="observableArrayList">
                                <String fx:value="Sans profession" />
@@ -128,13 +128,13 @@
                      </GridPane.margin>
                    </ComboBox>
                   <Label alignment="CENTER" text="Ville" GridPane.rowIndex="2" />
-                  <TextField prefHeight="26.0" prefWidth="96.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <TextField  id="villetxt" fx:id="villetxt" prefHeight="26.0" prefWidth="96.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="5.0" right="5.0" />
                      </GridPane.margin>
                   </TextField>
                   <Label alignment="CENTER" text="Recherche" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                  <ComboBox fx:id="genre1" prefHeight="10" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                  <ComboBox id="recherchetxt" fx:id="recherchetxt" prefHeight="10" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
                      <items>
                         <FXCollections fx:factory="observableArrayList">
                            <String fx:value="Homme" />
