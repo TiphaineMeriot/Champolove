@@ -74,10 +74,11 @@ public class CreationProfilControleur  {
         statut = statuttxt.getValue();
         profession = professiontxt.getValue();
         recherche = recherchetxt.getValue();
-        if(nom.equals("") || prénom.equals("") || date.equals(""))
+        if(nom.equals("") || prénom.equals("") || date.equals("") || ville.equals("")|| genre == null || statut == null
+                || recherche==null || profession==null ) {
             // TODO gérer erreur de date
             afficherMessage("Terme manquant");
-        else {
+        }else {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             dateFormatée = date.format(dateTimeFormatter);
             créer();
