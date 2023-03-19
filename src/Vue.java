@@ -45,7 +45,7 @@ public class Vue extends Application {
         profilRecherche = String.valueOf(scene.lookup("#ZonedeRecherche"));
 
         //ajout de l'icone
-        stage.getIcons().add(new Image("images/logo.png"));
+        stage.getIcons().add(new Image("images/logo_invisible.png"));
 
         //boucle pour ajouter les profils dans la gridpane
         GridPane gridPane = (GridPane) scene.lookup("#GridProfils");
@@ -58,7 +58,7 @@ public class Vue extends Application {
         //charger l'imageView d'id "BigImage"
         javafx.scene.image.ImageView imageview = (javafx.scene.image.ImageView) scene.lookup("#BigImage");
         //charger l'image
-        Image img = new Image("images/pdp.png");
+        Image img = new Image("images/3.jpeg");
         //setup l'image
         imageview.setImage(img);
 
