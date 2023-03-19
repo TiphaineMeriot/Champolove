@@ -6,10 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 enum Statut{
-        CELIBATAIRE,MARIE,VEUF
+        CELIBATAIRE,MARIE,VEUF, TEST2
     }
     enum Genre{
-        HOMME,FEMME,AUTRE
+        HOMME,FEMME,AUTRE, TEST
     }
 
 public class Profil implements Comparable<Profil>{

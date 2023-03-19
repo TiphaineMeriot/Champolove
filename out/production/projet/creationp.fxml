@@ -13,12 +13,14 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CreationProfilControleur">
    <children>
       <BorderPane prefHeight="406.0" prefWidth="602.0">
          <bottom>
-            <Button fx:id="buttonCréer" mnemonicParsing="false" text="Créer" BorderPane.alignment="CENTER" onAction="#buttonCréerAction">
+            <Button fx:id="buttonCréer" mnemonicParsing="false" onAction="#buttonCréerAction" text="Créer" BorderPane.alignment="CENTER">
                <opaqueInsets>
                   <Insets bottom="30.0" />
                </opaqueInsets>
@@ -42,110 +44,91 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField id="nomtxt" fx:id="nomtxt" GridPane.columnIndex="1" GridPane.columnSpan="2">
+                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="3" GridPane.rowIndex="1">
+                     <children>
+                        <TextField id="villetxt" fx:id="villetxt" prefHeight="26.0" prefWidth="197.0" promptText="Ville" />
+                         <ComboBox id="professiontxt" fx:id="professiontxt" prefHeight="26.0" prefWidth="280.0" promptText="Profession">
+                             <items>
+                                 <FXCollections fx:factory="observableArrayList">
+                                     <String fx:value="Sans profession" />
+                                     <String fx:value="Administration publique, professions juridiques, armée et police" />
+                                     <String fx:value="Agriculture, marine, pêche" />
+                                     <String fx:value="Artisanat" />
+                                     <String fx:value="Banque et assurances" />
+                                     <String fx:value="Bâtiment, travaux publics" />
+                                     <String fx:value="Commerce" />
+                                     <String fx:value="Commerce BtoB" />
+                                     <String fx:value="Communication, information, art et spectacle" />
+                                     <String fx:value="Électricité, électronique" />
+                                     <String fx:value="Enseignement, formation" />
+                                     <String fx:value="Études et recherche" />
+                                     <String fx:value="Gestion, administration des entreprises" />
+                                     <String fx:value="Hôtellerie, restauration, alimentation" />
+                                     <String fx:value="Industries de process" />
+                                     <String fx:value="Informatique et télécommunications" />
+                                     <String fx:value="Ingénieurs et cadres de l'industrie" />
+                                     <String fx:value="Maintenance" />
+                                     <String fx:value="Matériaux souples, bois, industries graphiques" />
+                                     <String fx:value="Mécanique, travail des métaux" />
+                                     <String fx:value="Santé, action sociale, culturelle et sportive" />
+                                     <String fx:value="Services aux particuliers et aux collectivités" />
+                                     <String fx:value="Transports, logistique et tourisme" />
+                                     <String fx:value="Autre" />
+                                 </FXCollections>
+                             </items>
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </VBox.margin>
+                         </ComboBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2">
+                     <children>
+                        <TextField id="nomtxt" fx:id="nomtxt" promptText="Nom" />
+                        <TextField id="prénomtxt" fx:id="prénomtxt" promptText="Prénom">
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                     </children>
                      <GridPane.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </GridPane.margin></TextField>
-                  <TextField id="prénomtxt" fx:id="prénomtxt" GridPane.columnIndex="4" GridPane.columnSpan="2">
-                     <GridPane.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </GridPane.margin></TextField>
-                   <DatePicker fx:id="dateNaissancetxt" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </GridPane.margin></DatePicker>
-                  <Label alignment="CENTER" text="Nom">
-                     <GridPane.margin>
-                        <Insets />
+                        <Insets bottom="5.0" top="5.0" />
                      </GridPane.margin>
-                  </Label>
-                  <Label alignment="CENTER" text="Prénom" GridPane.columnIndex="3">
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                     <children>
+                        <ComboBox id="recherchetxt" fx:id="recherchetxt" prefHeight="10" prefWidth="200.0" promptText="Recherche">
+
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </ComboBox>
+                         <ComboBox id="statuttxt" fx:id="statuttxt" prefHeight="10" prefWidth="200.0" promptText="Statut">
+
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </VBox.margin>
+                         </ComboBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.columnSpan="2">
+                     <children>
+                         <DatePicker fx:id="dateNaissancetxt" prefHeight="26.0" prefWidth="151.0" promptText="Date de naissance">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </DatePicker>
+                         <ComboBox id="genretxt" fx:id="genretxt" prefHeight="10" prefWidth="200.0" promptText="Genre">
+
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </VBox.margin>
+                         </ComboBox>
+                     </children>
                      <GridPane.margin>
-                        <Insets />
+                        <Insets bottom="5.0" top="5.0" />
                      </GridPane.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="173.0" text="Date de naissance" GridPane.columnSpan="2" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                  </Label>
-                   <ComboBox id="genretxt" fx:id="genretxt" layoutX="347.0" layoutY="50.0" prefHeight="10" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
-                       <items>
-                           <FXCollections fx:factory="observableArrayList">
-                               <String fx:value="Homme" />
-                               <String fx:value="Femme" />
-                               <String fx:value="Autre" />
-                           </FXCollections>
-                       </items>
-                     <GridPane.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </GridPane.margin>
-                   </ComboBox>
-                   <ComboBox id="statuttxt" fx:id="statuttxt" layoutX="347.0" layoutY="50.0" prefHeight="10" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
-                       <items>
-                           <FXCollections fx:factory="observableArrayList">
-                               <String fx:value="Célibataire" />
-                               <String fx:value="Marié" />
-                               <String fx:value="Veuf" />
-                           </FXCollections>
-                       </items>
-                     <GridPane.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </GridPane.margin>
-                   </ComboBox>
-                  <Label alignment="CENTER" text="Profession" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                   <ComboBox id="professiontxt" fx:id="professiontxt" layoutX="347.0" layoutY="50.0" prefHeight="10" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                       <items>
-                           <FXCollections fx:factory="observableArrayList">
-                               <String fx:value="Sans profession" />
-                               <String fx:value="Administration publique, professions juridiques, armée et police" />
-                               <String fx:value="Agriculture, marine, pêche" />
-                               <String fx:value="Artisanat" />
-                               <String fx:value="Banque et assurances" />
-                               <String fx:value="Bâtiment, travaux publics" />
-                               <String fx:value="Commerce" />
-                               <String fx:value="Commerce BtoB" />
-                               <String fx:value="Communication, information, art et spectacle" />
-                               <String fx:value="Électricité, électronique" />
-                               <String fx:value="Enseignement, formation" />
-                               <String fx:value="Études et recherche" />
-                               <String fx:value="Gestion, administration des entreprises" />
-                               <String fx:value="Hôtellerie, restauration, alimentation" />
-                               <String fx:value="Industries de process" />
-                               <String fx:value="Informatique et télécommunications" />
-                               <String fx:value="Ingénieurs et cadres de l'industrie" />
-                               <String fx:value="Maintenance" />
-                               <String fx:value="Matériaux souples, bois, industries graphiques" />
-                               <String fx:value="Mécanique, travail des métaux" />
-                               <String fx:value="Santé, action sociale, culturelle et sportive" />
-                               <String fx:value="Services aux particuliers et aux collectivités" />
-                               <String fx:value="Transports, logistique et tourisme" />
-                               <String fx:value="Autre" />
-                           </FXCollections>
-                       </items>
-                     <GridPane.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </GridPane.margin>
-                   </ComboBox>
-                  <Label alignment="CENTER" text="Ville" GridPane.rowIndex="2" />
-                  <TextField  id="villetxt" fx:id="villetxt" prefHeight="26.0" prefWidth="96.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </GridPane.margin>
-                  </TextField>
-                  <Label alignment="CENTER" text="Recherche" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                  <ComboBox id="recherchetxt" fx:id="recherchetxt" prefHeight="10" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
-                     <items>
-                        <FXCollections fx:factory="observableArrayList">
-                           <String fx:value="Homme" />
-                           <String fx:value="Femme" />
-                           <String fx:value="Autre" />
-                        </FXCollections>
-                     </items>
-                     <GridPane.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </GridPane.margin>
-                  </ComboBox>
+                  </VBox>
                </children>
                <BorderPane.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -153,10 +136,13 @@
             </GridPane>
          </center>
          <top>
-            <Label alignment="CENTER" text="Créer un nouveau profil" BorderPane.alignment="CENTER">
+            <Label alignment="CENTER" contentDisplay="BOTTOM" text="Créer un nouveau profil" textAlignment="CENTER" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets top="50.0" />
                </BorderPane.margin>
+               <font>
+                  <Font name="Avenir Next Bold" size="20.0" />
+               </font>
             </Label>
          </top>
       </BorderPane>

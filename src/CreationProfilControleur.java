@@ -1,21 +1,15 @@
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.EnumSet;
 
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.util.StringConverter;
-
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.FormatStyle;
-import java.util.Date;
-import java.util.ResourceBundle;
 
 public class CreationProfilControleur  {
 
@@ -46,13 +40,36 @@ public class CreationProfilControleur  {
     public String profession;
     public String recherche;
 
+
+    // Initialisation des combobox en fonction des enum de Profil
+    @FXML
+    public void initialisationComboBox() {
+        // Genre
+        ArrayList<Genre> genre = new ArrayList();
+        for (Genre gen : Genre.values()) {
+            genre.add(gen);
+        }
+        EnumSet.allOf(Genre.class).forEach(g -> genretxt.getItems().addAll(String.valueOf((g))));
+
+        // Recherche
+        EnumSet.allOf(Genre.class).forEach(g -> recherchetxt.getItems().addAll(String.valueOf((g))));
+
+        // Statut
+        ArrayList<Statut> statut = new ArrayList();
+        for (Statut stat : Statut.values()) {
+            statut.add(stat);
+        }
+        EnumSet.allOf(Statut.class).forEach(s -> statuttxt.getItems().addAll(String.valueOf((s))));
+    }
+
+
+    // Action du boutton créé, permet de récupérer les valeurs du formulaire
     @FXML
     private void buttonCréerAction(ActionEvent event) throws Exception {
         nom = nomtxt.getText();
         prénom = prénomtxt.getText();
         ville = villetxt.getText();
         date =dateNaissancetxt.getValue();
-        // TODO mettre dans le combobox les enums de profil
         genre = genretxt.getValue();
         statut = statuttxt.getValue();
         profession = professiontxt.getValue();
@@ -67,6 +84,7 @@ public class CreationProfilControleur  {
         }
     }
 
+    // Affichage de fenêtre pop-up avec message
     private void afficherMessage(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("");
@@ -74,8 +92,12 @@ public class CreationProfilControleur  {
         alert.showAndWait();
     }
 
+    // Méthode qui créé le profil
     public void créer() throws Exception {
         Profil p = new Profil(nom, prénom, dateFormatée, genre, statut, ville, recherche);
         System.out.println(p.toString());
+        afficherMessage("Le profil a bien été créé");
+        System.exit(0);
     }
+
 }
