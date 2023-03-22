@@ -57,6 +57,8 @@ public class VueControleur {
             i++;
         }
 
+        //TODO : Ajouter un eventlistener sur les images pour afficher le profil correspondant dans la zone de droite
+
 
     }
 }
