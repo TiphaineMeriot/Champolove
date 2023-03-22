@@ -1,12 +1,6 @@
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 
@@ -25,8 +19,8 @@ public class Vue extends Application {
         stage.setTitle("Vue");
         stage.setScene(scene);
         stage.show();
-        VueControleur controleur = new VueControleur();
-        controleur.init(scene, stage);
+        VueControleur controller = new VueControleur();
+        controller.init(scene, stage);
 
 
     }
