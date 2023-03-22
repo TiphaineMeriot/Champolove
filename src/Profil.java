@@ -1,3 +1,6 @@
+import javafx.scene.image.Image;
+
+import java.awt.*;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -26,6 +29,8 @@ public class Profil implements Comparable<Profil>{
     ArrayList<String> hobbies,qualite,defaut;
     int age;
     double taille;
+
+    Image image;
 
 
     public Profil(String nom,String prenom,String date_de_naissance,String genre,String statut,String ville,String recherche) throws Exception {

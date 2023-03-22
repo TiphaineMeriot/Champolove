@@ -1,12 +1,16 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+
+import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import javafx.scene.control.*;
+import javafx.scene.control.TextField;
 
 public class CreationProfilControleur  {
+
 
     @FXML
     private TextField nomtxt;
