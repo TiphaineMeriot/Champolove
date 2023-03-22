@@ -42,7 +42,6 @@ public class Authentification extends Application {
         data.put("pauline.benoit@gmail.com", "RocheNoirx92!");
         data.put("kevin.robert@gmail.com", "FleurJauneg22!");
         data.put("victor.victoire@gmail.com", "LuneBlanchev54!");
-
     }
 
 

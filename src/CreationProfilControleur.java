@@ -102,7 +102,7 @@ public class CreationProfilControleur  {
     // Méthode qui créé le profil
     public void créer() throws Exception {
         Profil p = new Profil(nom, prénom, dateFormatée, genre, statut, ville, recherche);
-        System.out.println(p.toString());
+        System.out.println(p);
         afficherMessage("Le profil a bien été créé");
         System.exit(0);
 
