@@ -1,11 +1,12 @@
-import javafx.application.Application;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -15,7 +16,9 @@ public class VueControleur {
     String profilRecherche;
     String profilClick;
 
-    public void init(Scene scene, Stage stage) {
+    Generateur_profil generateurProfil;
+
+    public void init(Scene scene, Stage stage) throws Exception {
         boutonCreerProfil = (Button) scene.lookup("#boutonCreerProfil");
         boutonCreerProfil.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -34,42 +37,26 @@ public class VueControleur {
         //ajout de l'icone
         stage.getIcons().add(new Image("images/logo_invisible.png"));
 
-        //boucle pour ajouter les profils dans la gridpane
+        generateurProfil = new Generateur_profil();
         GridPane gridPane = (GridPane) scene.lookup("#GridProfils");
-        for (int i = 0; i < 5; i++) {
-            Label label = new Label("Label " + i);
-            //setup le texte du label
-            label.setText("Profil " + i);
-            gridPane.add(label, 1, i);
-        }
-        //charger l'imageView d'id "BigImage"
-        javafx.scene.image.ImageView imageview = (javafx.scene.image.ImageView) scene.lookup("#BigImage");
-        //charger l'image
-        Image img = new Image("images/3.jpeg");
-        //setup l'image
-        imageview.setImage(img);
 
-        //charger le Label d'id "BigLabel" avec le String profilClick
-        Label label = (Label) scene.lookup("#BigLabel");
-        label.setText(profilClick);
-
-        //boucle pour ajouter des ImagesView dans la gridpane
-        for (int i = 0; i < 5; i++) {
-            Image image = new Image("images/pdp.png");
-            javafx.scene.image.ImageView imageView = new javafx.scene.image.ImageView(image);
+        //Ajout des profils dans le gridPane
+        int i = 1;
+        for (Profil profil : generateurProfil.listeProfil) {
+            Label labelNomPrenom = new Label(profil.nom+" "+profil.prenom);
+            //TODO : La ligne d'en dessous sera quand les images porteront le nom et le prénom du profil
+            //Image image = new Image("images/" + profil.nom + "_" + profil.prenom + ".jpg");
+            String indice = String.valueOf(i+1);
+            Image image = new Image("images/"+indice+".jpeg");
+            gridPane.add(labelNomPrenom, 1, i);
+            //charger l'image dans l'imageview d'id ImageView
+            ImageView imageView = new ImageView(image);
             imageView.setFitHeight(70);
             imageView.setFitWidth(70);
             gridPane.add(imageView, 0, i);
+            i++;
         }
 
 
-        //boucle pour ajouter des progressbar dans la gridpane
-        for (int i = 0; i < 5; i++) {
-            //nombre random entre 0 et 1
-            double random = Math.random();
-            javafx.scene.control.ProgressBar progressBar = new javafx.scene.control.ProgressBar();
-            progressBar.setProgress(random);
-            gridPane.add(progressBar, 2, i);
-        }
     }
 }
