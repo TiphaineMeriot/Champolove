@@ -4,6 +4,7 @@
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -12,6 +13,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -20,12 +22,12 @@
    <children>
       <BorderPane prefHeight="406.0" prefWidth="602.0">
          <bottom>
-            <Button fx:id="buttonCréer" mnemonicParsing="false" onAction="#buttonCréerAction" text="Créer" BorderPane.alignment="CENTER">
+            <Button fx:id="buttonCréer" mnemonicParsing="false" onAction="#buttonCréerAction" text="Créer" BorderPane.alignment="BOTTOM_RIGHT">
                <opaqueInsets>
                   <Insets bottom="30.0" />
                </opaqueInsets>
                <BorderPane.margin>
-                  <Insets bottom="50.0" />
+                  <Insets bottom="10.0" />
                </BorderPane.margin></Button>
          </bottom>
          <center>
@@ -129,6 +131,21 @@
                         <Insets bottom="5.0" top="5.0" />
                      </GridPane.margin>
                   </VBox>
+                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="6" GridPane.rowIndex="2">
+                     <children>
+                        <CheckBox id="art"  fx:id="art" layoutX="100.0" layoutY="33.0" mnemonicParsing="false" text="Art"/>
+                        <CheckBox layoutX="14.0" layoutY="33.0" mnemonicParsing="false" text="Sport" onAction="#hobbies"/>
+                        <CheckBox layoutX="14.0" layoutY="60.0" mnemonicParsing="false" text="Musique" />
+                        <CheckBox layoutX="100.0" layoutY="60.0" mnemonicParsing="false" text="Histoire" />
+                        <CheckBox layoutX="185.0" layoutY="33.0" mnemonicParsing="false" text="Politique" />
+                        <CheckBox layoutX="185.0" layoutY="60.0" mnemonicParsing="false" text="Jeux vidéos" />
+                        <CheckBox layoutX="282.0" layoutY="33.0" mnemonicParsing="false" text="Cinéma" />
+                        <CheckBox layoutX="282.0" layoutY="60.0" mnemonicParsing="false" text="Gastronomie" />
+                        <Label layoutX="4.0" layoutY="6.0" text="Centres d'intérêt" />
+                        <CheckBox layoutX="387.0" layoutY="33.0" mnemonicParsing="false" text="Photographie" />
+                        <CheckBox layoutX="387.0" layoutY="60.0" mnemonicParsing="false" text="Voyage" />
+                     </children>
+                  </Pane>
                </children>
                <BorderPane.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

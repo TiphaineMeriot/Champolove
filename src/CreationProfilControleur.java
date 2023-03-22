@@ -1,14 +1,9 @@
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.EnumSet;
-
 import javafx.scene.control.*;
 
 public class CreationProfilControleur  {
@@ -29,6 +24,8 @@ public class CreationProfilControleur  {
     private ComboBox<String> professiontxt;
     @FXML
     private ComboBox<String> recherchetxt;
+    @FXML
+    private CheckBox art;
 
     public String nom;
     public String prénom;
@@ -60,6 +57,7 @@ public class CreationProfilControleur  {
             statut.add(stat);
         }
         EnumSet.allOf(Statut.class).forEach(s -> statuttxt.getItems().addAll(String.valueOf((s))));
+
     }
 
 
@@ -74,6 +72,7 @@ public class CreationProfilControleur  {
         statut = statuttxt.getValue();
         profession = professiontxt.getValue();
         recherche = recherchetxt.getValue();
+        // TODO Checkbox pour les hobbies
         if(nom.equals("") || prénom.equals("") || date.equals("") || ville.equals("")|| genre == null || statut == null
                 || recherche==null || profession==null ) {
             // TODO gérer erreur de date
@@ -82,6 +81,13 @@ public class CreationProfilControleur  {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             dateFormatée = date.format(dateTimeFormatter);
             créer();
+        }
+
+    }
+
+    public void hobbies(){
+        if(art.isSelected() ==true) {
+            afficherMessage("ok");
         }
     }
 
@@ -99,6 +105,7 @@ public class CreationProfilControleur  {
         System.out.println(p);
         afficherMessage("Le profil a bien été créé");
         System.exit(0);
+
     }
 
 }
