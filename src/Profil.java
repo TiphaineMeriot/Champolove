@@ -23,12 +23,15 @@ public class Profil implements Comparable<Profil>{
     String statut;
     String profession;
     String recherche;
-    ArrayList<String> hobbies;
+    ArrayList<String> hobbies,qualite,defaut;
     int age;
     double taille;
 
 
     public Profil(String nom,String prenom,String date_de_naissance,String genre,String statut,String ville,String recherche) throws Exception {
+        this.hobbies= new ArrayList<>();
+        this.qualite= new ArrayList<>();
+        this.defaut= new ArrayList<>();
         this.nom = nom.toUpperCase(Locale.ROOT);
         this.prenom = prenom;
         this.date_de_naissance=date_de_naissance;
@@ -129,16 +132,35 @@ public class Profil implements Comparable<Profil>{
     public String toString(){
         String exit=String.format("Nom:%s\nPrenom:%s\nSexe:%s\nAge:%d\nSigne Astrologique:%s\nStatut:%s\nVille:%s\nLatitude:%f\nLongitude:%f\nRecherche:%s",
         this.nom,this.prenom,this.genre,this.age,this.signe,this.statut,this.ville,this.latitude,this.longitude,this.recherche);
+        if (this.hobbies.size()!=0){
+            exit+="\nHobbies:";
+            for (String hobby : this.hobbies) {
+                exit += hobby+",";
+            }
+        }
+        if (this.qualite.size()!=0){
+            exit+="\nQualité:";
+            for (String qualite : this.qualite) {
+                exit += qualite+",";
+            }
+        }
+        if (this.qualite.size()!=0){
+            exit+="\nDéfaut:";
+            for (String defaut : this.defaut) {
+                exit += defaut+",";
+            }
+        }
         return(exit);
     }
 
 
-    public static void main (String[]args) throws Exception {
-        ArrayList<String> hobbies = new ArrayList<>();
-        hobbies.add("les jeux vidéos");
-        hobbies.add("manger");
-        hobbies.add("regarder des animés");
+    public static void main (String[]args) throws Exception{                        //Le .name() c'est pour avoir le String et pas l'énum
         Profil p=new Profil("IeqPa", "Nalyd", "23/12/2003",Genre.HOMME.name(), Statut.CELIBATAIRE.name(),"Toulouse", Genre.FEMME.name());
+        p.qualite.add("Honnête");
+        p.defaut.add("Désorganisé");
+        p.hobbies.add("jeux vidéos");
+        p.hobbies.add("manger");
+        p.hobbies.add("j'adore rire HAHA");
         System.out.println(p);
     }
 //Distance entre 2 Profils (et donc 2 villes par extension)
