@@ -27,7 +27,23 @@ public class CreationProfilControleur  {
     @FXML
     private ComboBox<String> recherchetxt;
     @FXML
-    private CheckBox art;
+    private Label Art;
+    @FXML
+    private Label Sport;
+    @FXML
+    private Label Photographie;
+    @FXML
+    private Label Politique;
+    @FXML
+    private Label Cinéma;
+    @FXML
+    private Label Musique;
+    @FXML
+    private Label Jeux;
+    @FXML
+    private Label Gastronomie;
+    @FXML
+    private Label Voyage;
 
     public String nom;
     public String prénom;
@@ -87,10 +103,8 @@ public class CreationProfilControleur  {
 
     }
 
-    public void hobbies(){
-        if(art.isSelected() ==true) {
-            afficherMessage("ok");
-        }
+    public void hobbies(ActionEvent event){
+
     }
 
     // Affichage de fenêtre pop-up avec message
