@@ -37,12 +37,12 @@ public class Profil implements Comparable<Profil>{
         this.hobbies= new ArrayList<>();
         this.qualite= new ArrayList<>();
         this.defaut= new ArrayList<>();
-        this.nom = nom.toUpperCase(Locale.ROOT);
+        this.nom = nom.toUpperCase();
         this.prenom = prenom;
         this.date_de_naissance=date_de_naissance;
         this.genre=genre;
         this.statut = statut;
-        this.ville = ville;
+        this.ville = ville.toUpperCase();
         this.recherche=recherche;
         //J'appelle la méthode pour calculer l'âge
         calcul_age();
@@ -120,6 +120,7 @@ public class Profil implements Comparable<Profil>{
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             InputStream responseStream = connection.getInputStream();
             String text = new String(responseStream.readNBytes(500), StandardCharsets.UTF_8); //Je limite à 500 pour avoir que le premier résultat
+            System.out.println(text);
             //(aussi un bout du second, mais osef)
             //Là, je cherche le score de la ville (son taux de chance d'être une vraie ville si vous voulez)
             int index=text.indexOf("score")+7; //Le +7 est là pour ne pas prendre en compte le mot en lui-même
@@ -129,7 +130,7 @@ public class Profil implements Comparable<Profil>{
                 index++;
             }
             //Si le score est bas (moins que 0.9) bah ça passe à la trappe
-            if(Double.parseDouble(String.valueOf(score))>0.9){
+            if(text.contains("coordinates") && Double.parseDouble(String.valueOf(score))>0.9){
                 int i=118;
                 StringBuilder coord= new StringBuilder();
                 while (!(text.charAt(i)==(']'))){
@@ -172,7 +173,7 @@ public class Profil implements Comparable<Profil>{
 
 
     public static void main (String[]args) throws Exception{                        //Le .name() c'est pour avoir le String et pas l'énum
-        Profil p=new Profil("IeqPa", "Nalyd", "23/12/2003",Genre.HOMME.name(), Statut.CELIBATAIRE.name(),"Youx", Genre.FEMME.name());
+        Profil p=new Profil("IeqPa", "Nalyd", "23/12/2003",Genre.HOMME.name(), Statut.CELIBATAIRE.name(),"Toulouse", Genre.FEMME.name());
         p.qualite.add("Honnête");
         p.defaut.add("Désorganisé");
         p.hobbies.add("jeux vidéos");
