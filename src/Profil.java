@@ -115,52 +115,64 @@ public class Profil implements Comparable<Profil>{
         }
     }
     public void calcul_latitude_longitude() throws Exception {
-        URL url = new URL(String.format("https://api-adresse.data.gouv.fr/search/?q=%scity=%s",this.ville,this.ville));
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        InputStream responseStream = connection.getInputStream();
-        String text = new String(responseStream.readAllBytes(), StandardCharsets.UTF_8);
-        if(text.contains("coordinates")){
-            int i=118;
-            StringBuilder coord= new StringBuilder();
-            while (!(text.charAt(i)==(']'))){
-                coord.append(text.charAt(i));
-                i++;
+        try{
+            URL url = new URL(String.format("https://api-adresse.data.gouv.fr/search/?q=%s",this.ville));
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            InputStream responseStream = connection.getInputStream();
+            String text = new String(responseStream.readNBytes(500), StandardCharsets.UTF_8); //Je limite à 500 pour avoir que le premier résultat
+            //(aussi un bout du second, mais osef)
+            //Là, je cherche le score de la ville (son taux de chance d'être une vraie ville si vous voulez)
+            int index=text.indexOf("score")+7; //Le +7 est là pour ne pas prendre en compte le mot en lui-même
+            StringBuilder score=new StringBuilder();
+            while  (!(text.charAt(index)==(','))){
+                score.append(text.charAt(index));
+                index++;
             }
-            String[] s= coord.toString().split(",");
-            this.latitude=Double.parseDouble(s[0]);
-            this.longitude=Double.parseDouble(s[1]);
-        }
-        else{
+            //Si le score est bas (moins que 0.9) bah ça passe à la trappe
+            if(Double.parseDouble(String.valueOf(score))>0.9){
+                int i=118;
+                StringBuilder coord= new StringBuilder();
+                while (!(text.charAt(i)==(']'))){
+                    coord.append(text.charAt(i));
+                    i++;
+                }
+                String[] s= coord.toString().split(",");
+                this.latitude=Double.parseDouble(s[0]);
+                this.longitude=Double.parseDouble(s[1]);}
+            else {
+                throw new ExceptionVilleInexistante();
+            }
+        }catch (Exception e){
             throw new ExceptionVilleInexistante();
         }
     }
     public String toString(){
-        String exit=String.format("Nom:%s\nPrenom:%s\nSexe:%s\nAge:%d\nSigne Astrologique:%s\nStatut:%s\nVille:%s\nLatitude:%f\nLongitude:%f\nRecherche:%s",
-        this.nom,this.prenom,this.genre,this.age,this.signe,this.statut,this.ville,this.latitude,this.longitude,this.recherche);
+        StringBuilder exit= new StringBuilder(String.format("Nom:%s\nPrenom:%s\nSexe:%s\nAge:%d\nSigne Astrologique:%s\nStatut:%s\nVille:%s\nLatitude:%f\nLongitude:%f\nRecherche:%s",
+                this.nom, this.prenom, this.genre, this.age, this.signe, this.statut, this.ville, this.latitude, this.longitude, this.recherche));
         if (this.hobbies.size()!=0){
-            exit+="\nHobbies:";
+            exit.append("\nHobbies:");
             for (String hobby : this.hobbies) {
-                exit += hobby+",";
+                exit.append(hobby).append(",");
             }
         }
         if (this.qualite.size()!=0){
-            exit+="\nQualité:";
+            exit.append("\nQualité:");
             for (String qualite : this.qualite) {
-                exit += qualite+",";
+                exit.append(qualite).append(",");
             }
         }
         if (this.qualite.size()!=0){
-            exit+="\nDéfaut:";
+            exit.append("\nDéfaut:");
             for (String defaut : this.defaut) {
-                exit += defaut+",";
+                exit.append(defaut).append(",");
             }
         }
-        return(exit);
+        return(exit.toString());
     }
 
 
     public static void main (String[]args) throws Exception{                        //Le .name() c'est pour avoir le String et pas l'énum
-        Profil p=new Profil("IeqPa", "Nalyd", "23/12/2003",Genre.HOMME.name(), Statut.CELIBATAIRE.name(),"Toulouse", Genre.FEMME.name());
+        Profil p=new Profil("IeqPa", "Nalyd", "23/12/2003",Genre.HOMME.name(), Statut.CELIBATAIRE.name(),"Youx", Genre.FEMME.name());
         p.qualite.add("Honnête");
         p.defaut.add("Désorganisé");
         p.hobbies.add("jeux vidéos");
