@@ -80,37 +80,37 @@ public class Profil implements Comparable<Profil>{
         if ((mois==1 && jour>=21) || (mois==2 && jour<=19)){
             this.signe="Verseau";
         }
-        else if ((mois==2 && jour>=20) || (mois==3 && jour<=20)){
+        else if (mois == 2 || mois == 3 && jour <= 20){
             this.signe="Poissons";
         }
-        else if ((mois==3 && jour>=21) || (mois==4 && jour<=20)){
+        else if (mois == 3 || mois == 4 && jour <= 20){
             this.signe="Bélier";
         }
-        else if ((mois==4 && jour>=21) || (mois==5 && jour<=21)){
+        else if (mois == 4 || mois == 5 && jour <= 21){
             this.signe="Taureau";
         }
-        else if ((mois==5 && jour>=22) || (mois==6 && jour<=21)){
+        else if (mois == 5 || mois == 6 && jour <= 21){
             this.signe="Gémeaux";
         }
-        else if ((mois==6 && jour>=22) || (mois==7 && jour<=22)){
+        else if (mois == 6 || mois == 7 && jour <= 22){
             this.signe="Cancer";
         }
-        else if ((mois==7 && jour>=23) || (mois==8 && jour<=22)){
+        else if (mois == 7 || mois == 8 && jour <= 22){
             this.signe="Lion";
         }
-        else if ((mois==8 && jour>=23) || (mois==9 && jour<=22)){
+        else if (mois == 8 || mois == 9 && jour <= 22){
             this.signe="Vierge";
         }
-        else if ((mois==9 && jour>=23) || (mois==10 && jour<=22)){
+        else if (mois == 9 || mois == 10 && jour <= 22){
             this.signe="Balance";
         }
-        else if ((mois==10 && jour>=23) || (mois==11 && jour<=22)){
+        else if (mois == 10 || mois == 11 && jour <= 22){
             this.signe="Scorpion";
         }
-        else if ((mois==11 && jour>=23) || (mois==12 && jour<=21)){
+        else if (mois == 11 || mois == 12 && jour <= 21){
             this.signe="Sagitaire";
         }
-        else if ((mois==12 && jour>=22) || (mois==1 && jour<=20)){
+        else {
             this.signe="Capricorne";
         }
     }
