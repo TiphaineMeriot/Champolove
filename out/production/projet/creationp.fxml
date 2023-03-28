@@ -134,23 +134,8 @@
                   <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="6" GridPane.rowIndex="2">
                      <children>
                         <Label layoutX="4.0" layoutY="6.0" text="Centres d'intérêt" />
-                        <ScrollPane layoutX="4.0" layoutY="23.0" prefHeight="113.0" prefWidth="133.0">
-                           <content>
-                              <VBox prefHeight="111.0" prefWidth="100.0">
-                                 <children>
-                                    <Label fx:id="Sport" text="Sport" />
-                                    <Label fx:id="Art" text="Art" />
-                                    <Label fx:id="Politique" text="Politique" />
-                                    <Label fx:id="Cinéma" text="Cinéma" />
-                                    <Label fx:id="Musique" text="Musique" />
-                                    <Label fx:id="Jeux" text="Jeux" />
-                                    <Label fx:id="Mode" text="Mode" />
-                                    <Label fx:id="Gastronomie" text="Gastronomie" />
-                                     <Label fx:id="Voyage" text="Voyage" />
-                                     <Label fx:id="Photographie" text="Photographie" />
-                                 </children>
-                              </VBox>
-                           </content>
+                        <ScrollPane fx:id="scroll" layoutX="4.0" layoutY="23.0"  prefHeight="113.0" prefWidth="133.0" onMouseClicked="#hobbiesSelect">
+
                         </ScrollPane>
                      </children>
                   </Pane>

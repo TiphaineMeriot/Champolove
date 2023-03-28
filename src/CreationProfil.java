@@ -13,7 +13,7 @@ public class CreationProfil extends Application {
         Parent root = loader.load();
         CreationProfilControleur controleur = loader.getController();
         controleur.initialisationComboBox();
-
+        controleur.init();
         stage.setScene(new Scene(root));
         stage.show();
         stage.setResizable(false);

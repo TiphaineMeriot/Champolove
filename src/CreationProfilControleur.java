@@ -1,3 +1,5 @@
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -7,6 +9,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
+import org.w3c.dom.events.MouseEvent;
 
 public class CreationProfilControleur  {
 
@@ -27,23 +30,7 @@ public class CreationProfilControleur  {
     @FXML
     private ComboBox<String> recherchetxt;
     @FXML
-    private Label Art;
-    @FXML
-    private Label Sport;
-    @FXML
-    private Label Photographie;
-    @FXML
-    private Label Politique;
-    @FXML
-    private Label Cinéma;
-    @FXML
-    private Label Musique;
-    @FXML
-    private Label Jeux;
-    @FXML
-    private Label Gastronomie;
-    @FXML
-    private Label Voyage;
+    private ScrollPane scroll;
 
     public String nom;
     public String prénom;
@@ -55,7 +42,10 @@ public class CreationProfilControleur  {
     public String profession;
     public String recherche;
 
-
+    private ObservableList<String> items = FXCollections.observableArrayList (
+            "Sport", "Art", "Jeux vidéos", "Cinéma", "Voyage", "Politique");
+    private ListView<String> list;
+    private ObservableList<String> listHobbies;
     // Initialisation des combobox en fonction des enum de Profil
     @FXML
     public void initialisationComboBox() {
@@ -78,6 +68,14 @@ public class CreationProfilControleur  {
 
     }
 
+    @FXML
+    public void init(){
+        list = new ListView<>();
+        list.setItems(items);
+        scroll.setContent(list);
+        scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+    }
 
     // Action du boutton créé, permet de récupérer les valeurs du formulaire
     @FXML
@@ -103,7 +101,11 @@ public class CreationProfilControleur  {
 
     }
 
-    public void hobbies(ActionEvent event){
+    @FXML
+    public void hobbiesSelect(ActionEvent event){
+        listHobbies = list.getSelectionModel().getSelectedItems();
+       // System.out.print("ok");
+        afficherMessage("ok");
 
     }
 
