@@ -30,7 +30,7 @@ public class Profil implements Comparable<Profil>{
     int age;
     double taille;
     Image image;
-    int distancemin;
+    public int compatibilité;
 
 
     public Profil(String nom,String prenom,String date_de_naissance,String genre,String statut,String ville,String recherche) throws Exception {
