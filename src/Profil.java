@@ -29,8 +29,8 @@ public class Profil implements Comparable<Profil>{
     ArrayList<String> hobbies,qualite,defaut;
     int age;
     double taille;
-
     Image image;
+    int distancemin;
 
 
     public Profil(String nom,String prenom,String date_de_naissance,String genre,String statut,String ville,String recherche) throws Exception {
@@ -120,7 +120,6 @@ public class Profil implements Comparable<Profil>{
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             InputStream responseStream = connection.getInputStream();
             String text = new String(responseStream.readNBytes(500), StandardCharsets.UTF_8); //Je limite à 500 pour avoir que le premier résultat
-            System.out.println(text);
             //(aussi un bout du second, mais osef)
             //Là, je cherche le score de la ville (son taux de chance d'être une vraie ville si vous voulez)
             int index=text.indexOf("score")+7; //Le +7 est là pour ne pas prendre en compte le mot en lui-même
@@ -148,8 +147,8 @@ public class Profil implements Comparable<Profil>{
         }
     }
     public String toString(){
-        StringBuilder exit= new StringBuilder(String.format("Nom:%s\nPrenom:%s\nSexe:%s\nAge:%d\nSigne Astrologique:%s\nStatut:%s\nVille:%s\nLatitude:%f\nLongitude:%f\nRecherche:%s",
-                this.nom, this.prenom, this.genre, this.age, this.signe, this.statut, this.ville, this.latitude, this.longitude, this.recherche));
+        StringBuilder exit= new StringBuilder(String.format("Nom:%s\nPrenom:%s\nSexe:%s\nAge:%d\nTaille:%1.2fm\nSigne Astrologique:%s\nStatut:%s\nVille:%s\nLatitude:%f\nLongitude:%f\nRecherche:%s",
+                this.nom, this.prenom,this.genre, this.age,this.taille, this.signe, this.statut, this.ville, this.latitude, this.longitude, this.recherche));
         if (this.hobbies.size()!=0){
             exit.append("\nHobbies:");
             for (String hobby : this.hobbies) {
