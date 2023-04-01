@@ -176,9 +176,6 @@ public class Profil implements Comparable<Profil>{
         Profil p=new Profil("IeqPa", "Nalyd", "23/12/2003",Genre.HOMME.name(), Statut.CELIBATAIRE.name(),"Toulouse", Genre.FEMME.name());
         p.qualite.add("Honnête");
         p.defaut.add("Désorganisé");
-        p.hobbies.add("jeux vidéos");
-        p.hobbies.add("manger");
-        p.hobbies.add("j'adore rire HAHA");
         System.out.println(p);
     }
 //Distance entre 2 Profils (et donc 2 villes par extension)

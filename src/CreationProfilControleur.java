@@ -1,3 +1,5 @@
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,7 +11,6 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
-import org.w3c.dom.events.MouseEvent;
 
 public class CreationProfilControleur  {
 
@@ -31,6 +32,12 @@ public class CreationProfilControleur  {
     private ComboBox<String> recherchetxt;
     @FXML
     private ScrollPane scroll;
+    @FXML
+    private ListView list;
+    @FXML
+    private ScrollPane scrollqd;
+    @FXML
+    private ListView listqd;
 
     public String nom;
     public String prénom;
@@ -41,11 +48,10 @@ public class CreationProfilControleur  {
     public String statut;
     public String profession;
     public String recherche;
-
-    private ObservableList<String> items = FXCollections.observableArrayList (
-            "Sport", "Art", "Jeux vidéos", "Cinéma", "Voyage", "Politique");
-    private ListView<String> list;
-    private ObservableList<String> listHobbies;
+    public ArrayList<String> h;
+    public ArrayList<String> qd;
+    private ObservableList<String> items;
+    private ObservableList<String> qualitedefaut;
     // Initialisation des combobox en fonction des enum de Profil
     @FXML
     public void initialisationComboBox() {
@@ -70,11 +76,35 @@ public class CreationProfilControleur  {
 
     @FXML
     public void init(){
-        list = new ListView<>();
+        items = FXCollections.observableArrayList (
+                "Sport", "Art", "Jeux vidéos", "Cinéma", "Culture", "Voyage", "Politique", "Musique");
         list.setItems(items);
         scroll.setContent(list);
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        h = new ArrayList<>();
+        list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                //afficherMessage(observableValue.getValue());
+                h.add(observableValue.getValue());
+            }
+
+        });
+
+        qualitedefaut = FXCollections.observableArrayList ("Gentil", "Intelligent", "Réservé");
+        listqd.setItems(qualitedefaut);
+        scrollqd.setContent(listqd);
+        scrollqd.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollqd.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        qd = new ArrayList<>();
+        listqd.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                qd.add(observableValue.getValue());
+            }
+
+        });
     }
 
     // Action du boutton créé, permet de récupérer les valeurs du formulaire
@@ -88,7 +118,7 @@ public class CreationProfilControleur  {
         statut = statuttxt.getValue();
         profession = professiontxt.getValue();
         recherche = recherchetxt.getValue();
-        // TODO Checkbox pour les hobbies
+
         if(nom.equals("") || prénom.equals("") || date.equals("") || ville.equals("")|| genre == null || statut == null
                 || recherche==null || profession==null ) {
             // TODO gérer erreur de date
@@ -98,14 +128,6 @@ public class CreationProfilControleur  {
             dateFormatée = date.format(dateTimeFormatter);
             créer();
         }
-
-    }
-
-    @FXML
-    public void hobbiesSelect(ActionEvent event){
-        listHobbies = list.getSelectionModel().getSelectedItems();
-       // System.out.print("ok");
-        afficherMessage("ok");
 
     }
 
@@ -120,6 +142,8 @@ public class CreationProfilControleur  {
     // Méthode qui créé le profil
     public void créer() throws Exception {
         Profil p = new Profil(nom, prénom, dateFormatée, genre, statut, ville, recherche);
+        p.hobbies.addAll(h);
+        p.qualite.addAll(qd);
         System.out.println(p);
         afficherMessage("Le profil a bien été créé");
         System.exit(0);
