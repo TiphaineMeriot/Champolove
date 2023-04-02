@@ -5,7 +5,7 @@ public class Generateur_profil {
     ArrayList<Profil> listeProfil;
     public Generateur_profil() throws Exception {
         listeProfil = new ArrayList<>();
-        Profil p1 = new Profil("CHARLES", "Tom", "01/03/1999", Genre.HOMME.name(), Statut.CELIBATAIRE.name(), "Bordeaux", Genre.HOMME.name());
+        Profil p1 = new Profil("CHARLES", "Tom", "01/03/1999", Genre.HOMME.name(), Statut.CELIBATAIRE.name(), "Paris", Genre.HOMME.name());
         Profil p2 = new Profil("FOURNIER", "Justine", "08/10/1978", Genre.FEMME.name(), Statut.VEUF.name(), "Paris", Genre.HOMME.name());
         Profil p3 = new Profil("MARTIN", "Kévin", "30/01/1987", Genre.HOMME.name(), Statut.CELIBATAIRE.name(), "Albi", Genre.FEMME.name());
         Profil p4 = new Profil("BERNARD", "Mathilde", "16/06/1981", Genre.FEMME.name(), Statut.CELIBATAIRE.name(), "Rodez", Genre.HOMME.name());
