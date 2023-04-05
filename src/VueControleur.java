@@ -71,16 +71,22 @@ public class VueControleur {
                     //label date de Naissance qui contient la date de naissance et l'age du profil cliqué avec la police d'ecriture : Cambria et un espace entre la date de naissance et l'age
                     Label labelDateDeNaissance = new Label(profilClick.date_de_naissance + " (" + profilClick.age + " ans)");
                     labelDateDeNaissance.setStyle("-fx-font-family: Cambria");
+                    //label ville qui contient la ville du profil cliqué
+                    Label labelVille = new Label(profilClick.ville);
+                    // L
 
 
                     //le label nomPrenom a une police de titre de taille 24 et est centré et en gras
                     labelNomPrenom.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-alignment: center;");
                     //le label date de naissance a une police de titre de taille 16 et est positionné a droite et en gras;
                     labelDateDeNaissance.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
+                    //le label ville a une police de titre de taille 16 et est positionné a droite et en gras;
+                    labelVille.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
 
                     GridPane gridPaneDroite = (GridPane) scene.lookup("#GridPaneDroite");
                     gridPaneDroite.add(labelNomPrenom, 1, 0);
                     gridPaneDroite.add(labelDateDeNaissance , 1, 1);
+                    gridPaneDroite.add(labelVille, 1, 2);
 
                 }
             });
