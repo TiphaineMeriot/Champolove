@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Delicious+Handrawn&display=swap');
 .background {
-    -fx-background-color: #de4632;
+    -fx-background-color: #ffe6e6;
+    -fx-font-family: 'Delicious Handrawn', cursive;
 }
+
