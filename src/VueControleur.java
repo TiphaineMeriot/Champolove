@@ -58,41 +58,34 @@ public class VueControleur {
             imageView.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
                 @Override
                 public void handle(javafx.scene.input.MouseEvent event) {
-                    //TODO : Afficher le profil correspondant dans la zone de droite
                     try {
                         // on instancie un nouveau profil avec les informations du profil cliqué
                         profilClick = new Profil(profil.nom, profil.prenom, profil.date_de_naissance, profil.genre, profil.statut, profil.ville, profil.recherche);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
-                    //on ajoute dans le pane de droite les informations de profilClick avec des labels
-                    Label labelNom = new Label(profilClick.nom);
-                    Label labelPrenom = new Label(profilClick.prenom);
-                    Label labelGenre = new Label(profilClick.genre);
-                    Label labelDateDeNaissance = new Label(profilClick.date_de_naissance);
-                    Label labelStatut = new Label(profilClick.statut);
-                    Label labelVille = new Label(profilClick.ville);
-                    Label labelRecherche = new Label(profilClick.recherche);
+                    // on ajoute dans le pane de droite les informations de profilClick avec des labels qui ont la police d'ecriture : Cambria
+                    // on créé un label nomPrenom qui contient le nom et le prenom du profil cliqué avec la police d'ecriture : Cambria et un espace entre le nom et le prenom
+                    Label labelNomPrenom = new Label(profilClick.prenom + " " + profilClick.nom);
+                    labelNomPrenom.setStyle("-fx-font-family: Cambria");
+                    //label date de Naissance qui contient la date de naissance et l'age du profil cliqué avec la police d'ecriture : Cambria et un espace entre la date de naissance et l'age
+                    Label labelDateDeNaissance = new Label(profilClick.date_de_naissance + " (" + profilClick.age + " ans)");
+                    labelDateDeNaissance.setStyle("-fx-font-family: Cambria");
 
-                    // on clear le pane de droite
+
+                    //le label nomPrenom a une police de titre de taille 24 et est centré et en gras
+                    labelNomPrenom.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-alignment: center;");
+                    //le label date de naissance a une police de titre de taille 16 et est positionné a droite et en gras;
+                    labelDateDeNaissance.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
+
                     GridPane gridPaneDroite = (GridPane) scene.lookup("#GridPaneDroite");
-                    gridPaneDroite.getChildren().clear();
-                    //on ajoute les labels dans le pane de droite
-
-                    gridPaneDroite.add(labelNom, 0, 0);
-                    gridPaneDroite.add(labelPrenom, 0, 1);
-                    gridPaneDroite.add(labelGenre, 0, 2);
-                    gridPaneDroite.add(labelDateDeNaissance, 0, 3);
-                    gridPaneDroite.add(labelStatut, 0, 4);
-                    gridPaneDroite.add(labelVille, 0, 5);
-                    gridPaneDroite.add(labelRecherche, 0, 6);
+                    gridPaneDroite.add(labelNomPrenom, 1, 0);
+                    gridPaneDroite.add(labelDateDeNaissance , 1, 1);
 
                 }
             });
             i++;
         }
-
-        //TODO : Ajouter un eventlistener sur les images pour afficher le profil correspondant dans la zone de droite
 
 
 
