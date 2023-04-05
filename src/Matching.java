@@ -1,5 +1,3 @@
-import com.sun.source.tree.Tree;
-
 import java.util.*;
 
 public class Matching{
@@ -9,7 +7,6 @@ public class Matching{
     //TODO Je ne veux pas qu'il soit con.
     //J'ai pensé à un dictionnaire pour le sexe que la personne recherche
     //ça serait un truc du genre:
-    //push
     public static TreeSet<Profil> matching1(Profil p1,double tailleminimale,ArrayList<String> recherchequal
     ,ArrayList<String> pasdefaut,ArrayList<String> S_hobbies) throws Exception {
         Comparator<Profil> compat = Comparator.comparing((Profil p) -> p.compatibilité, Comparator.reverseOrder())
