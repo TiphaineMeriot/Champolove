@@ -5,12 +5,20 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.EnumSet;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class CreationProfilControleur  {
 
@@ -73,7 +81,7 @@ public class CreationProfilControleur  {
         EnumSet.allOf(Statut.class).forEach(s -> statuttxt.getItems().addAll(String.valueOf((s))));
 
     }
-
+/*
     @FXML
     public void init(){
         items = FXCollections.observableArrayList (
@@ -105,7 +113,19 @@ public class CreationProfilControleur  {
             }
 
         });
+    }*/
+
+    // Action du boutton créé, permet de récupérer les valeurs du formulaire
+    @FXML
+    private void buttonSuivantAction(ActionEvent event) throws IOException {
+        AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("NouvelleFenetre.fxml"));
+        Scene sceneNouvelleFenetre = new Scene(root);
+        Stage myStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        myStage.setScene(sceneNouvelleFenetre);
+        myStage.show();
     }
+
+
 
     // Action du boutton créé, permet de récupérer les valeurs du formulaire
     @FXML
@@ -126,7 +146,7 @@ public class CreationProfilControleur  {
         }else {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             dateFormatée = date.format(dateTimeFormatter);
-            créer();
+
         }
 
     }
@@ -140,6 +160,7 @@ public class CreationProfilControleur  {
     }
 
     // Méthode qui créé le profil
+    /*
     public void créer() throws Exception {
         Profil p = new Profil(nom, prénom, dateFormatée, genre, statut, ville, recherche);
         p.hobbies.addAll(h);
@@ -149,5 +170,5 @@ public class CreationProfilControleur  {
         System.exit(0);
 
     }
-
+*/
 }
