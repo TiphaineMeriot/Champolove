@@ -3,6 +3,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 import java.io.IOException;
@@ -13,7 +14,6 @@ import java.util.EnumSet;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
@@ -59,6 +59,7 @@ public class CreationProfilControleur  {
     public ArrayList<String> h;
     public ArrayList<String> qd;
     private ObservableList<String> items;
+
     private ObservableList<String> qualitedefaut;
     // Initialisation des combobox en fonction des enum de Profil
     @FXML
@@ -81,11 +82,12 @@ public class CreationProfilControleur  {
         EnumSet.allOf(Statut.class).forEach(s -> statuttxt.getItems().addAll(String.valueOf((s))));
 
     }
-/*
+
     @FXML
     public void init(){
         items = FXCollections.observableArrayList (
                 "Sport", "Art", "Jeux vidéos", "Cinéma", "Culture", "Voyage", "Politique", "Musique");
+
         list.setItems(items);
         scroll.setContent(list);
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -113,17 +115,10 @@ public class CreationProfilControleur  {
             }
 
         });
-    }*/
+    }
 
     // Action du boutton créé, permet de récupérer les valeurs du formulaire
-    @FXML
-    private void buttonSuivantAction(ActionEvent event) throws IOException {
-        AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("NouvelleFenetre.fxml"));
-        Scene sceneNouvelleFenetre = new Scene(root);
-        Stage myStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        myStage.setScene(sceneNouvelleFenetre);
-        myStage.show();
-    }
+
 
 
 
