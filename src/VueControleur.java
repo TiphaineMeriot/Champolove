@@ -1,4 +1,5 @@
 
+import com.sun.webkit.Timer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -11,12 +12,15 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class VueControleur {
-
     Button boutonCreerProfil;
     String profilRecherche;
     Profil profilClick;
 
     Generateur_profil generateurProfil;
+    Modele mod;
+    public VueControleur(Modele mod){
+        this.mod=mod;
+    }
 
     public void init(Scene scene, Stage stage) throws Exception {
         boutonCreerProfil = (Button) scene.lookup("#boutonCreerProfil");
@@ -37,12 +41,12 @@ public class VueControleur {
         //ajout de l'icone
         stage.getIcons().add(new Image("images/logo_invisible.png"));
 
-        generateurProfil = new Generateur_profil();
+        generateurProfil = new Generateur_profil(this.mod);
         GridPane gridPane = (GridPane) scene.lookup("#GridProfils");
 
         //Ajout des profils dans le gridPane
         int i = 1;
-        for (Profil profil : generateurProfil.listeProfil) {
+        for (Profil profil : this.mod.listeProfil) {
             Label labelNomPrenom = new Label(profil.nom+" "+profil.prenom);
             //TODO : La ligne d'en dessous sera quand les images porteront le nom et le prénom du profil
             //Image image = new Image("images/" + profil.nom + "_" + profil.prenom + ".jpg");

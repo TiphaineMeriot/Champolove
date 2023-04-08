@@ -3,14 +3,18 @@ import com.sun.webkit.Timer;
 import java.util.*;
 
 public class Matching{
+    static Modele mod;
+    public Matching(Modele mod){
+        Matching.mod =mod;
+    }
     //On dit que c'est une liste les qualités et défauts
     //TODO Il faut faire une option avec ce que la personne recherche
     //TODO Genre cherche homme >1.80m qui aime la musique et attentionné.
     //TODO Je ne veux pas qu'il soit con.
     //J'ai pensé à un dictionnaire pour le sexe que la personne recherche
     //ça serait un truc du genre:
-    public static TreeSet<Profil> matching1(Profil p1,double tailleminimale,ArrayList<String> recherchequal
-    ,ArrayList<String> pasdefaut,ArrayList<String> S_hobbies) throws Exception {
+    public static TreeSet<Profil> matching1(Profil p1, double tailleminimale, ArrayList<String> recherchequal
+            , ArrayList<String> pasdefaut, ArrayList<String> S_hobbies) throws Exception {
         Comparator<Profil> compat = Comparator.comparing((Profil p) -> p.compatibilité, Comparator.reverseOrder())
                                       .thenComparing(p -> p.compareTo(p1)).thenComparing(p -> p.nom);
         //Je trie le tree (c'est trop marrant)
@@ -22,8 +26,7 @@ public class Matching{
         //TODO A terme, tout ce qui concerne le tri par genre sera ailleurs (on va pas trier à chaque fois ^^)
         Comparator<Profil> distanceComparator = Comparator.comparingDouble(p -> p.taille);
         HashMap<String,TreeSet<Profil>> trigenre=new HashMap<>();
-        Modele m=new Modele();
-        for(Profil profil: m.listeProfil){
+        for(Profil profil: mod.listeProfil){
             String genre=profil.genre;
             if(!trigenre.containsKey(genre)){
                 trigenre.put(genre, new TreeSet<>(distanceComparator));
