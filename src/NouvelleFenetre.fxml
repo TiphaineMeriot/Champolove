@@ -17,7 +17,7 @@
     <children>
         <BorderPane prefHeight="406.0" prefWidth="602.0">
             <bottom>
-                <Button fx:id="buttonCreer" mnemonicParsing="false" onAction="#buttonCréerActionAction" text="Créer le profil" BorderPane.alignment="BOTTOM_RIGHT">
+                <Button fx:id="buttonCreer" mnemonicParsing="false" onAction="#buttonCréerAction" text="Créer le profil" BorderPane.alignment="BOTTOM_RIGHT">
                     <opaqueInsets>
                         <Insets bottom="30.0" />
                     </opaqueInsets>
