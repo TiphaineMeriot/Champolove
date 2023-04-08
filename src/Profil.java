@@ -26,6 +26,7 @@ public class Profil implements Comparable<Profil>{
     String statut;
     String profession;
     String recherche;
+    Calendar date_de_creation;
     ArrayList<String> hobbies,qualite,defaut;
     int age;
     double taille;
@@ -40,6 +41,7 @@ public class Profil implements Comparable<Profil>{
         this.nom = nom.toUpperCase();
         this.prenom = prenom;
         this.date_de_naissance=date_de_naissance;
+        this.date_de_creation=new GregorianCalendar();
         this.genre=genre;
         this.statut = statut;
         this.ville = ville.toUpperCase();

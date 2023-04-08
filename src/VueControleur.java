@@ -8,18 +8,13 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import java.io.File;
-import java.util.ArrayList;
 
 public class VueControleur {
 
     Button boutonCreerProfil;
     String profilRecherche;
     Profil profilClick;
-    ImageView imageViewAvatar;
 
     Generateur_profil generateurProfil;
 
@@ -44,15 +39,6 @@ public class VueControleur {
 
         generateurProfil = new Generateur_profil();
         GridPane gridPane = (GridPane) scene.lookup("#GridProfils");
-        //on créé une imageView avec l'image avatar.png
-        imageViewAvatar = new ImageView(new Image("images/imagesBDD/avatar.png"));
-        //on la place au centre de la fenetre
-        imageViewAvatar.setFitHeight(300);
-        imageViewAvatar.setFitWidth(300);
-        //on place l'image dans le pane d'id image
-        Pane pane = (Pane) scene.lookup("#image");
-        pane.getChildren().add(imageViewAvatar);
-
 
         //Ajout des profils dans le gridPane
         int i = 1;
@@ -69,7 +55,6 @@ public class VueControleur {
             imageView.setFitWidth(70);
             gridPane.add(imageView, 0, i);
             //si la souris clique sur l'image,on stocke le profil correspondant dans la variable profilClick
-            //puis on procéde au chargement de la page de profil
             imageView.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
                 @Override
                 public void handle(javafx.scene.input.MouseEvent event) {
@@ -88,65 +73,20 @@ public class VueControleur {
                     labelDateDeNaissance.setStyle("-fx-font-family: Cambria");
                     //label ville qui contient la ville du profil cliqué
                     Label labelVille = new Label(profilClick.ville);
-                    // label travail qui contient le travail du profil cliqué
-                    Label labelTravail = new Label(profilClick.profession);
-                    // on va créer un label qualitées qui sera rempli par les qualités du profil cliqué
-                    // pour ça on fait une boucle qui va parcourir la liste des qualités du profil cliqué et les ajouter dans le label qualitées avec une virgule puis un espace entre chaque qualité
-                    Label labelQualites = new Label();
-                    for (int i = 0; i < profilClick.qualite.size(); i++) {
-                        if (i == 0) {
-                            labelQualites.setText(profilClick.qualite.get(i));
-                        } else {
-                            labelQualites.setText(labelQualites.getText() + ", " + profilClick.qualite.get(i));
-                        }
-                    }
-                    // on va créer un label defauts qui sera rempli par les defauts du profil cliqué
-                    // pour ça on fait une boucle qui va parcourir la liste des defauts du profil cliqué et les ajouter dans le label defauts avec une virgule puis un espace entre chaque defaut
-                    Label labelDefauts = new Label();
-                    for (int i = 0; i < profilClick.defaut.size(); i++) {
-                        if (i == 0) {
-                            labelDefauts.setText(profilClick.defaut.get(i));
-                        } else {
-                            labelDefauts.setText(labelDefauts.getText() + ", " + profilClick.defaut.get(i));
-                        }
-                    }
-                    //label taille qui contient la taille du profil cliqué
-                    String taille = String.valueOf(profilClick.taille);
-                    Label labelTaille = new Label(taille);
+                    // L
 
-                    //TODO : on modifie l'imageView avatar en fonction de l'image du profil cliqué
-                    //imageViewAvatar.setImage(profilClick.image);
 
-                    //le label nomPrenom a une police de titre de taille 30 et est centré a droite et en gras
-                    labelNomPrenom.setStyle("-fx-font-size: 30px; -fx-font-weight: bold; -fx-alignment: center-right;");
+                    //le label nomPrenom a une police de titre de taille 24 et est centré et en gras
+                    labelNomPrenom.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-alignment: center;");
                     //le label date de naissance a une police de titre de taille 16 et est positionné a droite et en gras;
                     labelDateDeNaissance.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
                     //le label ville a une police de titre de taille 16 et est positionné a droite et en gras;
                     labelVille.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
-                    //le label travail a une police de titre de taille 16 et est positionné a droite et en gras;
-                    labelTravail.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
-                    //le label qualitées a une police de titre de taille 16 et est positionné a droite et en gras;
-                    labelQualites.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
-                    //le label defauts a une police de titre de taille 16 et est positionné a droite et en gras;
-                    labelDefauts.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
-                    //le label taille a une police de titre de taille 16 et est positionné a droite et en gras;
-                    labelTaille.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
 
-                    GridPane gridPaneDroite = (GridPane) scene.lookup("#gridPaneNom");
-                    //on clear le gridPaneDroite pour qu'il ne contienne que les informations du profil précédemment cliqué
-                    gridPaneDroite.getChildren().clear();
-                    //on ajoute les labels dans la colonne 1 de gridPaneDroite
-                    gridPaneDroite.add(labelNomPrenom, 0, 0);
-
-                    GridPane gridPaneInfos = (GridPane) scene.lookup("#gridPaneInfos");
-                    gridPaneInfos.getChildren().clear();
-                    gridPaneInfos.add(labelDateDeNaissance, 0, 0);
-                    gridPaneInfos.add(labelVille, 0, 1);
-                    gridPaneInfos.add(labelTravail, 0, 2);
-                    gridPaneInfos.add(labelQualites, 0, 3);
-                    gridPaneInfos.add(labelDefauts, 0, 4);
-                    gridPaneInfos.add(labelTaille, 0, 5);
-
+                    GridPane gridPaneDroite = (GridPane) scene.lookup("#GridPaneDroite");
+                    gridPaneDroite.add(labelNomPrenom, 1, 0);
+                    gridPaneDroite.add(labelDateDeNaissance , 1, 1);
+                    gridPaneDroite.add(labelVille, 1, 2);
 
                 }
             });

@@ -2,9 +2,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Generateur_profil {
-    ArrayList<Profil> listeProfil;
-    public Generateur_profil() throws Exception {
-        listeProfil = new ArrayList<>();
+    public Generateur_profil(Modele mod) throws Exception {
+        mod.listeProfil=new ArrayList<>();
         Profil p1 = new Profil("CHARLES", "Tom", "01/03/1999", Genre.HOMME.name(), Statut.CELIBATAIRE.name(), "Paris", Genre.HOMME.name());
         Profil p2 = new Profil("FOURNIER", "Justine", "08/10/1978", Genre.FEMME.name(), Statut.VEUF.name(), "Paris", Genre.HOMME.name());
         Profil p3 = new Profil("MARTIN", "Kévin", "30/01/1987", Genre.HOMME.name(), Statut.CELIBATAIRE.name(), "Albi", Genre.FEMME.name());
@@ -17,6 +16,7 @@ public class Generateur_profil {
         p1.hobbies.addAll(Arrays.asList("Sport","Art","Culture","Cinéma"));
         p1.qualite.addAll(Arrays.asList("Joyeux","Attentionné","Cultivé"));
         p1.defaut.addAll(Arrays.asList("Timide","Egoïste","Pleurnichard"));
+        System.out.println(p1.hobbies.size());
         p2.taille=1.7;
         p2.hobbies.addAll(Arrays.asList("Jeux vidéos","Art","Cinéma"));
         p2.qualite.addAll(Arrays.asList("Joyeux","Avenant","Cultivé"));
@@ -29,13 +29,13 @@ public class Generateur_profil {
         p7.taille=1.2;
         p8.taille=1.1;
         //J'en avais besoin pour mon matching
-        listeProfil.add(p1);
-        listeProfil.add(p2);
-        listeProfil.add(p3);
-        listeProfil.add(p4);
-        listeProfil.add(p5);
-        listeProfil.add(p6);
-        listeProfil.add(p7);
-        listeProfil.add(p8);
+        mod.listeProfil.add(p1);
+        mod.listeProfil.add(p2);
+        mod.listeProfil.add(p3);
+        mod.listeProfil.add(p4);
+        mod.listeProfil.add(p5);
+        mod.listeProfil.add(p6);
+        mod.listeProfil.add(p7);
+        mod.listeProfil.add(p8);
     }
 }

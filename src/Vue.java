@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 public class Vue extends Application {
 
-
+    Modele mod;
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -19,7 +19,7 @@ public class Vue extends Application {
         stage.setTitle("Vue");
         stage.setScene(scene);
         stage.show();
-        VueControleur controller = new VueControleur();
+        VueControleur controller = new VueControleur(mod);
         controller.init(scene, stage);
 
 

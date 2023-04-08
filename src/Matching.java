@@ -1,3 +1,5 @@
+import com.sun.webkit.Timer;
+
 import java.util.*;
 
 public class Matching{
@@ -19,9 +21,9 @@ public class Matching{
         //là je fais moi même les listes de ce que la personne attend.
         //TODO A terme, tout ce qui concerne le tri par genre sera ailleurs (on va pas trier à chaque fois ^^)
         Comparator<Profil> distanceComparator = Comparator.comparingDouble(p -> p.taille);
-        Generateur_profil g=new Generateur_profil();
         HashMap<String,TreeSet<Profil>> trigenre=new HashMap<>();
-        for(Profil profil: g.listeProfil){
+        Modele m=new Modele();
+        for(Profil profil: m.listeProfil){
             String genre=profil.genre;
             if(!trigenre.containsKey(genre)){
                 trigenre.put(genre, new TreeSet<>(distanceComparator));
