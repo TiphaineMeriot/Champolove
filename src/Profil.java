@@ -2,6 +2,7 @@ import javafx.scene.image.Image;
 
 import java.awt.*;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -15,7 +16,7 @@ enum Statut{
         HOMME,FEMME,AUTRE
     }
 
-public class Profil implements Comparable<Profil>{
+public class Profil implements Comparable<Profil>, Serializable {
     //C'est package par défaut, on verra si on les met en privé plus tard
     String nom,prenom;
     String genre;

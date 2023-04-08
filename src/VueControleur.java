@@ -11,12 +11,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class VueControleur {
     Button boutonCreerProfil;
     String profilRecherche;
     Profil profilClick;
-
-    Generateur_profil generateurProfil;
     Modele mod;
     public VueControleur(Modele mod){
         this.mod=mod;
@@ -24,15 +24,12 @@ public class VueControleur {
 
     public void init(Scene scene, Stage stage) throws Exception {
         boutonCreerProfil = (Button) scene.lookup("#boutonCreerProfil");
-        boutonCreerProfil.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                try {
-                    CreationProfil creationProfil = new CreationProfil();
-                    creationProfil.start(stage);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        boutonCreerProfil.setOnAction(event -> {
+            try {
+                CreationProfil creationProfil = new CreationProfil();
+                creationProfil.start(stage);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
         //stocker le texte de la zone de recherche dans la variable profilRecherche
@@ -40,18 +37,22 @@ public class VueControleur {
 
         //ajout de l'icone
         stage.getIcons().add(new Image("images/logo_invisible.png"));
-
-        generateurProfil = new Generateur_profil(this.mod);
+        //Modif dylan: ajout d'une instruction lors de la fermeture:
+             stage.setOnCloseRequest(event -> {
+                 this.mod.enregistrer();
+        });
         GridPane gridPane = (GridPane) scene.lookup("#GridProfils");
-
+        //Modif dylan (encore): ajout récupérateur de données au démarrage:
+        this.mod.charger();
         //Ajout des profils dans le gridPane
+//        Generateur_profil g=new Generateur_profil(this.mod);
         int i = 1;
         for (Profil profil : this.mod.listeProfil) {
             Label labelNomPrenom = new Label(profil.nom+" "+profil.prenom);
             //TODO : La ligne d'en dessous sera quand les images porteront le nom et le prénom du profil
-            //Image image = new Image("images/" + profil.nom + "_" + profil.prenom + ".jpg");
-            String indice = String.valueOf(i+1);
-            Image image = new Image("images/"+indice+".jpeg");
+                Image image = new Image(String.format("images/%s/%s_%s.jpeg",profil.genre,profil.nom,profil.prenom));
+//            String indice = String.valueOf(i+1);
+//            Image image = new Image("images/"+indice+".jpeg");
             gridPane.add(labelNomPrenom, 1, i);
             //charger l'image dans l'imageview d'id ImageView
             ImageView imageView = new ImageView(image);

@@ -1,5 +1,12 @@
+import java.io.File;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
+import java.util.Random;
 
 public class Generateur_profil {
     public Generateur_profil(Modele mod) throws Exception {
@@ -37,5 +44,22 @@ public class Generateur_profil {
         mod.listeProfil.add(p6);
         mod.listeProfil.add(p7);
         mod.listeProfil.add(p8);
+//        for(int i=0;i<20000;i++){
+//            URL url = new URL("https://randomuser.me/api/?nat=fr&inc=name,gender,location");
+//            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//            InputStream responseStream = connection.getInputStream();
+//            String text = new String(responseStream.readAllBytes(), StandardCharsets.UTF_8);
+//            System.out.println(text);
+//        }
+        for(Profil profil:mod.listeProfil){
+            Random r=new Random();
+                int rdm=r.nextInt(mod.listeImageH.size());
+                mod.listeImageH.get(rdm).renameTo(new File(String.format("C:\\Users\\Horoto\\IdeaProjects\\Champolove\\src\\images\\%s\\%s_%s.jpeg",profil.genre,profil.nom,profil.prenom)));
+                mod.listeImageH.remove(mod.listeImageH.get(rdm));
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        Generateur_profil g=new Generateur_profil(new Modele());
     }
 }
