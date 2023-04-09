@@ -49,13 +49,11 @@ public class VueControleur {
         //Modif dylan (encore): ajout récupérateur de données au démarrage:
         this.mod.charger();
         //Ajout des profils dans le gridPane
-        Generateur_profil g=new Generateur_profil(this.mod);
+//        A commenter et décommenter quand on veut l'utiliser ou non
+//        Generateur_profil g=new Generateur_profil(this.mod);
         int i = 1;
         for (Profil profil : this.mod.listeProfil) {
             Label labelNomPrenom = new Label(profil.nom + " " + profil.prenom);
-            //TODO : La ligne d'en dessous sera quand les images porteront le nom et le prénom du profil
-//            String urlEncodedNom = URLEncoder.encode(profil.nom, StandardCharsets.UTF_8);
-//            String urlEncodedPrenom = URLEncoder.encode(profil.prenom, StandardCharsets.UTF_8);
             Image image = null;
             try {
                 //Là je teste si le chemin est valide
@@ -67,8 +65,6 @@ public class VueControleur {
                 System.out.println("L'url est introuvable ou invalide:" + String.format("src/images/%s/%s_%s.jpeg", profil.genre, profil.nom, profil.prenom));
                 System.out.println("Current working directory: " + System.getProperty("user.dir"));
             }
-//            String indice = String.valueOf(i+1);
-//            Image image = new Image("images/"+indice+".jpeg");
             gridPane.add(labelNomPrenom, 1, i);
             //charger l'image dans l'imageview d'id ImageView
             ImageView imageView = new ImageView(image);

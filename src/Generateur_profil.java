@@ -17,7 +17,7 @@ public class Generateur_profil {
 
         String[] statut = {"CELIBATAIRE", "MARIE", "VEUF"};
         String[] recherche = {"HOMME", "FEMME", "AUTRE"};
-        for (int i = 0; i < 27; i++) {
+        for (int i = 0; i < 200; i++) {
             URL url = new URL("https://randomuser.me/api/?nat=fr&inc=name,gender,location");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             InputStream responseStream = connection.getInputStream();
@@ -54,13 +54,10 @@ public class Generateur_profil {
             String ddn = String.format("%d/%d/%d", day, month, year);
             Profil p = new Profil(nom, prenom, ddn, genre, statut[new Random().nextInt(statut.length)], location,
                     recherche[new Random().nextInt(recherche.length)]);
-//            System.out.println(p);
             Random r = new Random();
-            System.out.println(p.genre);
             Path relativePath = Paths.get("src", "images", p.genre, String.format("%s_%s.jpeg", p.nom, p.prenom));
             Path absolutePath = relativePath.toAbsolutePath();
             File f = new File(absolutePath.toString());
-            System.out.println(f);
             if (Objects.equals(p.genre, "HOMME")) {
                 int rdm = r.nextInt(mod.listeImageH.size());
                 mod.listeImageH.get(rdm).renameTo(f);
@@ -94,7 +91,6 @@ public class Generateur_profil {
                 p.defaut.add(mod.defaut.get(ind));
             }
             mod.listeProfil.add(p);
-            System.out.println(p);
         }
     }
 }
