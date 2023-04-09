@@ -5,14 +5,11 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Random;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Generateur_profil {
     public Generateur_profil(Modele mod) throws Exception {
-        mod.listeProfil = new ArrayList<>();
         ArrayList<String> qualite=new ArrayList<>();
 
         String[] statut = {"CELIBATAIRE", "MARIE", "VEUF"};
@@ -90,6 +87,9 @@ public class Generateur_profil {
                 int ind=r.nextInt(mod.defaut.size());
                 p.defaut.add(mod.defaut.get(ind));
             }
+            SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+            String date_de_creation=String.format("%d/%d/%d",r.nextInt(1,28),r.nextInt(1,3),2023);
+            p.date_de_creation.setTime(s.parse(date_de_creation));
             mod.listeProfil.add(p);
         }
     }

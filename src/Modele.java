@@ -1,18 +1,31 @@
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Modele {
 	public ArrayList<String> qualite;
 	public ArrayList<String> defaut;
-    public ArrayList<Profil> listeProfil;
+    public TreeSet<Profil> listeProfil;
 	public ArrayList<File> listeImageH;
 	public ArrayList<File> listeImageF;
+
+	private static class SerializableComparator implements Comparator<Profil>, Serializable {
+        @Override
+        public int compare(Profil p1, Profil p2) {
+            int result = p1.date_de_creation.compareTo(p2.date_de_creation);
+            if (result == 0) {
+                result = p1.nom.compareTo(p2.nom);
+				if(result==0){
+					result=p1.prenom.compareTo(p2.prenom);
+				}
+            }
+            return result;
+        }
+    }
     public Modele() {
-        this.listeProfil=new ArrayList<>();
+		Comparator<Profil> ddc= new SerializableComparator();
+        this.listeProfil=new TreeSet<>(ddc);
 		this.qualite=new ArrayList<>();
 		this.defaut=new ArrayList<>();
 		Path relativePath= Paths.get("src","images");
@@ -27,7 +40,7 @@ public class Modele {
     }
     public void enregistrer() {
 		try {
-			FileOutputStream fos =  new FileOutputStream(new File("profil.dat"));;
+			FileOutputStream fos =  new FileOutputStream(new File("profil.dat"));
 			FileOutputStream fos2=new FileOutputStream(new File("qualite.dat"));
 			FileOutputStream fos3=new FileOutputStream(new File("defaut.dat"));
 			ObjectOutputStream oos= new ObjectOutputStream(fos);
@@ -54,7 +67,7 @@ public class Modele {
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			ObjectInputStream ois2 = new ObjectInputStream(fis2);
 			ObjectInputStream ois3 = new ObjectInputStream(fis3);
-			this.listeProfil = (ArrayList<Profil>)ois.readObject();
+			this.listeProfil = (TreeSet<Profil>)ois.readObject();
 			this.qualite = (ArrayList<String>)ois2.readObject();
 			this.defaut = (ArrayList<String>)ois3.readObject();
 			ois.close();
