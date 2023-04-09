@@ -11,6 +11,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 public class VueControleur {
@@ -45,12 +49,24 @@ public class VueControleur {
         //Modif dylan (encore): ajout récupérateur de données au démarrage:
         this.mod.charger();
         //Ajout des profils dans le gridPane
-//        Generateur_profil g=new Generateur_profil(this.mod);
+        Generateur_profil g=new Generateur_profil(this.mod);
         int i = 1;
         for (Profil profil : this.mod.listeProfil) {
-            Label labelNomPrenom = new Label(profil.nom+" "+profil.prenom);
+            Label labelNomPrenom = new Label(profil.nom + " " + profil.prenom);
             //TODO : La ligne d'en dessous sera quand les images porteront le nom et le prénom du profil
-                Image image = new Image(String.format("images/%s/%s_%s.jpeg",profil.genre,profil.nom,profil.prenom));
+//            String urlEncodedNom = URLEncoder.encode(profil.nom, StandardCharsets.UTF_8);
+//            String urlEncodedPrenom = URLEncoder.encode(profil.prenom, StandardCharsets.UTF_8);
+            Image image = null;
+            try {
+                //Là je teste si le chemin est valide
+                //Je convertis aussi le chemin relatif en absolu parce que ça marche pas sinon jsp pk
+                Path relativePath= Paths.get("src","images", profil.genre,String.format("%s_%s.jpeg",profil.nom,profil.prenom));
+                Path absolutePath=relativePath.toAbsolutePath();
+                image = new Image(absolutePath.toString());
+            } catch (IllegalArgumentException e) {
+                System.out.println("L'url est introuvable ou invalide:" + String.format("src/images/%s/%s_%s.jpeg", profil.genre, profil.nom, profil.prenom));
+                System.out.println("Current working directory: " + System.getProperty("user.dir"));
+            }
 //            String indice = String.valueOf(i+1);
 //            Image image = new Image("images/"+indice+".jpeg");
             gridPane.add(labelNomPrenom, 1, i);
@@ -90,7 +106,7 @@ public class VueControleur {
 
                     GridPane gridPaneDroite = (GridPane) scene.lookup("#GridPaneDroite");
                     gridPaneDroite.add(labelNomPrenom, 1, 0);
-                    gridPaneDroite.add(labelDateDeNaissance , 1, 1);
+                    gridPaneDroite.add(labelDateDeNaissance, 1, 1);
                     gridPaneDroite.add(labelVille, 1, 2);
 
                 }

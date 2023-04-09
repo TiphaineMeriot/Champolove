@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -119,7 +120,9 @@ public class Profil implements Comparable<Profil>, Serializable {
     }
     public void calcul_latitude_longitude() throws Exception {
         try{
-            URL url = new URL(String.format("https://api-adresse.data.gouv.fr/search/?q=%s",this.ville));
+            String urlEncodedVille;
+            urlEncodedVille= URLEncoder.encode(this.ville, StandardCharsets.UTF_8);
+            URL url = new URL(String.format("https://api-adresse.data.gouv.fr/search/?q=%s",urlEncodedVille));
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             InputStream responseStream = connection.getInputStream();
             String text = new String(responseStream.readNBytes(500), StandardCharsets.UTF_8); //Je limite à 500 pour avoir que le premier résultat
@@ -146,6 +149,7 @@ public class Profil implements Comparable<Profil>, Serializable {
                 throw new ExceptionVilleInexistante();
             }
         }catch (Exception e){
+            System.out.println(this.ville);
             throw new ExceptionVilleInexistante();
         }
     }
