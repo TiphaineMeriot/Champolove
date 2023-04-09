@@ -91,20 +91,65 @@ public class VueControleur {
                     labelDateDeNaissance.setStyle("-fx-font-family: Cambria");
                     //label ville qui contient la ville du profil cliqué
                     Label labelVille = new Label(profilClick.ville);
-                    // L
+                    // label travail qui contient le travail du profil cliqué
+                    Label labelTravail = new Label(profilClick.profession);
+                    // on va créer un label qualitées qui sera rempli par les qualités du profil cliqué
+                    // pour ça on fait une boucle qui va parcourir la liste des qualités du profil cliqué et les ajouter dans le label qualitées avec une virgule puis un espace entre chaque qualité
+                    Label labelQualites = new Label();
+                    for (int i = 0; i < profilClick.qualite.size(); i++) {
+                        if (i == 0) {
+                            labelQualites.setText(profilClick.qualite.get(i));
+                        } else {
+                            labelQualites.setText(labelQualites.getText() + ", " + profilClick.qualite.get(i));
+                        }
+                    }
+                    // on va créer un label defauts qui sera rempli par les defauts du profil cliqué
+                    // pour ça on fait une boucle qui va parcourir la liste des defauts du profil cliqué et les ajouter dans le label defauts avec une virgule puis un espace entre chaque defaut
+                    Label labelDefauts = new Label();
+                    for (int i = 0; i < profilClick.defaut.size(); i++) {
+                        if (i == 0) {
+                            labelDefauts.setText(profilClick.defaut.get(i));
+                        } else {
+                            labelDefauts.setText(labelDefauts.getText() + ", " + profilClick.defaut.get(i));
+                        }
+                    }
+                    //label taille qui contient la taille du profil cliqué
+                    String taille = String.valueOf(profilClick.taille);
+                    Label labelTaille = new Label(taille);
 
+                    //TODO : on modifie l'imageView avatar en fonction de l'image du profil cliqué
+                    //imageViewAvatar.setImage(profilClick.image);
 
-                    //le label nomPrenom a une police de titre de taille 24 et est centré et en gras
-                    labelNomPrenom.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-alignment: center;");
+                    //le label nomPrenom a une police de titre de taille 30 et est centré a droite et en gras
+                    labelNomPrenom.setStyle("-fx-font-size: 30px; -fx-font-weight: bold; -fx-alignment: center-right;");
                     //le label date de naissance a une police de titre de taille 16 et est positionné a droite et en gras;
                     labelDateDeNaissance.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
                     //le label ville a une police de titre de taille 16 et est positionné a droite et en gras;
                     labelVille.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
+                    //le label travail a une police de titre de taille 16 et est positionné a droite et en gras;
+                    labelTravail.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
+                    //le label qualitées a une police de titre de taille 16 et est positionné a droite et en gras;
+                    labelQualites.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
+                    //le label defauts a une police de titre de taille 16 et est positionné a droite et en gras;
+                    labelDefauts.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
+                    //le label taille a une police de titre de taille 16 et est positionné a droite et en gras;
+                    labelTaille.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
 
-                    GridPane gridPaneDroite = (GridPane) scene.lookup("#GridPaneDroite");
-                    gridPaneDroite.add(labelNomPrenom, 1, 0);
-                    gridPaneDroite.add(labelDateDeNaissance, 1, 1);
-                    gridPaneDroite.add(labelVille, 1, 2);
+                    GridPane gridPaneDroite = (GridPane) scene.lookup("#gridPaneNom");
+                    //on clear le gridPaneDroite pour qu'il ne contienne que les informations du profil précédemment cliqué
+                    gridPaneDroite.getChildren().clear();
+                    //on ajoute les labels dans la colonne 1 de gridPaneDroite
+                    gridPaneDroite.add(labelNomPrenom, 0, 0);
+
+                    GridPane gridPaneInfos = (GridPane) scene.lookup("#gridPaneInfos");
+                    gridPaneInfos.getChildren().clear();
+                    gridPaneInfos.add(labelDateDeNaissance, 0, 0);
+                    gridPaneInfos.add(labelVille, 0, 1);
+                    gridPaneInfos.add(labelTravail, 0, 2);
+                    gridPaneInfos.add(labelQualites, 0, 3);
+                    gridPaneInfos.add(labelDefauts, 0, 4);
+                    gridPaneInfos.add(labelTaille, 0, 5);
+
 
                 }
             });

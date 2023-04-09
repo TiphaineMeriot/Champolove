@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumSet;
 
 import javafx.fxml.FXMLLoader;
@@ -59,26 +60,25 @@ public class CreationProfilControleur  {
     public ArrayList<String> h;
     public ArrayList<String> qd;
     private ObservableList<String> items;
-
+    Modele mod;
     private ObservableList<String> qualitedefaut;
+    public CreationProfilControleur(Modele mod){
+        this.mod=mod;
+    }
     // Initialisation des combobox en fonction des enum de Profil
     @FXML
     public void initialisationComboBox() {
         // Genre
-        ArrayList<Genre> genre = new ArrayList();
-        for (Genre gen : Genre.values()) {
-            genre.add(gen);
-        }
+        ArrayList<Genre> genre = new ArrayList<>();
+        Collections.addAll(genre, Genre.values());
         EnumSet.allOf(Genre.class).forEach(g -> genretxt.getItems().addAll(String.valueOf((g))));
 
         // Recherche
         EnumSet.allOf(Genre.class).forEach(g -> recherchetxt.getItems().addAll(String.valueOf((g))));
 
         // Statut
-        ArrayList<Statut> statut = new ArrayList();
-        for (Statut stat : Statut.values()) {
-            statut.add(stat);
-        }
+        ArrayList<Statut> statut = new ArrayList<>();
+        Collections.addAll(statut, Statut.values());
         EnumSet.allOf(Statut.class).forEach(s -> statuttxt.getItems().addAll(String.valueOf((s))));
 
     }
@@ -102,7 +102,7 @@ public class CreationProfilControleur  {
 
         });
 
-        qualitedefaut = FXCollections.observableArrayList ("Gentil", "Intelligent", "Réservé");
+        qualitedefaut = FXCollections.observableArrayList ();
         listqd.setItems(qualitedefaut);
         scrollqd.setContent(listqd);
         scrollqd.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -118,9 +118,14 @@ public class CreationProfilControleur  {
     }
 
     // Action du boutton créé, permet de récupérer les valeurs du formulaire
-
-
-
+        @FXML
+    private void buttonSuivantAction(ActionEvent event) throws IOException {
+        AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("NouvelleFenetre.fxml"));
+        Scene sceneNouvelleFenetre = new Scene(root);
+        Stage myStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        myStage.setScene(sceneNouvelleFenetre);
+        myStage.show();
+    }
 
     // Action du boutton créé, permet de récupérer les valeurs du formulaire
     @FXML
@@ -141,7 +146,6 @@ public class CreationProfilControleur  {
         }else {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             dateFormatée = date.format(dateTimeFormatter);
-
         }
 
     }
