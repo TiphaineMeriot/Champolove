@@ -77,44 +77,42 @@ public class VueControleur {
                 @Override
                 public void handle(javafx.scene.input.MouseEvent event) {
                     try {
-                        // on instancie un nouveau profil avec les informations du profil cliqué
-                        profilClick = new Profil(profil.nom, profil.prenom, profil.date_de_naissance, profil.genre, profil.statut, profil.ville, profil.recherche);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
                     // on ajoute dans le pane de droite les informations de profilClick avec des labels qui ont la police d'ecriture : Cambria
                     // on créé un label nomPrenom qui contient le nom et le prenom du profil cliqué avec la police d'ecriture : Cambria et un espace entre le nom et le prenom
-                    Label labelNomPrenom = new Label(profilClick.prenom + " " + profilClick.nom);
+                    Label labelNomPrenom = new Label(profil.prenom + " " + profil.nom);
                     labelNomPrenom.setStyle("-fx-font-family: Cambria");
                     //label date de Naissance qui contient la date de naissance et l'age du profil cliqué avec la police d'ecriture : Cambria et un espace entre la date de naissance et l'age
-                    Label labelDateDeNaissance = new Label(profilClick.date_de_naissance + " (" + profilClick.age + " ans)");
+                    Label labelDateDeNaissance = new Label(profil.date_de_naissance + " (" + profil.age + " ans)");
                     labelDateDeNaissance.setStyle("-fx-font-family: Cambria");
                     //label ville qui contient la ville du profil cliqué
-                    Label labelVille = new Label(profilClick.ville);
+                    Label labelVille = new Label(profil.ville);
                     // label travail qui contient le travail du profil cliqué
-                    Label labelTravail = new Label(profilClick.profession);
+                    Label labelTravail = new Label(profil.profession);
                     // on va créer un label qualitées qui sera rempli par les qualités du profil cliqué
                     // pour ça on fait une boucle qui va parcourir la liste des qualités du profil cliqué et les ajouter dans le label qualitées avec une virgule puis un espace entre chaque qualité
                     Label labelQualites = new Label();
-                    for (int i = 0; i < profilClick.qualite.size(); i++) {
+                    for (int i = 0; i < profil.qualite.size(); i++) {
                         if (i == 0) {
-                            labelQualites.setText(profilClick.qualite.get(i));
+                            labelQualites.setText(profil.qualite.get(i));
                         } else {
-                            labelQualites.setText(labelQualites.getText() + ", " + profilClick.qualite.get(i));
+                            labelQualites.setText(labelQualites.getText() + ", " + profil.qualite.get(i));
                         }
                     }
                     // on va créer un label defauts qui sera rempli par les defauts du profil cliqué
                     // pour ça on fait une boucle qui va parcourir la liste des defauts du profil cliqué et les ajouter dans le label defauts avec une virgule puis un espace entre chaque defaut
                     Label labelDefauts = new Label();
-                    for (int i = 0; i < profilClick.defaut.size(); i++) {
+                    for (int i = 0; i < profil.defaut.size(); i++) {
                         if (i == 0) {
-                            labelDefauts.setText(profilClick.defaut.get(i));
+                            labelDefauts.setText(profil.defaut.get(i));
                         } else {
-                            labelDefauts.setText(labelDefauts.getText() + ", " + profilClick.defaut.get(i));
+                            labelDefauts.setText(labelDefauts.getText() + ", " + profil.defaut.get(i));
                         }
                     }
                     //label taille qui contient la taille du profil cliqué
-                    String taille = String.valueOf(profilClick.taille);
+                    String taille = String.format("%1.2fm",profil.taille);
                     Label labelTaille = new Label(taille);
 
                     //TODO : on modifie l'imageView avatar en fonction de l'image du profil cliqué

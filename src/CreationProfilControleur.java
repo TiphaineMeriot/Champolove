@@ -3,7 +3,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 import java.io.IOException;
@@ -15,6 +14,7 @@ import java.util.EnumSet;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
@@ -60,16 +60,12 @@ public class CreationProfilControleur  {
     public ArrayList<String> h;
     public ArrayList<String> qd;
     private ObservableList<String> items;
-    Modele mod;
     private ObservableList<String> qualitedefaut;
-    public CreationProfilControleur(Modele mod){
-        this.mod=mod;
-    }
     // Initialisation des combobox en fonction des enum de Profil
     @FXML
     public void initialisationComboBox() {
         // Genre
-        ArrayList<Genre> genre = new ArrayList<>();
+        ArrayList<Genre> genre = new ArrayList();
         Collections.addAll(genre, Genre.values());
         EnumSet.allOf(Genre.class).forEach(g -> genretxt.getItems().addAll(String.valueOf((g))));
 
@@ -77,7 +73,7 @@ public class CreationProfilControleur  {
         EnumSet.allOf(Genre.class).forEach(g -> recherchetxt.getItems().addAll(String.valueOf((g))));
 
         // Statut
-        ArrayList<Statut> statut = new ArrayList<>();
+        ArrayList<Statut> statut = new ArrayList();
         Collections.addAll(statut, Statut.values());
         EnumSet.allOf(Statut.class).forEach(s -> statuttxt.getItems().addAll(String.valueOf((s))));
 
@@ -87,7 +83,6 @@ public class CreationProfilControleur  {
     public void init(){
         items = FXCollections.observableArrayList (
                 "Sport", "Art", "Jeux vidéos", "Cinéma", "Culture", "Voyage", "Politique", "Musique");
-
         list.setItems(items);
         scroll.setContent(list);
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -102,7 +97,7 @@ public class CreationProfilControleur  {
 
         });
 
-        qualitedefaut = FXCollections.observableArrayList ();
+        qualitedefaut = FXCollections.observableArrayList ("Gentil", "Intelligent", "Réservé");
         listqd.setItems(qualitedefaut);
         scrollqd.setContent(listqd);
         scrollqd.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -118,7 +113,7 @@ public class CreationProfilControleur  {
     }
 
     // Action du boutton créé, permet de récupérer les valeurs du formulaire
-        @FXML
+    @FXML
     private void buttonSuivantAction(ActionEvent event) throws IOException {
         AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("NouvelleFenetre.fxml"));
         Scene sceneNouvelleFenetre = new Scene(root);
@@ -126,6 +121,8 @@ public class CreationProfilControleur  {
         myStage.setScene(sceneNouvelleFenetre);
         myStage.show();
     }
+
+
 
     // Action du boutton créé, permet de récupérer les valeurs du formulaire
     @FXML
@@ -146,6 +143,7 @@ public class CreationProfilControleur  {
         }else {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             dateFormatée = date.format(dateTimeFormatter);
+
         }
 
     }
