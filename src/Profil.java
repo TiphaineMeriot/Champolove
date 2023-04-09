@@ -16,7 +16,6 @@ enum Statut{
     enum Genre{
         HOMME,FEMME,AUTRE
     }
-
 public class Profil implements Comparable<Profil>, Serializable {
     //C'est package par défaut, on verra si on les met en privé plus tard
     String nom,prenom;

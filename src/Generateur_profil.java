@@ -13,15 +13,8 @@ import java.util.Random;
 public class Generateur_profil {
     public Generateur_profil(Modele mod) throws Exception {
         mod.listeProfil = new ArrayList<>();
-//        p1.taille=1.8;
-//        p1.hobbies.addAll(Arrays.asList("Sport","Art","Culture","Cinéma"));
-//        p1.qualite.addAll(Arrays.asList("Joyeux","Attentionné","Cultivé"));
-//        p1.defaut.addAll(Arrays.asList("Timide","Egoïste","Pleurnichard"));
-//        System.out.println(p1.hobbies.size());
-//        p2.taille=1.7;
-//        p2.hobbies.addAll(Arrays.asList("Jeux vidéos","Art","Cinéma"));
-//        p2.qualite.addAll(Arrays.asList("Joyeux","Avenant","Cultivé"));
-//        p2.defaut.addAll(Arrays.asList("Triste","Idiot","Radin"));
+        ArrayList<String> qualite=new ArrayList<>();
+
         String[] statut = {"CELIBATAIRE", "MARIE", "VEUF"};
         String[] recherche = {"HOMME", "FEMME", "AUTRE"};
         for (int i = 0; i < 27; i++) {
@@ -91,6 +84,14 @@ public class Generateur_profil {
                     mod.listeImageH.remove(mod.listeImageH.get(rdm));
                     p.taille=r.nextDouble(1.6,2);
                 }
+            }
+            for(int j=0;j<r.nextInt(1,4);j++){
+                int ind=r.nextInt(mod.qualite.size());
+                p.qualite.add(mod.qualite.get(ind));
+            }
+            for(int j=0;j<r.nextInt(1,4);j++){
+                int ind=r.nextInt(mod.defaut.size());
+                p.defaut.add(mod.defaut.get(ind));
             }
             mod.listeProfil.add(p);
             System.out.println(p);
