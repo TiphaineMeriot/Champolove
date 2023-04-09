@@ -1,4 +1,6 @@
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,8 +15,10 @@ public class Modele {
         this.listeProfil=new ArrayList<>();
 		this.qualite=new ArrayList<>();
 		this.defaut=new ArrayList<>();
-		File dirF=new File("C:\\Users\\Horoto\\IdeaProjects\\Champolove\\src\\images\\FEMME");
-		File dirH=new File("C:\\Users\\Horoto\\IdeaProjects\\Champolove\\src\\images\\HOMME");
+		Path relativePath= Paths.get("src","images");
+		Path absolutePath=relativePath.toAbsolutePath();
+		File dirF=new File(absolutePath+"\\FEMME");
+		File dirH=new File(absolutePath+"\\HOMME");
 		this.listeImageH=new ArrayList<>(dirH.listFiles().length);
 		this.listeImageF=new ArrayList<>(dirF.listFiles().length);
 		this.listeImageF.addAll(List.of(dirF.listFiles()));
