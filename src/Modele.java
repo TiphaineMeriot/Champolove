@@ -44,9 +44,9 @@ public class Modele {
 	}
 	public void charger() throws IOException, ClassNotFoundException {
 		try{
-			FileInputStream fis = new FileInputStream(new File("profil.dat"));
-			FileInputStream fis2 = new FileInputStream(new File("qualite.dat"));
-			FileInputStream fis3 = new FileInputStream(new File("defaut.dat"));
+			FileInputStream fis = new FileInputStream("profil.dat");
+			FileInputStream fis2 = new FileInputStream("qualite.dat");
+			FileInputStream fis3 = new FileInputStream("defaut.dat");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			ObjectInputStream ois2 = new ObjectInputStream(fis2);
 			ObjectInputStream ois3 = new ObjectInputStream(fis3);

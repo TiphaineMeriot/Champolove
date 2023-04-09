@@ -17,7 +17,7 @@ public class Generateur_profil {
 
         String[] statut = {"CELIBATAIRE", "MARIE", "VEUF"};
         String[] recherche = {"HOMME", "FEMME", "AUTRE"};
-        for (int i = 0; i < 200; i++) {
+        while (mod.listeImageF.size()!=0 && mod.listeImageH.size()!=0){
             URL url = new URL("https://randomuser.me/api/?nat=fr&inc=name,gender,location");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             InputStream responseStream = connection.getInputStream();
