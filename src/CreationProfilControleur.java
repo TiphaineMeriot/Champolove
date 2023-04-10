@@ -117,6 +117,9 @@ public class CreationProfilControleur  {
         });
     }
 
+    // Action du boutton créé, permet de récupérer les valeurs du formulaire
+
+
 
 
     // Action du boutton créé, permet de récupérer les valeurs du formulaire
