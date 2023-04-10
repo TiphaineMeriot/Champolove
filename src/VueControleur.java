@@ -47,11 +47,12 @@ public class VueControleur {
         });
         GridPane gridPane = (GridPane) scene.lookup("#GridProfils");
         //Modif dylan (encore): ajout récupérateur de données au démarrage:
-        this.mod.charger();
+        //Pareil commenter lorsque genereateur décommenté
+//        this.mod.charger();
         System.out.println(mod.listeProfil.size());
         //Ajout des profils dans le gridPane
 //        A commenter et décommenter quand on veut l'utiliser ou non
-//        Generateur_profil g=new Generateur_profil(this.mod);
+        Generateur_profil g=new Generateur_profil(this.mod);
         int i = 1;
         for (Profil profil : this.mod.listeProfil) {
             Label labelNomPrenom = new Label(profil.nom + " " + profil.prenom);
