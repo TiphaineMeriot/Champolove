@@ -45,9 +45,9 @@ public class Generateur_profil {
                 location += (text.charAt(ilocation));
                 ilocation++;
             }
-            int year = new Random().nextInt(1950, 2005);
-            int month = new Random().nextInt(1, 12);
-            int day = new Random().nextInt(1, 28); //TODO: faire un jour plus réaliste parce que pour l'instant on peut pas être né un 30 x)
+            int year = new Random().nextInt(1950, 2006); //Le dernier n'est pas pris en compte dans le random
+            int month = new Random().nextInt(1, 13);
+            int day = new Random().nextInt(1, 29); //TODO: faire un jour plus réaliste parce que pour l'instant on peut pas être né un 30 x)
             String ddn = String.format("%d/%d/%d", day, month, year);
             Profil p = new Profil(nom, prenom, ddn, genre, statut[new Random().nextInt(statut.length)], location,
                     recherche[new Random().nextInt(recherche.length)]);
@@ -59,24 +59,24 @@ public class Generateur_profil {
                 int rdm = r.nextInt(mod.listeImageH.size());
                 mod.listeImageH.get(rdm).renameTo(f);
                 mod.listeImageH.remove(mod.listeImageH.get(rdm));
-                p.taille=r.nextDouble(1.6,2);
+                p.taille=r.nextDouble(1.6,2.1);
             } else if (Objects.equals(p.genre, "FEMME")) {
                 int rdm = r.nextInt(mod.listeImageF.size());
                 mod.listeImageF.get(rdm).renameTo(f);
                 mod.listeImageF.remove(mod.listeImageF.get(rdm));
-                p.taille=r.nextDouble(1.5,1.8);
+                p.taille=r.nextDouble(1.5,1.9);
             } else {
                 int piece = r.nextInt(2);
                 if (piece == 0) {
                     int rdm = r.nextInt(mod.listeImageF.size());
                     mod.listeImageF.get(rdm).renameTo(f);
                     mod.listeImageF.remove(mod.listeImageF.get(rdm));
-                    p.taille=r.nextDouble(1.5,1.8);
+                    p.taille=r.nextDouble(1.5,1.9);
                 } else {
                     int rdm = r.nextInt(mod.listeImageH.size());
                     mod.listeImageH.get(rdm).renameTo(f);
                     mod.listeImageH.remove(mod.listeImageH.get(rdm));
-                    p.taille=r.nextDouble(1.6,2);
+                    p.taille=r.nextDouble(1.6,2.1);
                 }
             }
             for(int j=0;j<r.nextInt(1,4);j++){
@@ -88,7 +88,7 @@ public class Generateur_profil {
                 p.defaut.add(mod.defaut.get(ind));
             }
             SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-            String date_de_creation=String.format("%d/%d/%d",r.nextInt(1,28),r.nextInt(1,3),2023);
+            String date_de_creation=String.format("%d/%d/%d",r.nextInt(1,29),r.nextInt(1,4),2023);
             p.date_de_creation.setTime(s.parse(date_de_creation));
             mod.listeProfil.add(p);
         }
