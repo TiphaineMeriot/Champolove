@@ -1,4 +1,3 @@
-
 import com.sun.webkit.Timer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -42,8 +41,8 @@ public class VueControleur {
         //ajout de l'icone
         stage.getIcons().add(new Image("images/logo_invisible.png"));
         //Modif dylan: ajout d'une instruction lors de la fermeture:
-             stage.setOnCloseRequest(event -> {
-                 this.mod.enregistrer();
+        stage.setOnCloseRequest(event -> {
+            this.mod.enregistrer();
         });
         GridPane gridPane = (GridPane) scene.lookup("#GridProfils");
         //Modif dylan (encore): ajout récupérateur de données au démarrage:
