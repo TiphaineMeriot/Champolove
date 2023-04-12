@@ -28,10 +28,12 @@ public class Modele {
         this.listeProfil=new TreeSet<>(ddc);
 		this.qualite=new ArrayList<>();
 		this.defaut=new ArrayList<>();
-		Path relativePath= Paths.get("src","images");
-		Path absolutePath=relativePath.toAbsolutePath();
-		File dirF=new File(absolutePath+"\\FEMME");
-		File dirH=new File(absolutePath+"\\HOMME");
+		Path relativePathH= Paths.get("src","images","HOMME");
+		Path relativePathF= Paths.get("src","images","FEMME");
+		Path absolutePathH=relativePathH.toAbsolutePath();
+		Path absolutePathF=relativePathF.toAbsolutePath();
+		File dirF=new File(absolutePathF.toString());
+		File dirH=new File(absolutePathH.toString());
 		this.listeImageH=new ArrayList<>(dirH.listFiles().length);
 		this.listeImageF=new ArrayList<>(dirF.listFiles().length);
 		this.listeImageF.addAll(List.of(dirF.listFiles()));

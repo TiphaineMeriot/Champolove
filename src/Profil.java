@@ -118,38 +118,47 @@ public class Profil implements Comparable<Profil>, Serializable {
         }
     }
     public void calcul_latitude_longitude() throws Exception {
-        try{
-            String urlEncodedVille;
-            urlEncodedVille= URLEncoder.encode(this.ville, StandardCharsets.UTF_8);
-            URL url = new URL(String.format("https://api-adresse.data.gouv.fr/search/?q=%s",urlEncodedVille));
+
+
+
+        String urlEncodedVille;
+        urlEncodedVille = URLEncoder.encode(this.ville, StandardCharsets.UTF_8);
+        String saucisse = String.format("https://api-adresse.data.gouv.fr/search/?q=%s",urlEncodedVille);
+        try {
+            urlEncodedVille = URLEncoder.encode(this.ville, StandardCharsets.UTF_8);
+            URL url = new URL(String.format("https://api-adresse.data.gouv.fr/search/?q=%s", urlEncodedVille));
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             InputStream responseStream = connection.getInputStream();
             String text = new String(responseStream.readNBytes(500), StandardCharsets.UTF_8); //Je limite à 500 pour avoir que le premier résultat
             //(aussi un bout du second, mais osef)
             //Là, je cherche le score de la ville (son taux de chance d'être une vraie ville si vous voulez)
-            int index=text.indexOf("score")+7; //Le +7 est là pour ne pas prendre en compte le mot en lui-même
-            StringBuilder score=new StringBuilder();
-            while  (!(text.charAt(index)==(','))){
+            int index = text.indexOf("score") + 7; //Le +7 est là pour ne pas prendre en compte le mot en lui-même
+            StringBuilder score = new StringBuilder();
+            while (!(text.charAt(index) == (','))) {
                 score.append(text.charAt(index));
                 index++;
             }
             //Si le score est bas (moins que 0.9) bah ça passe à la trappe
-            if(text.contains("coordinates") && Double.parseDouble(String.valueOf(score))>0.9){
-                int i=118;
-                StringBuilder coord= new StringBuilder();
-                while (!(text.charAt(i)==(']'))){
+            if (text.contains("coordinates") && Double.parseDouble(String.valueOf(score)) > 0.9) {
+                int i = 118;
+                StringBuilder coord = new StringBuilder();
+                while (!(text.charAt(i) == (']'))) {
                     coord.append(text.charAt(i));
                     i++;
                 }
-                String[] s= coord.toString().split(",");
-                this.latitude=Double.parseDouble(s[0]);
-                this.longitude=Double.parseDouble(s[1]);}
-            else {
+                String[] s = coord.toString().split(",");
+                this.latitude = Double.parseDouble(s[0]);
+                this.longitude = Double.parseDouble(s[1]);
+            } else {
+                System.out.println(text);
                 throw new ExceptionVilleInexistante();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(this.ville);
-            throw new ExceptionVilleInexistante();
+            System.out.println(saucisse);
+            e.printStackTrace();
+            System.exit(0);
+            //throw new ExceptionVilleInexistante();
         }
     }
     public String toString(){
