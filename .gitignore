@@ -9,3 +9,5 @@ out/production/projet
 out/production/
 # Mac OS
 .DS_Store
+/src/images/FEMME/
+/src/images/HOMME/

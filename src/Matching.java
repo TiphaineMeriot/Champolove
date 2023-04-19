@@ -66,6 +66,7 @@ public class Matching{
                         }
                     }
                 }
+                profil.compatibilité=profil.compatibilité/(profil.hobbies.size()+profil.qualite.size());
                 match.add(profil);
             }
         }
