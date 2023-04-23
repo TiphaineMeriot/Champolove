@@ -76,6 +76,10 @@ public class Matching{
 
 
     public static void main(String[] args) throws Exception {
+        //TODO ce que je vais mettre sera à enlever c'est juste pour tester matching sans avoir besoin de tout refaire.
+        Modele mod=new Modele();
+        mod.charger();
+        Matching m=new Matching(mod);
         Profil p1 = new Profil("CHARLIES", "Tom", "01/03/1999", Genre.HOMME.name(), Statut.CELIBATAIRE.name(), "Bordeaux", Genre.HOMME.name());
         ArrayList<String> S_qual = new ArrayList<>(Arrays.asList("Joyeux", "Attentionné", "Cultivé"));
         ArrayList<String> S_def = new ArrayList<>(Arrays.asList("Gaffeur","Bavard"));
