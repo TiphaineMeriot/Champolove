@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumSet;
 
 import javafx.fxml.FXMLLoader;
@@ -66,9 +67,7 @@ public class CreationProfilControleur  {
     public void initialisationComboBox() {
         // Genre
         ArrayList<Genre> genre = new ArrayList();
-        for (Genre gen : Genre.values()) {
-            genre.add(gen);
-        }
+        Collections.addAll(genre, Genre.values());
         EnumSet.allOf(Genre.class).forEach(g -> genretxt.getItems().addAll(String.valueOf((g))));
 
         // Recherche
@@ -76,9 +75,7 @@ public class CreationProfilControleur  {
 
         // Statut
         ArrayList<Statut> statut = new ArrayList();
-        for (Statut stat : Statut.values()) {
-            statut.add(stat);
-        }
+        Collections.addAll(statut, Statut.values());
         EnumSet.allOf(Statut.class).forEach(s -> statuttxt.getItems().addAll(String.valueOf((s))));
 
     }

@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
 public class Generateur_profil {
+    //Fonctions auxilliaires //////////////////////////////
     public int entierAlea(int min,int max){
         Random rdm=new Random();
         return(rdm.nextInt(max - min + 1) + min);
@@ -15,6 +16,18 @@ public class Generateur_profil {
     public double doubleAlea(double min,double max){
         Random rdm=new Random();
         return(rdm.nextDouble(max-min+1)+min);
+    }
+
+    public void qualdefhobAlea(ArrayList<String> liste,ArrayList<String> source){
+        Random r=new Random();
+        for(int j=0;j<entierAlea(1,3);j++){
+                int ind=r.nextInt(source.size());
+                liste.add(source.get(ind));
+            }
+    }
+    //////////////////////////////////////////////////////
+    public Generateur_profil(){
+
     }
     public Generateur_profil(Modele mod) throws Exception {
 
@@ -77,22 +90,18 @@ public class Generateur_profil {
                     int rdm = r.nextInt(mod.listeImageF.size());
                     mod.listeImageF.get(rdm).renameTo(f);
                     mod.listeImageF.remove(mod.listeImageF.get(rdm));
-                    p.taille=doubleAlea(1.5,1.8);
+                    p.taille = doubleAlea(1.5, 1.8);
                 } else {
                     int rdm = r.nextInt(mod.listeImageH.size());
                     mod.listeImageH.get(rdm).renameTo(f);
                     mod.listeImageH.remove(mod.listeImageH.get(rdm));
-                    p.taille=doubleAlea(1.6,2);
+                    p.taille = doubleAlea(1.6, 2);
                 }
             }
-            for(int j=0;j<entierAlea(1,3);j++){
-                int ind=r.nextInt(mod.qualite.size());
-                p.qualite.add(mod.qualite.get(ind));
-            }
-            for(int j=0;j<entierAlea(1,3);j++){
-                int ind=r.nextInt(mod.defaut.size());
-                p.defaut.add(mod.defaut.get(ind));
-            }
+            qualdefhobAlea(p.defaut,mod.defaut);
+            qualdefhobAlea(p.hobbies,mod.hobbies);
+            qualdefhobAlea(p.qualite,mod.qualite);
+
             SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
             String date_de_creation=String.format("%d/%d/%d",entierAlea(1,28),entierAlea(1,4),2023);
             p.date_de_creation.setTime(s.parse(date_de_creation));

@@ -1,8 +1,15 @@
 import com.sun.webkit.Timer;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 public class Matching{
+    public void print(ArrayList<String> liste){
+        for(String s:liste){
+            System.out.print(s+",");
+        }
+        System.out.println();
+    }
     static Modele mod;
     public Matching(Modele mod){
         Matching.mod =mod;
@@ -13,10 +20,11 @@ public class Matching{
     //TODO Je ne veux pas qu'il soit con.
     //J'ai pensé à un dictionnaire pour le sexe que la personne recherche
     //ça serait un truc du genre:
-    public static TreeSet<Profil> matching1(Profil p1, double tailleminimale, ArrayList<String> recherchequal
-            , ArrayList<String> pasdefaut, ArrayList<String> S_hobbies) throws Exception {
-        Comparator<Profil> compat = Comparator.comparing((Profil p) -> p.compatibilité, Comparator.reverseOrder())
-                                      .thenComparing(p -> p.compareTo(p1)).thenComparing(p -> p.nom);
+    public static TreeSet<Profil> matching1(Profil p1, ArrayList<String> recherchequal
+            , ArrayList<String> pasdefaut, ArrayList<String> S_hobbies) {
+        Comparator<Profil> compat = Comparator.comparing((Profil p) -> p.compareTo(p1))
+                .thenComparing(p->p.compatibilité,Comparator.reverseOrder()).thenComparing(p -> p.nom)
+                .thenComparing(p ->p.prenom);
         //Je trie le tree (c'est trop marrant)
         //plus sérieusement ça sert à avoir l'ensemble avec les plus compatibles en premier,puis les plus près.
         //La comparaison en fonction du nom permet d'éviter que 2 personnes avec la même compatibilité et dans la même
@@ -37,7 +45,7 @@ public class Matching{
         TreeSet<Profil>rechercher=trigenre.get(p1.recherche);
 
         for(Profil profil:rechercher) {
-            if (profil.recherche.equals(p1.genre) && profil.taille>=tailleminimale) {
+            if (profil.recherche.equals(p1.genre)) {
                 //Si la personne trouvée n'aime pas le genre de la personne, ça sert à rien de la mettre ^^
                 profil.compatibilité = 0; //J'aurai pu le faire plus haut mais déjà que c'est pas opti on va pas pousser x)
                 //TODO Maintenant, j'attribue des points à chaque fois qu'un critère concorde: (c'est super crade)
@@ -66,7 +74,7 @@ public class Matching{
                         }
                     }
                 }
-                profil.compatibilité=profil.compatibilité/(profil.hobbies.size()+profil.qualite.size());
+                profil.compatibilité=(profil.compatibilité/(S_hobbies.size()+recherchequal.size()))+0.5; //On pipe un peu x)
                 match.add(profil);
             }
         }
@@ -77,14 +85,23 @@ public class Matching{
 
     public static void main(String[] args) throws Exception {
         //TODO ce que je vais mettre sera à enlever c'est juste pour tester matching sans avoir besoin de tout refaire.
+        Generateur_profil g=new Generateur_profil();
         Modele mod=new Modele();
         mod.charger();
         Matching m=new Matching(mod);
         Profil p1 = new Profil("CHARLIES", "Tom", "01/03/1999", Genre.HOMME.name(), Statut.CELIBATAIRE.name(), "Bordeaux", Genre.HOMME.name());
-        ArrayList<String> S_qual = new ArrayList<>(Arrays.asList("Joyeux", "Attentionné", "Cultivé"));
-        ArrayList<String> S_def = new ArrayList<>(Arrays.asList("Gaffeur","Bavard"));
-        ArrayList<String> S_hob = new ArrayList<>(Arrays.asList("Sport","Art","Culture","Cinéma"));
-                for(Profil p:matching1(p1,1.2,S_qual,S_def,S_hob)){
+        ArrayList<String> S_qual = new ArrayList<>();
+        ArrayList<String> S_def = new ArrayList<>();
+        ArrayList<String> S_hob = new ArrayList<>();
+        g.qualdefhobAlea(S_qual,mod.qualite);
+        g.qualdefhobAlea(S_def,mod.defaut);
+        g.qualdefhobAlea(S_hob,mod.hobbies);
+        System.out.println("RECHERCHE");
+        m.print(S_qual);
+        m.print(S_def);
+        m.print(S_hob);
+        System.out.println("///////////////////////");
+        for(Profil p:matching1(p1,S_qual,S_def,S_hob)){
             System.out.println(p.compatibilité);
             System.out.println(p.compareTo(p1));
             System.out.println(p);
