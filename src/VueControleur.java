@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class VueControleur {
     Button boutonCreerProfil;
@@ -46,12 +47,22 @@ public class VueControleur {
         });
         GridPane gridPane = (GridPane) scene.lookup("#GridProfils");
         //Modif dylan (encore): ajout récupérateur de données au démarrage:
-        //Pareil commenter lorsque genereateur décommenté
-//        this.mod.charger();
+        System.out.println("Saisissez un type de démarrage:");
+        System.out.print("Si vous souhaitez démarrer en mode générateur de profil, tappez gen, gener, generateur ");
+        System.out.println("Ou tout simplement g. Sinon, tappez n'importe quoi x) ");
+        Scanner scanner=new Scanner(System.in);
+        String input=scanner.nextLine().toUpperCase();
+        //Vous en avez marre de commenter/décommenter? Plus besoin xP
+        if (input.equals("G") || input.equals("GENERATEUR") || input.equals("GEN") || input.equals("GENER")){
+            new Generateur_profil(this.mod);
+        }
+        else{
+            this.mod.charger();
+        }
         System.out.println(this.mod.listeProfil.size());
+        ///
+
         //Ajout des profils dans le gridPane
-//        A commenter et décommenter quand on veut l'utiliser ou non
-        Generateur_profil g=new Generateur_profil(this.mod);
         int i = 1;
         for (Profil profil : this.mod.listeProfil) {
             Label labelNomPrenom = new Label(profil.nom + " " + profil.prenom);

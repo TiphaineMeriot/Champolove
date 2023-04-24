@@ -4,12 +4,15 @@ import java.math.BigDecimal;
 import java.util.*;
 
 public class Matching{
+    //TODO: On enlèvera cette partie quand on aura fait les tests et qu'on aura implanté matching
     public void print(ArrayList<String> liste){
         for(String s:liste){
             System.out.print(s+",");
         }
         System.out.println();
     }
+    ////
+
     static Modele mod;
     public Matching(Modele mod){
         Matching.mod =mod;

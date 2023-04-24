@@ -32,7 +32,7 @@ public class Profil implements Comparable<Profil>, Serializable {
     int age;
     double taille;
     Image image;
-    public double compatibilité;
+    double compatibilité;
 
 
     public Profil(String nom,String prenom,String date_de_naissance,String genre,String statut,String ville,String recherche) throws Exception {

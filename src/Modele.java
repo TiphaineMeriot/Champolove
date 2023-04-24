@@ -11,6 +11,9 @@ public class Modele {
 	public ArrayList<File> listeImageH;
 	public ArrayList<File> listeImageF;
 
+	//Cette méthode est indispensable pour pouvoir sérialiser le comparateur.
+	//Elle fait la même chose qu'un comparateur classique à part qu'il faut dire chaque étape de la comparaison
+	//Rien n'est implicite
 	private static class SerializableComparator implements Comparator<Profil>, Serializable {
         @Override
         public int compare(Profil p1, Profil p2) {

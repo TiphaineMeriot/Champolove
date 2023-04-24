@@ -15,7 +15,7 @@ public class Generateur_profil {
     }
     public double doubleAlea(double min,double max){
         Random rdm=new Random();
-        return(rdm.nextDouble(max-min+1)+min);
+        return(rdm.nextDouble(max-min)+min);
     }
 
     public void qualdefhobAlea(ArrayList<String> liste,ArrayList<String> source){
@@ -25,7 +25,17 @@ public class Generateur_profil {
                 liste.add(source.get(ind));
             }
     }
+
+    public double choix_images_et_taille(File f,ArrayList<File> liste,double taillemin,double taillemax){
+        Random r=new Random();
+        int rdm=r.nextInt(liste.size());
+        liste.get(rdm).renameTo(f);
+        liste.remove(liste.get(rdm));
+        return doubleAlea(taillemin,taillemax);
+    }
     //////////////////////////////////////////////////////
+
+    //Surcharge du constructeur qui permet de ne pas générer de profil, mais d'avoir accès aux méthodes liées
     public Generateur_profil(){
 
     }
@@ -34,77 +44,101 @@ public class Generateur_profil {
         String[] statut = {"CELIBATAIRE", "MARIE", "VEUF"};
         String[] recherche = {"HOMME", "FEMME", "AUTRE"};
         while (mod.listeImageF.size()!=0 && mod.listeImageH.size()!=0){
-            URL url = new URL("https://randomuser.me/api/?nat=fr&inc=name,gender,location");
+
+            //Choix du genre (avec faible chance d'avoir des non-binaires
+            String genre;
+            int rdmbinaire=entierAlea(1,1000);
+            if (rdmbinaire!=3){
+                int rdmgenre=entierAlea(1,2);
+                if(rdmgenre==1){
+                    genre="HOMME";
+                }
+                else{
+                    genre="FEMME";
+                }
+            }
+            else{
+                genre="AUTRE";
+            }
+            ///
+
+            //Appel de l'api
+            URL url = new URL("https://randomuser.me/api/?nat=fr&inc=name,location");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             InputStream responseStream = connection.getInputStream();
             String text = new String(responseStream.readAllBytes(), StandardCharsets.UTF_8);
-            int igenre = text.indexOf("gender") + 9;
-            String genre;
-            //TODO Ajouter un truc aléatoire pour avoir des non binaire x)
-            if (text.charAt(igenre) == 'm') {
-                genre = "HOMME";
-            } else {
-                genre = "FEMME";
-            }
+            ///
+
+            //Choix du nom
             int inom = text.indexOf("last") + 7;
             String nom = "";
             while (!(text.charAt(inom) == ('"'))) {
                 nom += (text.charAt(inom));
                 inom++;
             }
+            ///
+
+            //Choix du prenom
             int iprenom = text.indexOf("first") + 8;
             String prenom = "";
             while (!(text.charAt(iprenom) == ('"'))) {
                 prenom += (text.charAt(iprenom));
                 iprenom++;
             }
+            ///
+
+            //Choix du lieu
             int ilocation = text.indexOf("city") + 7;
             String location = "";
             while (!(text.charAt(ilocation) == ('"'))) {
                 location += (text.charAt(ilocation));
                 ilocation++;
             }
+            ///
+
+            //Choix de la date de naissance
             int year = entierAlea(1950,2006);
             int month = entierAlea(1,12);
             int day = entierAlea(1,29); //TODO: faire un jour plus réaliste parce que pour l'instant on peut pas être né un 30 x)
             String ddn = String.format("%d/%d/%d", day, month, year);
+            ///
+
+            //Création du profil
             Profil p = new Profil(nom, prenom, ddn, genre, statut[new Random().nextInt(statut.length)], location,
                     recherche[new Random().nextInt(recherche.length)]);
+            ///
+
+            //Choix des images pour les profils+taille
             Random r = new Random();
             Path relativePath = Paths.get("src", "images", p.genre, String.format("%s_%s.jpeg", p.nom, p.prenom));
             Path absolutePath = relativePath.toAbsolutePath();
             File f = new File(absolutePath.toString());
             if (Objects.equals(p.genre, "HOMME")) {
-                int rdm = r.nextInt(mod.listeImageH.size());
-                mod.listeImageH.get(rdm).renameTo(f);
-                mod.listeImageH.remove(mod.listeImageH.get(rdm));
-                p.taille=doubleAlea(1.6,2);
+                p.taille=choix_images_et_taille(f,mod.listeImageH,1.6,2);
             } else if (Objects.equals(p.genre, "FEMME")) {
-                int rdm = r.nextInt(mod.listeImageF.size());
-                mod.listeImageF.get(rdm).renameTo(f);
-                mod.listeImageF.remove(mod.listeImageF.get(rdm));
-                p.taille=doubleAlea(1.5,1.8);
+                p.taille=choix_images_et_taille(f,mod.listeImageF,1.5,1.8);
             } else {
                 int piece = r.nextInt(2);
                 if (piece == 0) {
-                    int rdm = r.nextInt(mod.listeImageF.size());
-                    mod.listeImageF.get(rdm).renameTo(f);
-                    mod.listeImageF.remove(mod.listeImageF.get(rdm));
-                    p.taille = doubleAlea(1.5, 1.8);
+                    p.taille=choix_images_et_taille(f,mod.listeImageF,1.5,1.8);
                 } else {
-                    int rdm = r.nextInt(mod.listeImageH.size());
-                    mod.listeImageH.get(rdm).renameTo(f);
-                    mod.listeImageH.remove(mod.listeImageH.get(rdm));
-                    p.taille = doubleAlea(1.6, 2);
+                    p.taille=choix_images_et_taille(f,mod.listeImageH,1.6,2);
                 }
             }
+            ///
+
+            //Appel d'une fonction auxilliaire pour avoir des qualités, défauts et hobbies aléatoires
             qualdefhobAlea(p.defaut,mod.defaut);
             qualdefhobAlea(p.hobbies,mod.hobbies);
             qualdefhobAlea(p.qualite,mod.qualite);
+            ///
 
+            //Choix de la date de création du profil
             SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
             String date_de_creation=String.format("%d/%d/%d",entierAlea(1,28),entierAlea(1,4),2023);
             p.date_de_creation.setTime(s.parse(date_de_creation));
+            ///
+
             mod.listeProfil.add(p);
         }
     }
