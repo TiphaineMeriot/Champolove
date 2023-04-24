@@ -1,10 +1,12 @@
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 public class Generateur_profil {
@@ -33,19 +35,10 @@ public class Generateur_profil {
         liste.remove(liste.get(rdm));
         return doubleAlea(taillemin,taillemax);
     }
-    //////////////////////////////////////////////////////
-
-    //Surcharge du constructeur qui permet de ne pas générer de profil, mais d'avoir accès aux méthodes liées
-    public Generateur_profil(){
-
-    }
-    public Generateur_profil(Modele mod) throws Exception {
-
+    public void creation_Profil(Modele mod) throws Exception {
         String[] statut = {"CELIBATAIRE", "MARIE", "VEUF"};
         String[] recherche = {"HOMME", "FEMME", "AUTRE"};
-        while (mod.listeImageF.size()!=0 && mod.listeImageH.size()!=0){
-
-            //Choix du genre (avec faible chance d'avoir des non-binaires
+        //Choix du genre (avec faible chance d'avoir des non-binaires
             String genre;
             int rdmbinaire=entierAlea(1,1000);
             if (rdmbinaire!=3){
@@ -99,7 +92,7 @@ public class Generateur_profil {
             //Choix de la date de naissance
             int year = entierAlea(1950,2006);
             int month = entierAlea(1,12);
-            int day = entierAlea(1,29); //TODO: faire un jour plus réaliste parce que pour l'instant on peut pas être né un 30 x)
+            int day = entierAlea(1,29);
             String ddn = String.format("%d/%d/%d", day, month, year);
             ///
 
@@ -140,6 +133,32 @@ public class Generateur_profil {
             ///
 
             mod.listeProfil.add(p);
+    }
+    //////////////////////////////////////////////////////
+
+    //Surcharge du constructeur qui permet de ne pas générer de profil, mais d'avoir accès aux méthodes liées
+    public Generateur_profil(){
+
+    }
+    ///
+
+    //Constructeur de base (sans limitation de profils)
+    public Generateur_profil(Modele mod) throws Exception {
+        while (mod.listeImageF.size()!=0 && mod.listeImageH.size()!=0){
+            creation_Profil(mod);
+        }
+    }
+    ///
+
+    //Constructeur avec limitation de profils
+    public Generateur_profil(Modele mod,int nbrProfil) throws Exception{
+        if (nbrProfil< (mod.listeImageF.size()+mod.listeImageH.size()) /2){ //Je prends la moyenne des 2 tailles comme ça je suis sûr que ça passera
+            for(int i=0;i<nbrProfil;i++){
+                creation_Profil(mod);
+            }
+        }
+        else{
+            System.out.println("Le nombre de profil dépasse la limite d'images présentes dans un des 2 dossiers");
         }
     }
 }

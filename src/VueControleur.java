@@ -54,12 +54,25 @@ public class VueControleur {
         String input=scanner.nextLine().toUpperCase();
         //Vous en avez marre de commenter/décommenter? Plus besoin xP
         if (input.equals("G") || input.equals("GENERATEUR") || input.equals("GEN") || input.equals("GENER")){
-            new Generateur_profil(this.mod);
+            System.out.println("Vous avez choisi de générer des profils aléatoires. Maintenant, quel mode voulez vous?");
+            System.out.println("Si vous voulez le mode avec limitation tappez le nombre de profils que vous souhaitez");
+            System.out.print("générer. Sinon, tappez n'importe quoi");
+            System.out.println();
+            Scanner scan=new Scanner(System.in);
+            if (scan.hasNextInt()){
+                int nbprofil=scan.nextInt();
+                System.out.println("Vous avez choisi de générer "+nbprofil+" Profils");
+                new Generateur_profil(this.mod,nbprofil);
+            }
+            else{
+                System.out.println("Vous avez choisi le mode sans limite, veuillez patienter un petit moment...");
+                new Generateur_profil(this.mod);
+            }
         }
         else{
             this.mod.charger();
         }
-        System.out.println(this.mod.listeProfil.size());
+        System.out.println(String.format("%d profils ont été générés",mod.listeProfil.size()));
         ///
 
         //Ajout des profils dans le gridPane
