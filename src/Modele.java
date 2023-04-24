@@ -8,6 +8,7 @@ public class Modele {
 	public ArrayList<String> defaut;
 	public ArrayList<String> hobbies;
     public TreeSet<Profil> listeProfil;
+	public HashMap<String,TreeSet<Profil>> tripargenre; //Autre organisation des profils, utile dans Matching
 	public ArrayList<File> listeImageH;
 	public ArrayList<File> listeImageF;
 
@@ -28,7 +29,7 @@ public class Modele {
         }
     }
     public Modele() {
-		Comparator<Profil> ddc= new SerializableComparator();
+		Comparator<Profil> ddc= new SerializableComparator(); // Compare en fonction de la date de création
         this.listeProfil=new TreeSet<>(ddc);
 		this.qualite=new ArrayList<>();
 		this.defaut=new ArrayList<>();

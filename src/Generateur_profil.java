@@ -20,7 +20,7 @@ public class Generateur_profil {
         return(rdm.nextDouble(max-min)+min);
     }
 
-    public void qualdefhobAlea(ArrayList<String> liste,ArrayList<String> source){
+    public void qualdefhobAlea(Collection<String> liste,ArrayList<String> source){
         Random r=new Random();
         for(int j=0;j<entierAlea(1,3);j++){
                 int ind=r.nextInt(source.size());

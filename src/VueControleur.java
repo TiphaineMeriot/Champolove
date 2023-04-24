@@ -46,18 +46,17 @@ public class VueControleur {
             this.mod.enregistrer();
         });
         GridPane gridPane = (GridPane) scene.lookup("#GridProfils");
-        //Modif dylan (encore): ajout récupérateur de données au démarrage:
+
+        //Vous en avez marre de commenter/décommenter? Plus besoin xP
         System.out.println("Saisissez un type de démarrage:");
-        System.out.print("Si vous souhaitez démarrer en mode générateur de profil, tappez gen, gener, generateur ");
+        System.out.println("Si vous souhaitez démarrer en mode générateur de profil, tappez gen, gener, generateur ");
         System.out.println("Ou tout simplement g. Sinon, tappez n'importe quoi x) ");
         Scanner scanner=new Scanner(System.in);
         String input=scanner.nextLine().toUpperCase();
-        //Vous en avez marre de commenter/décommenter? Plus besoin xP
         if (input.equals("G") || input.equals("GENERATEUR") || input.equals("GEN") || input.equals("GENER")){
             System.out.println("Vous avez choisi de générer des profils aléatoires. Maintenant, quel mode voulez vous?");
             System.out.println("Si vous voulez le mode avec limitation tappez le nombre de profils que vous souhaitez");
-            System.out.print("générer. Sinon, tappez n'importe quoi");
-            System.out.println();
+            System.out.println("générer. Sinon, tappez n'importe quoi");
             Scanner scan=new Scanner(System.in);
             if (scan.hasNextInt()){
                 int nbprofil=scan.nextInt();
@@ -167,8 +166,6 @@ public class VueControleur {
                     gridPaneInfos.add(labelQualites, 0, 3);
                     gridPaneInfos.add(labelDefauts, 0, 4);
                     gridPaneInfos.add(labelTaille, 0, 5);
-
-
                 }
             });
             i++;
