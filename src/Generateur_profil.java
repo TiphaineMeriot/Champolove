@@ -38,47 +38,48 @@ public class Generateur_profil {
     public void creation_Profil(Modele mod) throws Exception {
         String[] statut = {"CELIBATAIRE", "MARIE", "VEUF"};
         String[] recherche = {"HOMME", "FEMME", "AUTRE"};
-        //Choix du genre (avec faible chance d'avoir des non-binaires
-            String genre;
+        //Choix du genre (avec faible chance d'avoir des non-binaires)+ nom et prenom
+            String genre,nom,prenom;
+            String leprenom="";
             int rdmbinaire=entierAlea(1,1000);
             if (rdmbinaire!=3){
                 int rdmgenre=entierAlea(1,2);
                 if(rdmgenre==1){
                     genre="HOMME";
+                    int iprenom=entierAlea(0,mod.prenomH.size());
+                    leprenom=mod.prenomH.get(iprenom);
                 }
                 else{
                     genre="FEMME";
+                    int iprenom=entierAlea(0,mod.prenomF.size());
+                    leprenom=mod.prenomF.get(iprenom);
                 }
             }
             else{
+                int piece=entierAlea(1,2);
+                if (piece==1){
+                    int iprenom=entierAlea(0,mod.prenomF.size());
+                    leprenom=mod.prenomF.get(iprenom);
+                }
+                else{
+                    int iprenom=entierAlea(0,mod.prenomH.size());
+                    leprenom=mod.prenomH.get(iprenom);
+                }
                 genre="AUTRE";
             }
-            System.out.println(genre);
+            System.out.println(leprenom);
+            String premierelettre=leprenom.substring(0,1);
+            String resteduPrenom=leprenom.substring(1).toLowerCase();
+            prenom=premierelettre+resteduPrenom;
+            int inom=entierAlea(0,mod.nom.size());
+            nom=mod.nom.get(inom);
             ///
 
             //Appel de l'api
-            URL url = new URL("https://randomuser.me/api/?nat=fr&inc=name,location");
+            URL url = new URL("https://randomuser.me/api/?nat=fr&inc=location");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             InputStream responseStream = connection.getInputStream();
             String text = new String(responseStream.readAllBytes(), StandardCharsets.UTF_8);
-            ///
-
-            //Choix du nom
-            int inom = text.indexOf("last") + 7;
-            String nom = "";
-            while (!(text.charAt(inom) == ('"'))) {
-                nom += (text.charAt(inom));
-                inom++;
-            }
-            ///
-
-            //Choix du prenom
-            int iprenom = text.indexOf("first") + 8;
-            String prenom = "";
-            while (!(text.charAt(iprenom) == ('"'))) {
-                prenom += (text.charAt(iprenom));
-                iprenom++;
-            }
             ///
 
             //Choix du lieu
