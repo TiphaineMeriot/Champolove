@@ -78,6 +78,8 @@ public class VueControleur {
         int i = 1;
         for (Profil profil : this.mod.listeProfil) {
             Label labelNomPrenom = new Label(profil.nom + " " + profil.prenom);
+            // on lui met la couleur -->  #fb7434 et en gras
+            labelNomPrenom.setStyle(" -fx-font-weight: bold; -fx-text-fill: #fb7434");
             Image image = null;
             try {
                 //Là je teste si le chemin est valide
@@ -137,20 +139,20 @@ public class VueControleur {
                     //TODO : on modifie l'imageView avatar en fonction de l'image du profil cliqué
                     //imageViewAvatar.setImage(profilClick.image);
 
-                    //le label nomPrenom a une police de titre de taille 30 et est centré a droite et en gras
-                    labelNomPrenom.setStyle("-fx-font-size: 30px; -fx-font-weight: bold; -fx-alignment: center-right;");
-                    //le label date de naissance a une police de titre de taille 16 et est positionné a droite et en gras;
-                    labelDateDeNaissance.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
-                    //le label ville a une police de titre de taille 16 et est positionné a droite et en gras;
-                    labelVille.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
-                    //le label travail a une police de titre de taille 16 et est positionné a droite et en gras;
-                    labelTravail.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
-                    //le label qualitées a une police de titre de taille 16 et est positionné a droite et en gras;
-                    labelQualites.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
-                    //le label defauts a une police de titre de taille 16 et est positionné a droite et en gras;
-                    labelDefauts.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
-                    //le label taille a une police de titre de taille 16 et est positionné a droite et en gras;
-                    labelTaille.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
+                    //le label nomPrenom a une police de titre de taille 30 et est centré a droite et en gras et une couleur de police #fb7434;
+                    labelNomPrenom.setStyle("-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    //le label date de naissance a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
+                    labelDateDeNaissance.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    //le label ville a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
+                    labelVille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    //le label travail a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
+                    labelTravail.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    //le label qualitées a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
+                    labelQualites.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    //le label defauts a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
+                    labelDefauts.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    //le label taille a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
+                    labelTaille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
 
                     GridPane gridPaneDroite = (GridPane) scene.lookup("#gridPaneNom");
                     //on clear le gridPaneDroite pour qu'il ne contienne que les informations du profil précédemment cliqué
