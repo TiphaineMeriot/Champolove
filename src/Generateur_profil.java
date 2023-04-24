@@ -53,6 +53,7 @@ public class Generateur_profil {
             else{
                 genre="AUTRE";
             }
+            System.out.println(genre);
             ///
 
             //Appel de l'api
