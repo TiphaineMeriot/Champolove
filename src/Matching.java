@@ -50,8 +50,6 @@ public class Matching{
         //ville ne soit compté comme un doublon.
         TreeSet<ScoreCompatibilite> match=new TreeSet<>(compat);
 
-        //TODO mettre ça ailleurs
-        mod.tripargenre=new HashMap<>();
         for(Profil profil: mod.listeProfil){
             String genre=profil.genre;
             if(!mod.tripargenre.containsKey(genre)){
@@ -72,16 +70,19 @@ public class Matching{
                     }
                 }
                 for (String notdefaut : pasdefaut) {
-                    if (profil.defaut.contains(pasdefaut)) {
+                    if (profil.defaut.contains(notdefaut)) {
                         compatibilite--;
                     }
                 }
                 for (String hobsearch : S_hobbies) {
-                    if (profil.hobbies.contains(S_hobbies)) {
+                    if (profil.hobbies.contains(hobsearch)) {
                         compatibilite++;
                     }
                 }
-                compatibilite = (compatibilite / (S_hobbies.size() + recherchequal.size())) + 0.5; //On pipe un peu x)
+                double alpha=1.3;
+                compatibilite = (compatibilite / (S_hobbies.size() + recherchequal.size()));
+                compatibilite=Math.pow(alpha,compatibilite);
+                compatibilite=(compatibilite/alpha);
                 ScoreCompatibilite sc=new ScoreCompatibilite(profil,compatibilite);
                 sc.profil.compatibilité=compatibilite;
                 match.add(sc);
@@ -103,6 +104,9 @@ public class Matching{
         mod.charger();
         Matching m=new Matching(mod);
         Profil p1 = new Profil("CHARLIES", "Tom", "01/03/1999", Genre.HOMME.name(), Statut.CELIBATAIRE.name(), "Bordeaux", Genre.HOMME.name());
+        p1.calcul_latitude_longitude();
+        System.out.println(p1.latitude);
+        System.out.println(p1.longitude);
         HashSet<String> S_qual = new HashSet<>();
         HashSet<String> S_def = new HashSet<>();
         HashSet<String> S_hob = new HashSet<>();

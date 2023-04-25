@@ -141,8 +141,8 @@ public class Profil implements Comparable<Profil>, Serializable {
                     i++;
                 }
                 String[] s = coord.toString().split(",");
-                this.latitude = Double.parseDouble(s[0]);
-                this.longitude = Double.parseDouble(s[1]);
+                this.latitude = Double.parseDouble(s[1]);
+                this.longitude = Double.parseDouble(s[0]);
             } else {
                 System.out.println(text);
                 throw new ExceptionVilleInexistante();

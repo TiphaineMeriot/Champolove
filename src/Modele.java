@@ -59,6 +59,7 @@ public class Modele {
 		this.prenomH=new ArrayList<>();
 		this.prenomF=new ArrayList<>();
 		this.lieu=new ArrayList<>();
+		this.tripargenre=new HashMap<>();
 		Path relativePathH= Paths.get("src","images","HOMME");
 		Path relativePathF= Paths.get("src","images","FEMME");
 		Path absolutePathH=relativePathH.toAbsolutePath();
