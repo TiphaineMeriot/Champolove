@@ -47,6 +47,10 @@ public class CreationProfilControleur  {
     private ScrollPane scrollqd;
     @FXML
     private ListView listqd;
+    @FXML
+    private ScrollPane scrolld;
+    @FXML
+    private ListView listd;
 
     public String nom;
     public String prénom;
@@ -58,10 +62,14 @@ public class CreationProfilControleur  {
     public String profession;
     public String recherche;
     public ArrayList<String> h;
-    public ArrayList<String> qd;
+    public ArrayList<String> q;
+    public ArrayList<String> d;
     private ObservableList<String> items;
 
-    private ObservableList<String> qualitedefaut;
+    public ArrayList<String> qualite;
+    public ArrayList<String> defaut;
+    private ObservableList<String> qual;
+    private ObservableList<String> def;
     // Initialisation des combobox en fonction des enum de Profil
     @FXML
     public void initialisationComboBox() {
@@ -98,24 +106,43 @@ public class CreationProfilControleur  {
             }
 
         });
+        Modele m =new Modele();
+        qualite = new ArrayList<>();
+        defaut = new ArrayList<>();
+        String chemqual="src/csv/qualites.csv";
+        String chemdef="src/csv/defaut.csv";
 
-        qualitedefaut = FXCollections.observableArrayList ("Gentil", "Intelligent", "Réservé");
-        listqd.setItems(qualitedefaut);
+        m.aux_qualetdef(chemqual, qualite);
+        m.aux_qualetdef(chemdef, defaut);
+
+        qual = FXCollections.observableArrayList (qualite);
+        listqd.setItems(qual);
         scrollqd.setContent(listqd);
         scrollqd.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollqd.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        qd = new ArrayList<>();
+        q = new ArrayList<>();
         listqd.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                qd.add(observableValue.getValue());
+                q.add(observableValue.getValue());
+            }
+
+        });
+
+        def = FXCollections.observableArrayList (defaut);
+        listd.setItems(def);
+        scrolld.setContent(listd);
+        scrolld.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrolld.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        d = new ArrayList<>();
+        listd.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                d.add(observableValue.getValue());
             }
 
         });
     }
-
-    // Action du boutton créé, permet de récupérer les valeurs du formulaire
-
 
 
 
@@ -128,17 +155,19 @@ public class CreationProfilControleur  {
         date =dateNaissancetxt.getValue();
         genre = genretxt.getValue();
         statut = statuttxt.getValue();
-        profession = professiontxt.getValue();
+       // profession = professiontxt.getValue();
         recherche = recherchetxt.getValue();
 
         if(nom.equals("") || prénom.equals("") || date.equals("") || ville.equals("")|| genre == null || statut == null
-                || recherche==null || profession==null ) {
+                || recherche==null) {
             // TODO gérer erreur de date
             afficherMessage("Terme manquant");
+
         }else {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             dateFormatée = date.format(dateTimeFormatter);
-
+            créer();
+            afficherMessage("ok");
         }
 
     }
@@ -152,15 +181,17 @@ public class CreationProfilControleur  {
     }
 
     // Méthode qui créé le profil
-    /*
+
     public void créer() throws Exception {
         Profil p = new Profil(nom, prénom, dateFormatée, genre, statut, ville, recherche);
-        p.hobbies.addAll(h);
-        p.qualite.addAll(qd);
+        //p.hobbies.addAll(h);
+        //p.qualite.addAll(qd);
         System.out.println(p);
         afficherMessage("Le profil a bien été créé");
         System.exit(0);
 
     }
-*/
+
+
+
 }

@@ -1,11 +1,7 @@
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 
@@ -17,9 +13,13 @@ public class CreationProfil extends Application {
         Parent root = loader.load();
         CreationProfilControleur controleur = loader.getController();
         controleur.initialisationComboBox();
+        controleur.init();
         stage.setScene(new Scene(root));
+        stage.centerOnScreen();
+        stage.setMinHeight(400);
+        stage.setMinWidth(600);
         stage.show();
-        stage.setResizable(false);
+        //stage.setResizable(false);
         stage.setTitle("Créer un nouveau profil");
 
 
