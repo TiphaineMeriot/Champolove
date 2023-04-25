@@ -30,6 +30,7 @@ public class Profil implements Comparable<Profil>, Serializable {
     double taille;
     double compatibilité;
     String image;
+    Boolean actif;
 
     public Profil(String nom,String prenom,String date_de_naissance,String genre,String statut,String ville,String recherche) throws Exception {
         this.hobbies= new ArrayList<>();
@@ -43,6 +44,7 @@ public class Profil implements Comparable<Profil>, Serializable {
         this.statut = statut;
         this.ville = ville.toUpperCase();
         this.recherche=recherche;
+        this.actif=true;
         //J'appelle la méthode pour calculer l'âge
         calcul_age();
         calcul_signe();

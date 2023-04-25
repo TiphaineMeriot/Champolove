@@ -80,7 +80,7 @@ public class Generateur_profil {
         ///
 
         //Choix de la date de naissance
-        int year = entierAlea(1950,2006);
+        int year = entierAlea(1950,2004);
         int month = entierAlea(1,12);
         int day = entierAlea(1,29);
         String ddn = String.format("%d/%d/%d", day, month, year);
@@ -97,7 +97,7 @@ public class Generateur_profil {
         Path absolutePath = relativePath.toAbsolutePath();
         File f = new File(absolutePath.toString());
         if (Objects.equals(p.genre, "HOMME")) {
-            choix_images_et_taille(p,p.genre,mod.listeImageH,1.6,2);
+            p.taille=choix_images_et_taille(p,p.genre,mod.listeImageH,1.6,2);
         } else if (Objects.equals(p.genre, "FEMME")) {
             p.image=absolutePath.toString();
             p.taille=choix_images_et_taille(p,p.genre,mod.listeImageF,1.5,1.8);
@@ -106,7 +106,7 @@ public class Generateur_profil {
             if (piece == 0) {
                 p.taille=choix_images_et_taille(p,p.genre,mod.listeImageF,1.5,1.8);
             } else {
-                choix_images_et_taille(p,"HOMME",mod.listeImageH,1.6,2);
+                p.taille=choix_images_et_taille(p,"HOMME",mod.listeImageH,1.6,2);
             }
         }
         ///

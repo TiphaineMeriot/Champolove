@@ -21,6 +21,7 @@ public class Matching{
         }
     }
     private double compatibilite;
+
     //TODO: On enlèvera cette partie quand on aura fait les tests et qu'on aura implanté matching
     public void print(HashSet<String> set){
         for(String s:set){
@@ -28,7 +29,7 @@ public class Matching{
         }
         System.out.println();
     }
-    ////
+    ///
     public Matching(Modele mod){
         Matching.mod =mod;
     }
@@ -40,6 +41,7 @@ public class Matching{
     //ça serait un truc du genre:
     public TreeSet<Profil> matching1(Profil p1, HashSet<String> recherchequal
             , HashSet<String> pasdefaut, HashSet<String> S_hobbies) {
+        p1.actif=false; // J'enlève le profil de la liste des profils trouvés (on sait jamais).
         Comparator<ScoreCompatibilite> compat = Comparator.comparingDouble(ScoreCompatibilite::getScore).reversed()
                 .thenComparing(sc->sc.profil.compareTo(p1))
                 .thenComparing(sc -> sc.profil.nom)
@@ -92,6 +94,7 @@ public class Matching{
         for(ScoreCompatibilite scorec:match){
             resultat.add(scorec.getProfil());
         }
+        p1.actif=true;
         return resultat;
         }
 
