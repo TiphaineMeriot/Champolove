@@ -22,7 +22,11 @@ public class Generateur_profil {
             }
     }
 
-    public double choix_images_et_taille(File f,ArrayList<File> liste,double taillemin,double taillemax){
+    public double choix_images_et_taille(Profil p,String genreim,ArrayList<File> liste,double taillemin,double taillemax){
+        Path relativePath = Paths.get("src", "images",genreim, String.format("%s_%s.jpeg", p.nom, p.prenom));
+        Path absolutePath = relativePath.toAbsolutePath();
+        File f = new File(absolutePath.toString());
+        p.image=absolutePath.toString();
         Random r=new Random();
         int rdm=r.nextInt(liste.size());
         liste.get(rdm).renameTo(f);
@@ -40,23 +44,23 @@ public class Generateur_profil {
             int rdmgenre=entierAlea(1,2);
             if(rdmgenre==1){
                 genre="HOMME";
-                int iprenom=entierAlea(0,mod.prenomH.size());
+                int iprenom=entierAlea(0,mod.prenomH.size()-1);
                 leprenom=mod.prenomH.get(iprenom);
             }
             else{
                 genre="FEMME";
-                int iprenom=entierAlea(0,mod.prenomF.size());
+                int iprenom=entierAlea(0,mod.prenomF.size()-1);
                 leprenom=mod.prenomF.get(iprenom);
             }
         }
         else{
             int piece=entierAlea(1,2);
             if (piece==1){
-                int iprenom=entierAlea(0,mod.prenomF.size());
+                int iprenom=entierAlea(0,mod.prenomF.size()-1);
                 leprenom=mod.prenomF.get(iprenom);
             }
             else{
-                int iprenom=entierAlea(0,mod.prenomH.size());
+                int iprenom=entierAlea(0,mod.prenomH.size()-1);
                 leprenom=mod.prenomH.get(iprenom);
             }
             genre="AUTRE";
@@ -64,12 +68,12 @@ public class Generateur_profil {
         String premierelettre=leprenom.substring(0,1);
         String resteduPrenom=leprenom.substring(1).toLowerCase();
         prenom=premierelettre+resteduPrenom;
-        int inom=entierAlea(0,mod.nom.size());
+        int inom=entierAlea(0,mod.nom.size()-1);
         nom=mod.nom.get(inom);
         ///
 
         //Choix du lieu
-        int ilocation=entierAlea(0,mod.lieu.size());
+        int ilocation=entierAlea(0,mod.lieu.size()-1);
         String location=mod.lieu.get(ilocation).location;
         double latitude=mod.lieu.get(ilocation).latitude;
         double longitude=mod.lieu.get(ilocation).longitude;
@@ -87,21 +91,22 @@ public class Generateur_profil {
                 recherche[new Random().nextInt(recherche.length)]);
         ///
 
-        //Choix des images pour les profils+taille
+        //Choix des tailles+images pour les profils
         Random r = new Random();
         Path relativePath = Paths.get("src", "images", p.genre, String.format("%s_%s.jpeg", p.nom, p.prenom));
         Path absolutePath = relativePath.toAbsolutePath();
         File f = new File(absolutePath.toString());
         if (Objects.equals(p.genre, "HOMME")) {
-            p.taille=choix_images_et_taille(f,mod.listeImageH,1.6,2);
+            choix_images_et_taille(p,p.genre,mod.listeImageH,1.6,2);
         } else if (Objects.equals(p.genre, "FEMME")) {
-            p.taille=choix_images_et_taille(f,mod.listeImageF,1.5,1.8);
+            p.image=absolutePath.toString();
+            p.taille=choix_images_et_taille(p,p.genre,mod.listeImageF,1.5,1.8);
         } else {
             int piece = r.nextInt(2);
             if (piece == 0) {
-                p.taille=choix_images_et_taille(f,mod.listeImageF,1.5,1.8);
+                p.taille=choix_images_et_taille(p,p.genre,mod.listeImageF,1.5,1.8);
             } else {
-                p.taille=choix_images_et_taille(f,mod.listeImageH,1.6,2);
+                choix_images_et_taille(p,"HOMME",mod.listeImageH,1.6,2);
             }
         }
         ///
@@ -150,6 +155,7 @@ public class Generateur_profil {
         }
         else{
             System.out.println("Le nombre de profil dépasse la limite d'images présentes dans un des 2 dossiers");
+            System.exit(0);
         }
     }
 }

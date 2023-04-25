@@ -83,10 +83,7 @@ public class VueControleur {
             Image image = null;
             try {
                 //Là je teste si le chemin est valide
-                //Je convertis aussi le chemin relatif en absolu parce que ça marche pas sinon jsp pk
-                Path relativePath= Paths.get("src","images", profil.genre,String.format("%s_%s.jpeg",profil.nom,profil.prenom));
-                Path absolutePath=relativePath.toAbsolutePath();
-                image = new Image(absolutePath.toString());
+                image = new Image(profil.image);
             } catch (IllegalArgumentException e) {
                 System.out.println("L'url est introuvable ou invalide:" + String.format("src/images/%s/%s_%s.jpeg", profil.genre, profil.nom, profil.prenom));
                 System.out.println("Current working directory: " + System.getProperty("user.dir"));

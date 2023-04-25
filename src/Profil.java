@@ -29,7 +29,7 @@ public class Profil implements Comparable<Profil>, Serializable {
     int age;
     double taille;
     double compatibilité;
-
+    String image;
 
     public Profil(String nom,String prenom,String date_de_naissance,String genre,String statut,String ville,String recherche) throws Exception {
         this.hobbies= new ArrayList<>();

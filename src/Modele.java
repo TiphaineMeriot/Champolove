@@ -37,7 +37,7 @@ public class Modele {
 	///
 
 	//Cette méthode permet de stocker le nom de la ville mais également la latitude et la longitude dans une seule liste
-	public static class Donnees{
+	public static class Donnees implements Serializable{
 		String location;
 		double latitude,longitude;
 		public Donnees(String loc,double lat,double longi){
@@ -93,6 +93,7 @@ public class Modele {
 			aux_enregistrer("donnees/prenomH.dat",this.prenomH);
 			aux_enregistrer("donnees/prenomF.dat",this.prenomF);
 			aux_enregistrer("donnees/nom.dat",this.nom);
+			aux_enregistrer("donnees/ville.dat",this.lieu);
 		} catch (IOException e) {
 			throw new RuntimeException("Impossible d'écrire les données");
 		}
@@ -122,6 +123,7 @@ public class Modele {
 			this.prenomH = aux_charger("donnees/prenomH.dat");
 			this.prenomF = aux_charger("donnees/prenomF.dat");
 			this.nom = aux_charger("donnees/nom.dat");
+			this.lieu=aux_charger("donnees/ville.dat");
 		} catch (Exception e) {
 			throw new RuntimeException("Lecture des données impossibles ou données corrompues");
 		}
@@ -136,7 +138,7 @@ public class Modele {
 		String chemprenomF="donnees/prenomF.csv";
 		String chemprenomH="donnees/prenomH.csv";
 		String chemnom="donnees/nom.csv";
-		String chemville="donnees/ville.csv";
+		String chemville="donnees/villes_france.csv";
 		aux_csv_transform(chemqual, this.qualite);
 		aux_csv_transform(chemdef, this.defaut);
 		aux_csv_transform(chemhobbies,this.hobbies);
