@@ -4,16 +4,19 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class Modele {
+	//Déclaration des Structures utilisées
 	public ArrayList<String> qualite;
 	public ArrayList<String> defaut;
 	public ArrayList<String> hobbies;
 	public ArrayList<String> prenomH;
 	public ArrayList<String> prenomF;
 	public ArrayList<String> nom;
+	public ArrayList<Donnees> lieu;
     public TreeSet<Profil> listeProfil;
 	public HashMap<String,TreeSet<Profil>> tripargenre; //Autre organisation des profils, utile dans Matching
 	public ArrayList<File> listeImageH;
 	public ArrayList<File> listeImageF;
+	///
 
 	//Cette méthode est indispensable pour pouvoir sérialiser le comparateur.
 	//Elle fait la même chose qu'un comparateur classique à part qu'il faut dire chaque étape de la comparaison
@@ -31,6 +34,21 @@ public class Modele {
             return result;
         }
     }
+	///
+
+	//Cette méthode permet de stocker le nom de la ville mais également la latitude et la longitude dans une seule liste
+	public static class Donnees{
+		String location;
+		double latitude,longitude;
+		public Donnees(String loc,double lat,double longi){
+			this.location=loc;
+			this.latitude=lat;
+			this.longitude=longi;
+		}
+	}
+	///
+
+	///Constructeur de modèle qui instancie les objets mis en jeu.
     public Modele() {
 		Comparator<Profil> ddc= new SerializableComparator(); // Compare en fonction de la date de création
         this.listeProfil=new TreeSet<>(ddc);
@@ -40,6 +58,7 @@ public class Modele {
 		this.nom=new ArrayList<>();
 		this.prenomH=new ArrayList<>();
 		this.prenomF=new ArrayList<>();
+		this.lieu=new ArrayList<>();
 		Path relativePathH= Paths.get("src","images","HOMME");
 		Path relativePathF= Paths.get("src","images","FEMME");
 		Path absolutePathH=relativePathH.toAbsolutePath();
@@ -52,6 +71,9 @@ public class Modele {
 		this.listeImageH.addAll(List.of(dirH.listFiles()));
 		csv_transform(); //TODO faire ça que quand on a pas de .dat (sinon c'est inutile)
     }
+	///
+
+	//Cette méthode permet de généraliser l'enregistrement des données pour avoir un code plus épuré (il factorise en gros)
 	public void aux_enregistrer(String chemin, Object liste) throws IOException {
 		FileOutputStream fos = new FileOutputStream(chemin);
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -59,6 +81,9 @@ public class Modele {
 		oos.close();
 		fos.close();
 	}
+	///
+
+	//Méthode permettant la sérialisation des données dans un fichier .dat
     public void enregistrer() {
 		try {
 			aux_enregistrer("donnees/profil.dat",this.listeProfil);
@@ -72,6 +97,10 @@ public class Modele {
 			throw new RuntimeException("Impossible d'écrire les données");
 		}
 	}
+	///
+
+	//Cette méthode permet de généraliser le chargement des données pour avoir un code plus épuré (il factorise en gros)
+	//T est un terme générique servant à récupérer le type de l'objet en question. C'est très pratique!
 	@SuppressWarnings("unchecked")
 	public <T> T aux_charger(String chemin) throws Exception {
 		FileInputStream fis = new FileInputStream(chemin);
@@ -81,7 +110,9 @@ public class Modele {
 		fis.close();
 		return liste;
 	}
+	///
 
+	//Méthode permettant la récupération des données sérialisées dans un fichier .dat
 	public void charger() {
 		try {
 			this.listeProfil = aux_charger("donnees/profil.dat");
@@ -95,6 +126,9 @@ public class Modele {
 			throw new RuntimeException("Lecture des données impossibles ou données corrompues");
 		}
 	}
+	///
+
+	//Méthode permettant la transformation d'un fichier csv en une structure de données appropriées (que des listes)
 	public void csv_transform(){
 		String chemqual="donnees/qualites.csv";
 		String chemdef="donnees/defaut.csv";
@@ -102,14 +136,18 @@ public class Modele {
 		String chemprenomF="donnees/prenomF.csv";
 		String chemprenomH="donnees/prenomH.csv";
 		String chemnom="donnees/nom.csv";
-		aux_csv_transform(chemqual, qualite);
-		aux_csv_transform(chemdef, defaut);
-		aux_csv_transform(chemhobbies,hobbies);
-		aux_csv_transform(chemprenomF,prenomF);
-		aux_csv_transform(chemprenomH,prenomH);
-		aux_csv_transform(chemnom,nom);
+		String chemville="donnees/ville.csv";
+		aux_csv_transform(chemqual, this.qualite);
+		aux_csv_transform(chemdef, this.defaut);
+		aux_csv_transform(chemhobbies,this.hobbies);
+		aux_csv_transform(chemprenomF,this.prenomF);
+		aux_csv_transform(chemprenomH,this.prenomH);
+		aux_csv_transform(chemnom,this.nom);
+		aux_csv_transform_loc(chemville,this.lieu);
 	}
+	///
 
+	//auxilliaire de la méthode précédente toujours pour épurer le code.
 	public void aux_csv_transform(String chematr, ArrayList<String> attribut) {
 		String line;
 		try (BufferedReader br=new BufferedReader(new FileReader(chematr))){
@@ -121,5 +159,26 @@ public class Modele {
 			throw new RuntimeException(e);
 		}
 	}
+	///
+
+	//auxilliaire également, mais que pour la location (j'aurais pu le faire dans csv_transform mais c'est plus joli x))
+	public void aux_csv_transform_loc(String chematr,ArrayList<Donnees> lieu){
+		String line;
+		try (BufferedReader br=new BufferedReader(new FileReader(chematr))){
+			while((line= br.readLine()) !=null){
+				String[] columns=line.split(",");
+				String location=columns[5].replace("\"", "");
+				String longiSansGuillemets = columns[19].replace("\"", "");
+				String latiSansGuillemets = columns[20].replace("\"", "");
+				double longitude=Double.parseDouble(longiSansGuillemets);
+				double latitude=Double.parseDouble(latiSansGuillemets);
+				Donnees donnees=new Donnees(location,latitude,longitude);
+				lieu.add(donnees);
+			}
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	///
 }
 

@@ -1,6 +1,3 @@
-import javafx.scene.image.Image;
-
-import java.awt.*;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
@@ -31,7 +28,6 @@ public class Profil implements Comparable<Profil>, Serializable {
     ArrayList<String> hobbies,qualite,defaut;
     int age;
     double taille;
-    Image image;
     double compatibilité;
 
 
@@ -50,7 +46,7 @@ public class Profil implements Comparable<Profil>, Serializable {
         //J'appelle la méthode pour calculer l'âge
         calcul_age();
         calcul_signe();
-        calcul_latitude_longitude();
+//        calcul_latitude_longitude();
     }
 
 
@@ -118,8 +114,6 @@ public class Profil implements Comparable<Profil>, Serializable {
         }
     }
     public void calcul_latitude_longitude() throws Exception {
-
-
 
         String urlEncodedVille;
         urlEncodedVille = URLEncoder.encode(this.ville, StandardCharsets.UTF_8);

@@ -1,12 +1,6 @@
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 public class Generateur_profil {
@@ -39,102 +33,97 @@ public class Generateur_profil {
         String[] statut = {"CELIBATAIRE", "MARIE", "VEUF"};
         String[] recherche = {"HOMME", "FEMME", "AUTRE"};
         //Choix du genre (avec faible chance d'avoir des non-binaires)+ nom et prenom
-            String genre,nom,prenom;
-            String leprenom="";
-            int rdmbinaire=entierAlea(1,1000);
-            if (rdmbinaire!=3){
-                int rdmgenre=entierAlea(1,2);
-                if(rdmgenre==1){
-                    genre="HOMME";
-                    int iprenom=entierAlea(0,mod.prenomH.size());
-                    leprenom=mod.prenomH.get(iprenom);
-                }
-                else{
-                    genre="FEMME";
-                    int iprenom=entierAlea(0,mod.prenomF.size());
-                    leprenom=mod.prenomF.get(iprenom);
-                }
+        String genre,nom,prenom;
+        String leprenom;
+        int rdmbinaire=entierAlea(1,1000);
+        if (rdmbinaire!=3){
+            int rdmgenre=entierAlea(1,2);
+            if(rdmgenre==1){
+                genre="HOMME";
+                int iprenom=entierAlea(0,mod.prenomH.size());
+                leprenom=mod.prenomH.get(iprenom);
             }
             else{
-                int piece=entierAlea(1,2);
-                if (piece==1){
-                    int iprenom=entierAlea(0,mod.prenomF.size());
-                    leprenom=mod.prenomF.get(iprenom);
-                }
-                else{
-                    int iprenom=entierAlea(0,mod.prenomH.size());
-                    leprenom=mod.prenomH.get(iprenom);
-                }
-                genre="AUTRE";
+                genre="FEMME";
+                int iprenom=entierAlea(0,mod.prenomF.size());
+                leprenom=mod.prenomF.get(iprenom);
             }
-            System.out.println(leprenom);
-            String premierelettre=leprenom.substring(0,1);
-            String resteduPrenom=leprenom.substring(1).toLowerCase();
-            prenom=premierelettre+resteduPrenom;
-            int inom=entierAlea(0,mod.nom.size());
-            nom=mod.nom.get(inom);
-            ///
-
-            //Appel de l'api
-            URL url = new URL("https://randomuser.me/api/?nat=fr&inc=location");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            InputStream responseStream = connection.getInputStream();
-            String text = new String(responseStream.readAllBytes(), StandardCharsets.UTF_8);
-            ///
-
-            //Choix du lieu
-            int ilocation = text.indexOf("city") + 7;
-            String location = "";
-            while (!(text.charAt(ilocation) == ('"'))) {
-                location += (text.charAt(ilocation));
-                ilocation++;
+        }
+        else{
+            int piece=entierAlea(1,2);
+            if (piece==1){
+                int iprenom=entierAlea(0,mod.prenomF.size());
+                leprenom=mod.prenomF.get(iprenom);
             }
-            ///
+            else{
+                int iprenom=entierAlea(0,mod.prenomH.size());
+                leprenom=mod.prenomH.get(iprenom);
+            }
+            genre="AUTRE";
+        }
+        String premierelettre=leprenom.substring(0,1);
+        String resteduPrenom=leprenom.substring(1).toLowerCase();
+        prenom=premierelettre+resteduPrenom;
+        int inom=entierAlea(0,mod.nom.size());
+        nom=mod.nom.get(inom);
+        ///
 
-            //Choix de la date de naissance
-            int year = entierAlea(1950,2006);
-            int month = entierAlea(1,12);
-            int day = entierAlea(1,29);
-            String ddn = String.format("%d/%d/%d", day, month, year);
-            ///
+        //Choix du lieu
+        int ilocation=entierAlea(0,mod.lieu.size());
+        String location=mod.lieu.get(ilocation).location;
+        double latitude=mod.lieu.get(ilocation).latitude;
+        double longitude=mod.lieu.get(ilocation).longitude;
+        ///
 
-            //Création du profil
-            Profil p = new Profil(nom, prenom, ddn, genre, statut[new Random().nextInt(statut.length)], location,
-                    recherche[new Random().nextInt(recherche.length)]);
-            ///
+        //Choix de la date de naissance
+        int year = entierAlea(1950,2006);
+        int month = entierAlea(1,12);
+        int day = entierAlea(1,29);
+        String ddn = String.format("%d/%d/%d", day, month, year);
+        ///
 
-            //Choix des images pour les profils+taille
-            Random r = new Random();
-            Path relativePath = Paths.get("src", "images", p.genre, String.format("%s_%s.jpeg", p.nom, p.prenom));
-            Path absolutePath = relativePath.toAbsolutePath();
-            File f = new File(absolutePath.toString());
-            if (Objects.equals(p.genre, "HOMME")) {
-                p.taille=choix_images_et_taille(f,mod.listeImageH,1.6,2);
-            } else if (Objects.equals(p.genre, "FEMME")) {
+        //Création du profil
+        Profil p = new Profil(nom, prenom, ddn, genre, statut[new Random().nextInt(statut.length)], location,
+                recherche[new Random().nextInt(recherche.length)]);
+        ///
+
+        //Choix des images pour les profils+taille
+        Random r = new Random();
+        Path relativePath = Paths.get("src", "images", p.genre, String.format("%s_%s.jpeg", p.nom, p.prenom));
+        Path absolutePath = relativePath.toAbsolutePath();
+        File f = new File(absolutePath.toString());
+        if (Objects.equals(p.genre, "HOMME")) {
+            p.taille=choix_images_et_taille(f,mod.listeImageH,1.6,2);
+        } else if (Objects.equals(p.genre, "FEMME")) {
+            p.taille=choix_images_et_taille(f,mod.listeImageF,1.5,1.8);
+        } else {
+            int piece = r.nextInt(2);
+            if (piece == 0) {
                 p.taille=choix_images_et_taille(f,mod.listeImageF,1.5,1.8);
             } else {
-                int piece = r.nextInt(2);
-                if (piece == 0) {
-                    p.taille=choix_images_et_taille(f,mod.listeImageF,1.5,1.8);
-                } else {
-                    p.taille=choix_images_et_taille(f,mod.listeImageH,1.6,2);
-                }
+                p.taille=choix_images_et_taille(f,mod.listeImageH,1.6,2);
             }
-            ///
+        }
+        ///
 
-            //Appel d'une fonction auxilliaire pour avoir des qualités, défauts et hobbies aléatoires
-            qualdefhobAlea(p.defaut,mod.defaut);
-            qualdefhobAlea(p.hobbies,mod.hobbies);
-            qualdefhobAlea(p.qualite,mod.qualite);
-            ///
+        //Appel d'une fonction auxilliaire pour avoir des qualités, défauts et hobbies aléatoires
+        qualdefhobAlea(p.defaut,mod.defaut);
+        qualdefhobAlea(p.hobbies,mod.hobbies);
+        qualdefhobAlea(p.qualite,mod.qualite);
+        ///
 
-            //Choix de la date de création du profil
-            SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-            String date_de_creation=String.format("%d/%d/%d",entierAlea(1,28),entierAlea(1,4),2023);
-            p.date_de_creation.setTime(s.parse(date_de_creation));
-            ///
+        //Choix de la date de création du profil
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        String date_de_creation=String.format("%d/%d/%d",entierAlea(1,28),entierAlea(1,4),2023);
+        p.date_de_creation.setTime(s.parse(date_de_creation));
+        ///
 
-            mod.listeProfil.add(p);
+        //Ajout latitude et longitude
+        p.latitude=latitude;
+        p.longitude=longitude;
+        ///
+
+        mod.listeProfil.add(p);
     }
     //////////////////////////////////////////////////////
 
