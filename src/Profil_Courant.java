@@ -9,8 +9,6 @@ public class Profil_Courant {
         this.mod=mod;
     }
     public void tri() {
-        Comparator<Profil> compa_create_date = Comparator.comparing((Profil p) -> p.date_de_creation, Comparator.reverseOrder())
-                                      .thenComparing(p -> p.nom);
 
 
 

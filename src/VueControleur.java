@@ -46,20 +46,18 @@ public class VueControleur {
             this.mod.enregistrer();
         });
         GridPane gridPane = (GridPane) scene.lookup("#GridProfils");
-        //Modif dylan (encore): ajout récupérateur de données au démarrage:
+
+        //Vous en avez marre de commenter/décommenter? Plus besoin xP
         System.out.println("Saisissez un type de démarrage:");
-        System.out.print("Si vous souhaitez démarrer en mode générateur de profil, tappez gen, gener, generateur ");
+        System.out.println("Si vous souhaitez démarrer en mode générateur de profil, tappez gen, gener, generateur ");
         System.out.println("Ou tout simplement g. Sinon, tappez n'importe quoi x) ");
         Scanner scanner=new Scanner(System.in);
         String input=scanner.nextLine().toUpperCase();
-        //Vous en avez marre de commenter/décommenter? Plus besoin xP
         if (input.equals("G") || input.equals("GENERATEUR") || input.equals("GEN") || input.equals("GENER")){
             System.out.println("Vous avez choisi de générer des profils aléatoires. Maintenant, quel mode voulez vous?");
             System.out.println("Si vous voulez le mode avec limitation tappez le nombre de profils que vous souhaitez");
-            System.out.print("générer. Sinon, tappez n'importe quoi");
-            System.out.println();
+            System.out.println("générer. Sinon, tappez n'importe quoi");
             Scanner scan=new Scanner(System.in);
-
             if (scan.hasNextInt()){
                 int nbprofil=scan.nextInt();
                 System.out.println("Vous avez choisi de générer "+nbprofil+" Profils");
@@ -144,7 +142,7 @@ public class VueControleur {
                     //le label nomPrenom a une police de titre de taille 30 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelNomPrenom.setStyle("-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
                     //le label date de naissance a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
-                    labelDateDeNaissance.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434;");
+                    labelDateDeNaissance.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
                     //le label ville a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelVille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
                     //le label travail a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
@@ -156,11 +154,11 @@ public class VueControleur {
                     //le label taille a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelTaille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
 
-                    GridPane gridPaneNom = (GridPane) scene.lookup("#gridPaneNom");
+                    GridPane gridPaneDroite = (GridPane) scene.lookup("#gridPaneNom");
                     //on clear le gridPaneDroite pour qu'il ne contienne que les informations du profil précédemment cliqué
-                    gridPaneNom.getChildren().clear();
+                    gridPaneDroite.getChildren().clear();
                     //on ajoute les labels dans la colonne 1 de gridPaneDroite
-                    gridPaneNom.add(labelNomPrenom, 0, 0);
+                    gridPaneDroite.add(labelNomPrenom, 0, 0);
 
                     GridPane gridPaneInfos = (GridPane) scene.lookup("#gridPaneInfos");
                     gridPaneInfos.getChildren().clear();
@@ -170,18 +168,6 @@ public class VueControleur {
                     gridPaneInfos.add(labelQualites, 0, 3);
                     gridPaneInfos.add(labelDefauts, 0, 4);
                     gridPaneInfos.add(labelTaille, 0, 5);
-
-                    // on récuperer l'image view d'id imageProfil
-                    ImageView imageViewProfil = (ImageView) scene.lookup("#imageProfil");
-                    // on modifie l'image view en fonction de l'image du chemin /images/loupe.png
-                    Path relativePath= Paths.get("src","images", profil.genre,String.format("%s_%s.jpeg",profil.nom,profil.prenom));
-                    Path absolutePath=relativePath.toAbsolutePath();
-                    Image imageEE = new Image(absolutePath.toString());
-                    imageViewProfil.setImage(imageEE);
-
-
-
-
                 }
             });
             i++;
