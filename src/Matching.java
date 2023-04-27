@@ -1,9 +1,7 @@
-import com.sun.webkit.Timer;
-
-import java.math.BigDecimal;
 import java.util.*;
 
 public class Matching{
+    //TODO Je me suis rendu compte qu'il fallait que ça marche dans les 2 sens pour qu'il y ait matching x)
     static Modele mod;
     public class ScoreCompatibilite{
         private Profil profil;
@@ -28,6 +26,45 @@ public class Matching{
         System.out.println();
     }
     ///
+
+    //Teste si le match entre 2 personnes est possible en fonction de leurs exigences.
+    public boolean condition_match(Profil p,Profil p1){
+        int agemin=p1.exi.agemin;
+        int agemax=p1.exi.agemax;
+        int distancemax=p1.exi.distance;
+        int ageminp=p.exi.agemin;
+        int agemaxp=p.exi.agemax;
+        int distancemaxp=p.exi.distance;
+        boolean exi_p1=agemin<=p.age && p.age<=agemax && p1.compareTo(p)<=distancemax;
+        boolean exi_p=p.exi.attirance.contains(p1.genre)
+                && ageminp<=p1.age && p1.age<=agemaxp && p.compareTo(p1)<=distancemaxp;
+        return exi_p && exi_p1;
+    }
+    ///
+
+    //Teste si le profil p2 correspond au profil p1
+    public double correspond(Profil p1,Profil p2){
+        HashSet<String> recherchequal=p1.exi.choix_qualite;
+        HashSet<String> S_hobbies=p1.exi.choix_hobbies;
+        HashSet<String> pasdefaut=p1.exi.choix_defaut;
+        double compatibilite = 0;
+        for (String qualsearch : recherchequal) {
+            if (p2.qualite.contains(qualsearch)) {
+                compatibilite++;
+            }
+        }
+        for (String notdefaut : pasdefaut) {
+            if (p2.defaut.contains(notdefaut)) {
+                compatibilite--;
+            }
+        }
+        for (String hobsearch : S_hobbies) {
+            if (p2.hobbies.contains(hobsearch)) {
+                compatibilite++;
+            }
+        }
+        return compatibilite;
+    }
     public Matching(Modele mod){
         Matching.mod =mod;
     }
@@ -72,26 +109,11 @@ public class Matching{
             TreeSet<Profil> rechercher = mod.tripargenre.get(genrer);
             for (Profil profil : rechercher) {
                 //Teste si la personne est active + si elle satisfait toutes les exigences + si elle est attirée par le genre de p1
-                if (profil.actif && profil.exi.attirance.contains(p1.genre) && agemin<=profil.age && profil.age<=agemax && p1.compareTo(profil)<=distancemax) {
-                    double compatibilite = 0;
-                    for (String qualsearch : recherchequal) {
-                        if (profil.qualite.contains(qualsearch)) {
-                            compatibilite++;
-                        }
-                    }
-                    for (String notdefaut : pasdefaut) {
-                        if (profil.defaut.contains(notdefaut)) {
-                            compatibilite--;
-                        }
-                    }
-                    for (String hobsearch : S_hobbies) {
-                        if (profil.hobbies.contains(hobsearch)) {
-                            compatibilite++;
-                        }
-                    }
+                if (profil.actif && condition_match(profil,p1)) {
                     double alpha = 1.3;
-                    compatibilite = (compatibilite / (S_hobbies.size() + recherchequal.size()));
-                    compatibilite = Math.pow(alpha, compatibilite);
+                    double compatibilitep1 = (correspond(p1,profil) / (p1.exi.choix_hobbies.size() + p1.exi.choix_qualite.size()));
+                    double compatibilitepro= (correspond(profil,p1) /(profil.exi.choix_hobbies.size()+profil.exi.choix_qualite.size()));
+                    double compatibilite = Math.pow(alpha, (compatibilitep1+compatibilitepro)/2);
                     compatibilite = (compatibilite / alpha);
                     ScoreCompatibilite sc = new ScoreCompatibilite(profil, compatibilite);
                     sc.profil.compatibilité = compatibilite;
