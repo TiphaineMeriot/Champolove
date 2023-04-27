@@ -87,9 +87,31 @@ public class Generateur_profil {
         ///
 
         //Création du profil
-        Profil p = new Profil(nom, prenom, ddn, genre, statut[new Random().nextInt(statut.length)], location,
-                recherche[new Random().nextInt(recherche.length)]);
+        HashSet<String> attirance=new HashSet<>();
+        for(int i=0;i<entierAlea(1,3);i++){
+            attirance.add(recherche[new Random().nextInt(recherche.length)]);
+        }
+        Profil p = new Profil(nom, prenom, ddn, genre, statut[new Random().nextInt(statut.length)], location,attirance);
         ///
+
+        //Ajout des exigences
+
+        //Exigences hobbies/qualités/défauts
+        qualdefhobAlea(p.exi.choix_defaut,mod.defaut);
+        qualdefhobAlea(p.exi.choix_hobbies,mod.hobbies);
+        qualdefhobAlea(p.exi.choix_qualite,mod.qualite);
+        ///
+        //Exigence distance
+        p.exi.distance=entierAlea(50,1000);
+        ///
+        //Exigence age
+        do{
+            p.exi.agemin=entierAlea(18,80);
+            p.exi.agemax=entierAlea(20,100);
+        }while (p.exi.agemin>p.exi.agemax);
+        ///
+
+        ////
 
         //Choix des tailles+images pour les profils
         Random r = new Random();
