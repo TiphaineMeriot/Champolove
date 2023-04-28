@@ -176,7 +176,7 @@ public class Generateur_profil {
             }
         }
         else{
-            System.out.println("Le nombre de profil dépasse la limite d'images présentes dans un des 2 dossiers");
+            System.out.println("Le nombre de profil dépasse la limite d'images présentes dans un des 2 dossiers ");
             System.exit(0);
         }
     }

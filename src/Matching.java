@@ -162,6 +162,7 @@ public class Matching{
             System.out.println(p.compareTo(p1));
             System.out.println(p);
             System.out.println(" ");
+            System.out.println();
         }
     }
 }

@@ -179,6 +179,7 @@ public class Modele {
 				lieu.add(donnees);
 			}
 		} catch (IOException e) {
+			System.out.println("AH");
 			throw new RuntimeException(e);
 		}
 	}
