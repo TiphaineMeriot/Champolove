@@ -109,8 +109,8 @@ public class CreationProfilControleur  {
         Modele m =new Modele();
         qualite = new ArrayList<>();
         defaut = new ArrayList<>();
-        String chemqual="src/csv/qualites.csv";
-        String chemdef="src/csv/defaut.csv";
+        String chemqual="donnees/qualites.csv";
+        String chemdef="donnees/defaut.csv";
 
         m.aux_qualetdef(chemqual, qualite);
         m.aux_qualetdef(chemdef, defaut);
