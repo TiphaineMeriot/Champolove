@@ -1,4 +1,3 @@
-
 import com.sun.webkit.Timer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class VueControleur {
     Button boutonCreerProfil;
@@ -42,26 +42,48 @@ public class VueControleur {
         //ajout de l'icone
         stage.getIcons().add(new Image("images/logo_invisible.png"));
         //Modif dylan: ajout d'une instruction lors de la fermeture:
-             stage.setOnCloseRequest(event -> {
-                 this.mod.enregistrer();
+        stage.setOnCloseRequest(event -> {
+            this.mod.enregistrer();
         });
         GridPane gridPane = (GridPane) scene.lookup("#GridProfils");
-        //Modif dylan (encore): ajout récupérateur de données au démarrage:
-        this.mod.charger();
-        System.out.println(mod.listeProfil.size());
+
+        //Vous en avez marre de commenter/décommenter? Plus besoin xP
+        System.out.println("Saisissez un type de démarrage:");
+        System.out.println("Si vous souhaitez démarrer en mode générateur de profil, tappez gen, gener, generateur ");
+        System.out.println("Ou tout simplement g. Sinon, tappez n'importe quoi x) ");
+        Scanner scanner=new Scanner(System.in);
+        String input=scanner.nextLine().toUpperCase();
+        if (input.equals("G") || input.equals("GENERATEUR") || input.equals("GEN") || input.equals("GENER")){
+            System.out.println("Vous avez choisi de générer des profils aléatoires. Maintenant, quel mode voulez vous?");
+            System.out.println("Si vous voulez le mode avec limitation tappez le nombre de profils que vous souhaitez");
+            System.out.println("générer. Sinon, tappez n'importe quoi");
+            Scanner scan=new Scanner(System.in);
+            if (scan.hasNextInt()){
+                int nbprofil=scan.nextInt();
+                System.out.println("Vous avez choisi de générer "+nbprofil+" Profils");
+                new Generateur_profil(this.mod,nbprofil);
+            }
+            else{
+                System.out.println("Vous avez choisi le mode sans limite, veuillez patienter un petit moment...");
+                new Generateur_profil(this.mod);
+            }
+        }
+        else{
+            this.mod.charger();
+        }
+        System.out.println(String.format("%d profils ont été générés",mod.listeProfil.size()));
+        ///
+
         //Ajout des profils dans le gridPane
-//        A commenter et décommenter quand on veut l'utiliser ou non
-//        Generateur_profil g=new Generateur_profil(this.mod);
         int i = 1;
         for (Profil profil : this.mod.listeProfil) {
             Label labelNomPrenom = new Label(profil.nom + " " + profil.prenom);
+            // on lui met la couleur -->  #fb7434 et en gras
+            labelNomPrenom.setStyle(" -fx-font-weight: bold; -fx-text-fill: #fb7434");
             Image image = null;
             try {
                 //Là je teste si le chemin est valide
-                //Je convertis aussi le chemin relatif en absolu parce que ça marche pas sinon jsp pk
-                Path relativePath= Paths.get("src","images", profil.genre,String.format("%s_%s.jpeg",profil.nom,profil.prenom));
-                Path absolutePath=relativePath.toAbsolutePath();
-                image = new Image(absolutePath.toString());
+                image = new Image(profil.image);
             } catch (IllegalArgumentException e) {
                 System.out.println("L'url est introuvable ou invalide:" + String.format("src/images/%s/%s_%s.jpeg", profil.genre, profil.nom, profil.prenom));
                 System.out.println("Current working directory: " + System.getProperty("user.dir"));
@@ -76,7 +98,6 @@ public class VueControleur {
             imageView.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
                 @Override
                 public void handle(javafx.scene.input.MouseEvent event) {
-                    System.out.println(profil.date_de_creation);
                     // on ajoute dans le pane de droite les informations de profilClick avec des labels qui ont la police d'ecriture : Cambria
                     // on créé un label nomPrenom qui contient le nom et le prenom du profil cliqué avec la police d'ecriture : Cambria et un espace entre le nom et le prenom
                     Label labelNomPrenom = new Label(profil.prenom + " " + profil.nom);
@@ -115,20 +136,20 @@ public class VueControleur {
                     //TODO : on modifie l'imageView avatar en fonction de l'image du profil cliqué
                     //imageViewAvatar.setImage(profilClick.image);
 
-                    //le label nomPrenom a une police de titre de taille 30 et est centré a droite et en gras
-                    labelNomPrenom.setStyle("-fx-font-size: 30px; -fx-font-weight: bold; -fx-alignment: center-right;");
-                    //le label date de naissance a une police de titre de taille 16 et est positionné a droite et en gras;
-                    labelDateDeNaissance.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
-                    //le label ville a une police de titre de taille 16 et est positionné a droite et en gras;
-                    labelVille.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
-                    //le label travail a une police de titre de taille 16 et est positionné a droite et en gras;
-                    labelTravail.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
-                    //le label qualitées a une police de titre de taille 16 et est positionné a droite et en gras;
-                    labelQualites.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
-                    //le label defauts a une police de titre de taille 16 et est positionné a droite et en gras;
-                    labelDefauts.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
-                    //le label taille a une police de titre de taille 16 et est positionné a droite et en gras;
-                    labelTaille.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center-right;");
+                    //le label nomPrenom a une police de titre de taille 30 et est centré a droite et en gras et une couleur de police #fb7434;
+                    labelNomPrenom.setStyle("-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    //le label date de naissance a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
+                    labelDateDeNaissance.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    //le label ville a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
+                    labelVille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    //le label travail a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
+                    labelTravail.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    //le label qualitées a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
+                    labelQualites.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    //le label defauts a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
+                    labelDefauts.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    //le label taille a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
+                    labelTaille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
 
                     GridPane gridPaneDroite = (GridPane) scene.lookup("#gridPaneNom");
                     //on clear le gridPaneDroite pour qu'il ne contienne que les informations du profil précédemment cliqué
@@ -144,8 +165,6 @@ public class VueControleur {
                     gridPaneInfos.add(labelQualites, 0, 3);
                     gridPaneInfos.add(labelDefauts, 0, 4);
                     gridPaneInfos.add(labelTaille, 0, 5);
-
-
                 }
             });
             i++;
