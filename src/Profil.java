@@ -8,12 +8,28 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 enum Statut{
-        CELIBATAIRE,MARIE,VEUF
+        CELIBATAIRE,MARIE,VEUF,CONCUBINAGE
     }
     enum Genre{
         HOMME,FEMME,AUTRE
     }
 public class Profil implements Comparable<Profil>, Serializable {
+    //Classe qui regroupe toutes les exigences d'un profil donné.
+    public static class Exigence implements Serializable{
+        //A voir si on met le statut aussi ainsi que d'autres attributs.
+        HashSet<String> choix_hobbies;
+        HashSet<String> choix_qualite;
+        HashSet<String> choix_defaut;
+        HashSet<String> attirance;
+        int distance;
+        int agemin,agemax;
+        public Exigence(HashSet<String> attirance){
+            this.attirance=attirance;
+            this.choix_hobbies=new HashSet<>();
+            this.choix_qualite=new HashSet<>();
+            this.choix_defaut=new HashSet<>();
+        }
+    }
     //C'est package par défaut, on verra si on les met en privé plus tard
     String nom,prenom;
     String genre;
@@ -23,7 +39,6 @@ public class Profil implements Comparable<Profil>, Serializable {
     double latitude,longitude;
     String statut;
     String profession;
-    String recherche;
     Calendar date_de_creation;
     ArrayList<String> hobbies,qualite,defaut;
     int age;
@@ -31,8 +46,10 @@ public class Profil implements Comparable<Profil>, Serializable {
     double compatibilité;
     String image;
     Boolean actif;
-
-    public Profil(String nom,String prenom,String date_de_naissance,String genre,String statut,String ville,String recherche) throws Exception {
+    Exigence exi;
+    public Profil(String nom,String prenom,String date_de_naissance,String genre,String statut,String ville,HashSet<String> attirance) throws Exception {
+        //J'initialise les exigences du profil.
+        this.exi= new Exigence(attirance);
         this.hobbies= new ArrayList<>();
         this.qualite= new ArrayList<>();
         this.defaut= new ArrayList<>();
@@ -43,12 +60,11 @@ public class Profil implements Comparable<Profil>, Serializable {
         this.genre=genre;
         this.statut = statut;
         this.ville = ville.toUpperCase();
-        this.recherche=recherche;
         this.actif=true;
         //J'appelle la méthode pour calculer l'âge
         calcul_age();
         calcul_signe();
-//        calcul_latitude_longitude();
+//        calcul_latitude_longitude(); Pas fou de recalculer à chaque fois
     }
 
 
@@ -158,8 +174,14 @@ public class Profil implements Comparable<Profil>, Serializable {
         }
     }
     public String toString(){
-        StringBuilder exit= new StringBuilder(String.format("Nom:%s\nPrenom:%s\nSexe:%s\nAge:%d\nTaille:%1.2fm\nSigne Astrologique:%s\nStatut:%s\nVille:%s\nLatitude:%f\nLongitude:%f\nRecherche:%s",
-                this.nom, this.prenom,this.genre, this.age,this.taille, this.signe, this.statut, this.ville, this.latitude, this.longitude, this.recherche));
+        StringBuilder exit= new StringBuilder(String.format("Nom:%s\nPrenom:%s\nSexe:%s\nAge:%d\nTaille:%1.2fm\nSigne Astrologique:%s\nStatut:%s\nVille:%s\nLatitude:%f\nLongitude:%f",
+                this.nom, this.prenom,this.genre, this.age,this.taille, this.signe, this.statut, this.ville, this.latitude, this.longitude));
+        if(this.exi.attirance.size()!=0){
+            exit.append("\nRecherche:");
+            for (String attir:this.exi.attirance){
+                exit.append(attir).append(",");
+            }
+        }
         if (this.hobbies.size()!=0){
             exit.append("\nHobbies:");
             for (String hobby : this.hobbies) {
@@ -183,7 +205,7 @@ public class Profil implements Comparable<Profil>, Serializable {
 
 
     public static void main (String[]args) throws Exception{                        //Le .name() c'est pour avoir le String et pas l'énum
-        Profil p=new Profil("IeqPa", "Nalyd", "23/12/2003",Genre.HOMME.name(), Statut.CELIBATAIRE.name(),"Toulouse", Genre.FEMME.name());
+        Profil p=new Profil("IeqPa", "Nalyd", "23/12/2003",Genre.HOMME.name(), Statut.CELIBATAIRE.name(),"Toulouse", new HashSet<>(List.of(Genre.FEMME.name())));
         p.qualite.add("Honnête");
         p.defaut.add("Désorganisé");
         System.out.println(p);

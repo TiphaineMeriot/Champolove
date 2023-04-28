@@ -1,9 +1,7 @@
-import com.sun.webkit.Timer;
-
-import java.math.BigDecimal;
 import java.util.*;
 
 public class Matching{
+    //TODO Je me suis rendu compte qu'il fallait que ça marche dans les 2 sens pour qu'il y ait matching x)
     static Modele mod;
     public class ScoreCompatibilite{
         private Profil profil;
@@ -20,8 +18,6 @@ public class Matching{
             return score;
         }
     }
-    private double compatibilite;
-
     //TODO: On enlèvera cette partie quand on aura fait les tests et qu'on aura implanté matching
     public void print(HashSet<String> set){
         for(String s:set){
@@ -30,6 +26,45 @@ public class Matching{
         System.out.println();
     }
     ///
+
+    //Teste si le match entre 2 personnes est possible en fonction de leurs exigences.
+    public boolean condition_match(Profil p,Profil p1){
+        int agemin=p1.exi.agemin;
+        int agemax=p1.exi.agemax;
+        int distancemax=p1.exi.distance;
+        int ageminp=p.exi.agemin;
+        int agemaxp=p.exi.agemax;
+        int distancemaxp=p.exi.distance;
+        boolean exi_p1=agemin<=p.age && p.age<=agemax && p1.compareTo(p)<=distancemax;
+        boolean exi_p=p.exi.attirance.contains(p1.genre)
+                && ageminp<=p1.age && p1.age<=agemaxp && p.compareTo(p1)<=distancemaxp;
+        return exi_p && exi_p1;
+    }
+    ///
+
+    //Teste si le profil p2 correspond au profil p1
+    public double correspond(Profil p1,Profil p2){
+        HashSet<String> recherchequal=p1.exi.choix_qualite;
+        HashSet<String> S_hobbies=p1.exi.choix_hobbies;
+        HashSet<String> pasdefaut=p1.exi.choix_defaut;
+        double compatibilite = 0;
+        for (String qualsearch : recherchequal) {
+            if (p2.qualite.contains(qualsearch)) {
+                compatibilite++;
+            }
+        }
+        for (String notdefaut : pasdefaut) {
+            if (p2.defaut.contains(notdefaut)) {
+                compatibilite--;
+            }
+        }
+        for (String hobsearch : S_hobbies) {
+            if (p2.hobbies.contains(hobsearch)) {
+                compatibilite++;
+            }
+        }
+        return compatibilite;
+    }
     public Matching(Modele mod){
         Matching.mod =mod;
     }
@@ -39,18 +74,29 @@ public class Matching{
     //TODO Je ne veux pas qu'il soit con.
     //J'ai pensé à un dictionnaire pour le sexe que la personne recherche
     //ça serait un truc du genre:
-    public TreeSet<Profil> matching1(Profil p1, HashSet<String> recherchequal
-            , HashSet<String> pasdefaut, HashSet<String> S_hobbies) {
+    public TreeSet<Profil> matching1(Profil p1){
+
+        //Je mets des termes plus courts pour pas refaire à chaque fois le même appel
+        HashSet<String> recherchequal=p1.exi.choix_qualite;
+        HashSet<String> S_hobbies=p1.exi.choix_hobbies;
+        HashSet<String> pasdefaut=p1.exi.choix_defaut;
+        HashSet<String> attirance=p1.exi.attirance;
+        int agemin=p1.exi.agemin;
+        int agemax=p1.exi.agemax;
+        int distancemax=p1.exi.distance;
+        ///
+
         p1.actif=false; // J'enlève le profil de la liste des profils trouvés (on sait jamais).
+
+        //Je trie l'arbre en fonction des plus compatibles puis les plus près puis les noms et enfin les prénoms,
+        //Afin d'être sûr que 2 personnes ayant la même compatibilité et dans la même ville ne soit compté comme doublons.
         Comparator<ScoreCompatibilite> compat = Comparator.comparingDouble(ScoreCompatibilite::getScore).reversed()
                 .thenComparing(sc->sc.profil.compareTo(p1))
                 .thenComparing(sc -> sc.profil.nom)
                 .thenComparing(sc->sc.profil.prenom);
-        //Je trie le tree (c'est trop marrant)
-        //plus sérieusement ça sert à avoir l'ensemble avec les plus compatibles en premier,puis les plus près.
-        //La comparaison en fonction du nom permet d'éviter que 2 personnes avec la même compatibilité et dans la même
-        //ville ne soit compté comme un doublon.
+
         TreeSet<ScoreCompatibilite> match=new TreeSet<>(compat);
+        ///
 
         for(Profil profil: mod.listeProfil){
             String genre=profil.genre;
@@ -59,35 +105,20 @@ public class Matching{
             }
             mod.tripargenre.get(genre).add(profil);
         }
-        TreeSet<Profil>rechercher=mod.tripargenre.get(p1.recherche);
-        ///
-
-        for(Profil profil:rechercher) {
-            //Si la personne trouvée n'aime pas le genre de la personne, ça sert à rien de la mettre ^^
-            if (profil.recherche.equals(p1.genre)) {
-                double compatibilite = 0;
-                for (String qualsearch : recherchequal) {
-                    if (profil.qualite.contains(qualsearch)) {
-                        compatibilite++;
-                    }
+        for(String genrer:attirance) {
+            TreeSet<Profil> rechercher = mod.tripargenre.get(genrer);
+            for (Profil profil : rechercher) {
+                //Teste si la personne est active + si elle satisfait toutes les exigences + si elle est attirée par le genre de p1
+                if (profil.actif && condition_match(profil,p1)) {
+                    double alpha = 1.3;
+                    double compatibilitep1 = (correspond(p1,profil) / (p1.exi.choix_hobbies.size() + p1.exi.choix_qualite.size()));
+                    double compatibilitepro= (correspond(profil,p1) /(profil.exi.choix_hobbies.size()+profil.exi.choix_qualite.size()));
+                    double compatibilite = Math.pow(alpha, (compatibilitep1+compatibilitepro)/2);
+                    compatibilite = (compatibilite / alpha);
+                    ScoreCompatibilite sc = new ScoreCompatibilite(profil, compatibilite);
+                    sc.profil.compatibilité = compatibilite;
+                    match.add(sc);
                 }
-                for (String notdefaut : pasdefaut) {
-                    if (profil.defaut.contains(notdefaut)) {
-                        compatibilite--;
-                    }
-                }
-                for (String hobsearch : S_hobbies) {
-                    if (profil.hobbies.contains(hobsearch)) {
-                        compatibilite++;
-                    }
-                }
-                double alpha=1.3;
-                compatibilite = (compatibilite / (S_hobbies.size() + recherchequal.size()));
-                compatibilite=Math.pow(alpha,compatibilite);
-                compatibilite=(compatibilite/alpha);
-                ScoreCompatibilite sc=new ScoreCompatibilite(profil,compatibilite);
-                sc.profil.compatibilité=compatibilite;
-                match.add(sc);
             }
         }
         TreeSet<Profil> resultat=new TreeSet<>();
@@ -106,26 +137,32 @@ public class Matching{
         Modele mod=new Modele();
         mod.charger();
         Matching m=new Matching(mod);
-        Profil p1 = new Profil("CHARLIES", "Tom", "01/03/1999", Genre.HOMME.name(), Statut.CELIBATAIRE.name(), "Bordeaux", Genre.HOMME.name());
+        Profil p1 = new Profil("CHARLIES", "Tom", "01/03/1999", Genre.HOMME.name(), Statut.CELIBATAIRE.name(), "Bordeaux", new HashSet<>(List.of(Genre.HOMME.name())));
         p1.calcul_latitude_longitude();
+        do{
+            p1.exi.agemin=g.entierAlea(18,80);
+            p1.exi.agemax=g.entierAlea(20,100);
+        }while (p1.exi.agemin>p1.exi.agemax);
+        p1.exi.distance=1000;
+        g.qualdefhobAlea(p1.exi.choix_hobbies,mod.hobbies);
+        g.qualdefhobAlea(p1.exi.choix_qualite,mod.qualite);
+        g.qualdefhobAlea(p1.exi.choix_defaut,mod.defaut);
         System.out.println(p1.latitude);
         System.out.println(p1.longitude);
-        HashSet<String> S_qual = new HashSet<>();
-        HashSet<String> S_def = new HashSet<>();
-        HashSet<String> S_hob = new HashSet<>();
-        g.qualdefhobAlea(S_qual,mod.qualite);
-        g.qualdefhobAlea(S_def,mod.defaut);
-        g.qualdefhobAlea(S_hob,mod.hobbies);
         System.out.println("RECHERCHE");
-        m.print(S_qual);
-        m.print(S_def);
-        m.print(S_hob);
+        m.print(p1.exi.attirance);
+        m.print(p1.exi.choix_qualite);
+        m.print(p1.exi.choix_defaut);
+        m.print(p1.exi.choix_hobbies);
+        System.out.println("entre "+p1.exi.agemin+" et "+p1.exi.agemax);
+        System.out.println(p1.exi.distance);
         System.out.println("///////////////////////");
-        for(Profil p:m.matching1(p1,S_qual,S_def,S_hob)){
+        for(Profil p:m.matching1(p1)){
             System.out.println(p.compatibilité);
             System.out.println(p.compareTo(p1));
             System.out.println(p);
             System.out.println(" ");
+            System.out.println();
         }
     }
 }
