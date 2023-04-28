@@ -23,8 +23,8 @@ public class Profil implements Comparable<Profil>, Serializable {
         HashSet<String> attirance;
         int distance;
         int agemin,agemax;
-        public Exigence(HashSet<String> attirance){
-            this.attirance=attirance;
+        public Exigence(){
+            this.attirance=new HashSet<>();
             this.choix_hobbies=new HashSet<>();
             this.choix_qualite=new HashSet<>();
             this.choix_defaut=new HashSet<>();
@@ -47,9 +47,9 @@ public class Profil implements Comparable<Profil>, Serializable {
     String image;
     Boolean actif;
     Exigence exi;
-    public Profil(String nom,String prenom,String date_de_naissance,String genre,String statut,String ville,HashSet<String> attirance) throws Exception {
+    public Profil(String nom,String prenom,String date_de_naissance,String genre,String statut,String ville) throws Exception {
         //J'initialise les exigences du profil.
-        this.exi= new Exigence(attirance);
+        this.exi= new Exigence();
         this.hobbies= new ArrayList<>();
         this.qualite= new ArrayList<>();
         this.defaut= new ArrayList<>();
@@ -205,7 +205,7 @@ public class Profil implements Comparable<Profil>, Serializable {
 
 
     public static void main (String[]args) throws Exception{                        //Le .name() c'est pour avoir le String et pas l'énum
-        Profil p=new Profil("IeqPa", "Nalyd", "23/12/2003",Genre.HOMME.name(), Statut.CELIBATAIRE.name(),"Toulouse", new HashSet<>(List.of(Genre.FEMME.name())));
+        Profil p=new Profil("IeqPa", "Nalyd", "23/12/2003",Genre.HOMME.name(), Statut.CELIBATAIRE.name(),"Toulouse");
         p.qualite.add("Honnête");
         p.defaut.add("Désorganisé");
         System.out.println(p);

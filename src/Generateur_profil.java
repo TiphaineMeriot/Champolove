@@ -91,11 +91,11 @@ public class Generateur_profil {
         for(int i=0;i<entierAlea(1,3);i++){
             attirance.add(recherche[new Random().nextInt(recherche.length)]);
         }
-        Profil p = new Profil(nom, prenom, ddn, genre, statut[new Random().nextInt(statut.length)], location,attirance);
+        Profil p = new Profil(nom, prenom, ddn, genre, statut[new Random().nextInt(statut.length)], location);
         ///
 
         //Ajout des exigences
-
+        p.exi.attirance=attirance;
         //Exigences hobbies/qualités/défauts
         qualdefhobAlea(p.exi.choix_defaut,mod.defaut);
         qualdefhobAlea(p.exi.choix_hobbies,mod.hobbies);
