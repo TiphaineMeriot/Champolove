@@ -94,6 +94,8 @@ public class Generateur_profil {
         Profil p = new Profil(nom, prenom, ddn, genre, statut[new Random().nextInt(statut.length)], location);
         ///
 
+        //Ajout admail
+        p.admail=String.format("%s.%s@Champolove.fr",p.nom,p.prenom);
         //Ajout des exigences
         p.exi.attirance=attirance;
         //Exigences hobbies/qualités/défauts

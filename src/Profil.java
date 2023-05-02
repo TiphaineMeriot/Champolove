@@ -31,22 +31,30 @@ public class Profil implements Comparable<Profil>, Serializable {
         }
     }
     //C'est package par défaut, on verra si on les met en privé plus tard
+
+    //Attribut administratif
+    double latitude,longitude;
+    double taille;
+    int age;
     String nom,prenom;
+    String admail;
     String genre;
     String date_de_naissance;
-    String signe;
-    String ville;
-    double latitude,longitude;
     String statut;
     String profession;
-    Calendar date_de_creation;
-    ArrayList<String> hobbies,qualite,defaut;
-    int age;
-    double taille;
-    double compatibilité;
-    String image;
+    String ville;
     Boolean actif;
+    String image;
+    String signe;
+    Calendar date_de_creation;
+    ///
+
+    //Attributs personnels
+    ArrayList<String> hobbies,qualite,defaut;
+    double compatibilité;
     Exigence exi;
+    ///
+
     public Profil(String nom,String prenom,String date_de_naissance,String genre,String statut,String ville) throws Exception {
         //J'initialise les exigences du profil.
         this.exi= new Exigence();
