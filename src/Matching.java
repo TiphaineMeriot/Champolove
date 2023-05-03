@@ -137,7 +137,7 @@ public class Matching{
         Modele mod=new Modele();
         mod.charger();
         Matching m=new Matching(mod);
-        Profil p1 = new Profil("CHARLIES", "Tom", "01/03/1999", Genre.HOMME.name(), Statut.CELIBATAIRE.name(), "Bordeaux", new HashSet<>(List.of(Genre.HOMME.name())));
+        Profil p1 = new Profil("CHARLIES", "Tom", "01/03/1999", Genre.HOMME.name(), Statut.CELIBATAIRE.name(), "Bordeaux");
         p1.calcul_latitude_longitude();
         do{
             p1.exi.agemin=g.entierAlea(18,80);

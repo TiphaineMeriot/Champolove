@@ -19,8 +19,5 @@ public class Vue extends Application {
         stage.show();
         VueControleur controller = new VueControleur(mod);
         controller.init(scene, stage);
-
-
     }
-
 }

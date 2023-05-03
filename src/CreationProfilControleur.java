@@ -183,7 +183,7 @@ public class CreationProfilControleur  {
     // Méthode qui créé le profil
 
     public void créer() throws Exception {
-        Profil p = new Profil(nom, prénom, dateFormatée, genre, statut, ville, recherche);
+        Profil p = new Profil(nom, prénom, dateFormatée, genre, statut, ville);
         //p.hobbies.addAll(h);
         //p.qualite.addAll(qd);
         System.out.println(p);

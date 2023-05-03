@@ -21,6 +21,7 @@ public class VueControleur {
     Button boutonCreerProfil;
     String profilRecherche;
     Profil profilClick;
+    Profil profilCourant;
     Modele mod;
     public VueControleur(Modele mod){
         this.mod=mod;
