@@ -112,8 +112,8 @@ public class CreationProfilControleur  {
         String chemqual="donnees/qualites.csv";
         String chemdef="donnees/defaut.csv";
 
-        m.aux_qualetdef(chemqual, qualite);
-        m.aux_qualetdef(chemdef, defaut);
+        m.aux_csv_transform(chemqual, qualite);
+        m.aux_csv_transform(chemdef, defaut);
 
         qual = FXCollections.observableArrayList (qualite);
         listqd.setItems(qual);
