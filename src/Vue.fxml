@@ -74,7 +74,7 @@
                 </Pane>
             </children>
         </Pane>
-        <ImageView fitHeight="81.0" fitWidth="75.0" layoutX="1088.0" layoutY="660.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="81.0" fitWidth="75.0" layoutX="1024.0" layoutY="617.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@images/logo_invisible.png" />
             </image>
@@ -93,11 +93,7 @@
                 </GridPane>
                 <Pane layoutX="450.0" layoutY="4.0" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <ImageView id="ImageGrande" fx:id="imageProfil" fitHeight="200.0" fitWidth="200.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/pdp.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView id="ImageGrande" fx:id="imageProfil" fitHeight="200.0" fitWidth="200.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
                </children></Pane>
                 <GridPane layoutX="14.0" layoutY="204.0" prefHeight="424.0" prefWidth="75.0">
                     <columnConstraints>
@@ -112,28 +108,28 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                <children>
-                  <ImageView fitHeight="46.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                  <ImageView id="plan" fitHeight="46.0" fitWidth="48.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                      <image>
                         <Image url="@images/icones/cityorange.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+                  <ImageView id="job" fitHeight="46.0" fitWidth="46.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
                      <image>
                         <Image url="@images/icones/cvorange.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="59.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
+                  <ImageView id="like" fitHeight="59.0" fitWidth="52.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
                      <image>
                         <Image url="@images/icones/goodorange.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="47.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4">
+                  <ImageView id="default" fitHeight="47.0" fitWidth="48.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4">
                      <image>
                         <Image url="@images/icones/dislikeorang.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="46.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="gateau" fitHeight="46.0" fitWidth="53.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/icones/birthorange.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="53.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5">
+                  <ImageView id="taille" fitHeight="53.0" fitWidth="49.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5">
                      <image>
                         <Image url="@images/icones/heightorange.png" />
                      </image></ImageView>

@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.TreeSet;
 
 public class VueControleur {
     Button boutonCreerProfil;
@@ -24,6 +25,7 @@ public class VueControleur {
     Profil profilCourant;
     Modele mod;
     boolean DarkMode = false;
+    boolean opacite = false;
 
     public VueControleur(Modele mod, Profil profil){
         this.mod=mod;
@@ -59,7 +61,12 @@ public class VueControleur {
         // les profils possèdent un
 
         int i = 1;
-        for (Profil profil : this.mod.listeProfil) {
+
+        // on va retourner un TreeSet de profils triés par compatibilité en fonction du profil courant
+        Matching m = new Matching(this.mod);
+        TreeSet<Profil> listeProfilTrie = m.matching1(this.profilCourant);
+
+        for (Profil profil : listeProfilTrie) {
             Label labelNomPrenom = new Label(profil.nom + " " + profil.prenom);
             // on lui met la couleur -->  #fb7434 et en gras
             labelNomPrenom.setStyle(" -fx-font-weight: bold; -fx-text-fill: #fb7434");
@@ -74,6 +81,12 @@ public class VueControleur {
                 System.out.println("L'url est introuvable ou invalide:" + String.format("src/images/%s/%s_%s.jpeg", profil.genre, profil.nom, profil.prenom));
                 System.out.println("Current working directory: " + System.getProperty("user.dir"));
             }
+
+            // on ajoute un ProgressIndicator pour chaque profil
+            ProgressIndicator progressIndicator = new ProgressIndicator();
+            progressIndicator.setProgress(profil.compatibilité);
+            // on ajoute un label pour chaque profil qui contient le nom et le prenom du profil
+            gridPane.add(progressIndicator, 2, i);
             gridPane.add(labelNomPrenom, 1, i);
             //charger l'image dans l'imageview d'id ImageView
             ImageView imageView = new ImageView(image);
@@ -85,6 +98,22 @@ public class VueControleur {
             imageView.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
                 @Override
                 public void handle(javafx.scene.input.MouseEvent event) {
+                    if(!opacite){
+                        // on recupere les imageView d'id "like" "default" "job" "taille" "gateau" "plan" et on passe leur opacité à 1
+                        ImageView like = (ImageView) scene.lookup("#like");
+                        like.setOpacity(1);
+                        ImageView defaut = (ImageView) scene.lookup("#default");
+                        defaut.setOpacity(1);
+                        ImageView job = (ImageView) scene.lookup("#job");
+                        job.setOpacity(1);
+                        ImageView taille = (ImageView) scene.lookup("#taille");
+                        taille.setOpacity(1);
+                        ImageView gateau = (ImageView) scene.lookup("#gateau");
+                        gateau.setOpacity(1);
+                        ImageView plan = (ImageView) scene.lookup("#plan");
+                        plan.setOpacity(1);
+                        opacite = true;
+                    }
                     // le profil cliqué devient le profilclick
                     profilClick = profil;
 
