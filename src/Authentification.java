@@ -55,14 +55,21 @@ public class Authentification extends Application {
         stage.setScene(scene);
         stage.show();
 
+
+
         //ajout d'une icone
-        stage.getIcons().add(new javafx.scene.image.Image("images/logo.png"));
+        stage.getIcons().add(new javafx.scene.image.Image("images/logo_invisible.png"));
         //si le bouton "Se connecter" est cliqué
         //on récupère le username et le password
         //on vérifie si le username et le password sont dans le dictionnaire
         //si oui, on ouvre la vue
         //sinon, on affiche un message d'erreur
         btn = (Button) scene.lookup("#boutonSeConnecter");
+
+        // TODO : ON CREER UN MODELE ICI, comme ca le temps que l'user se log on charge les profils
+        Modele mod = new Modele();
+        new Generateur_profil(mod,30);
+
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -74,9 +81,10 @@ public class Authentification extends Application {
                     password = passwordField.getText();
                     //vérifier si le username et le password sont dans le dictionnaire
                     if (data.containsKey(username) && data.get(username).equals(password)){
-                        //si oui, on ouvre la vue
-                        Vue vue = new Vue();
-                        vue.start(stage);
+                        //si oui, on ouvre la Selection (pour choisir le profil qu'on veut utiliser)
+                        Selection selection = new Selection(mod);
+                        selection.start(stage);
+
                     }
                     else{
                         //sinon, on affiche un message d'erreur
@@ -88,25 +96,6 @@ public class Authentification extends Application {
                 }
             }
         });
-        //ajout d'une image de fond sur le bouton d'id "btnDarkMode"
-        btnDarkMode = (ToggleButton) scene.lookup("#btnDarkMode");
-        //ajout d'une image de fond sur btnDarkMode sans modifier le css
-        btnDarkMode.setStyle("-fx-background-image: url('images/dark.png'); -fx-background-size: 100% 100%;");
-
-        //quand le bouton "btnDarkMode" est cliqué
-        //on change le css de la scene pour passer en mode sombre
-
-        btnDarkMode.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if(btnDarkMode.isSelected()){
-                    //on passe en mode sombre
-                    scene.getStylesheets().add("css/dark.css");
-                }
-
-            }
-        });
-
 
 
     }

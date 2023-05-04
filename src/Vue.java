@@ -7,9 +7,17 @@ import javafx.stage.Stage;
 
 
 public class Vue extends Application {
+    Modele mod;
+    Profil profil;
+    public Vue(){
+        super();
+    }
+    public Vue(Modele mod, Profil profil) {
+        this.mod = mod;
+        this.profil = profil;
+    }
     @Override
     public void start(Stage stage) throws Exception {
-        Modele mod=new Modele();
         FXMLLoader fxmlLoader = new FXMLLoader(CreationProfil.class.getResource("Vue.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200 , 800);
         stage.setResizable(false);
@@ -17,7 +25,7 @@ public class Vue extends Application {
         stage.setTitle("Vue");
         stage.setScene(scene);
         stage.show();
-        VueControleur controller = new VueControleur(mod);
+        VueControleur controller = new VueControleur(this.mod, this.profil);
         controller.init(scene, stage);
     }
 }

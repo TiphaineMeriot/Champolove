@@ -23,8 +23,9 @@ public class VueControleur {
     Profil profilClick;
     Profil profilCourant;
     Modele mod;
-    public VueControleur(Modele mod){
+    public VueControleur(Modele mod, Profil profil){
         this.mod=mod;
+        this.profilCourant=profil;
     }
 
     public void init(Scene scene, Stage stage) throws Exception {
@@ -99,6 +100,11 @@ public class VueControleur {
             imageView.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
                 @Override
                 public void handle(javafx.scene.input.MouseEvent event) {
+                    // le profil cliqué devient le profilclick
+                    profilClick = profil;
+
+
+
                     // on ajoute dans le pane de droite les informations de profilClick avec des labels qui ont la police d'ecriture : Cambria
                     // on créé un label nomPrenom qui contient le nom et le prenom du profil cliqué avec la police d'ecriture : Cambria et un espace entre le nom et le prenom
                     Label labelNomPrenom = new Label(profil.prenom + " " + profil.nom);
