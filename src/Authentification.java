@@ -7,12 +7,12 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
-
+import java.util.Scanner;
 
 
 public class Authentification extends Application {
     // un dictionnaire qui associe un username(=String) à un password(=String)
-    HashMap<String, String> data = new HashMap<String, String>();
+    HashMap<String, String> data = new HashMap<>();
     String username;
     String password;
     Button btn;
@@ -65,10 +65,34 @@ public class Authentification extends Application {
         //si oui, on ouvre la vue
         //sinon, on affiche un message d'erreur
         btn = (Button) scene.lookup("#boutonSeConnecter");
-
         // TODO : ON CREER UN MODELE ICI, comme ca le temps que l'user se log on charge les profils
         Modele mod = new Modele();
-        new Generateur_profil(mod,30);
+
+        //Vous en avez marre de commenter/décommenter? Plus besoin xP
+        System.out.println("Saisissez un type de démarrage:");
+        System.out.println("Si vous souhaitez démarrer en mode générateur de profil, tappez gen, gener, generateur ");
+        System.out.println("Ou tout simplement g. Sinon, tappez n'importe quoi x) ");
+        Scanner scanner=new Scanner(System.in);
+        String input=scanner.nextLine().toUpperCase();
+        if (input.equals("G") || input.equals("GENERATEUR") || input.equals("GEN") || input.equals("GENER")){
+            System.out.println("Vous avez choisi de générer des profils aléatoires. Maintenant, quel mode voulez vous?");
+            System.out.println("Si vous voulez le mode avec limitation tappez le nombre de profils que vous souhaitez");
+            System.out.println("générer. Sinon, tappez n'importe quoi");
+            Scanner scan=new Scanner(System.in);
+            if (scan.hasNextInt()){
+                int nbprofil=scan.nextInt();
+                System.out.println("Vous avez choisi de générer "+nbprofil+" Profils");
+                new Generateur_profil(mod,nbprofil);
+            }
+            else{
+                System.out.println("Vous avez choisi le mode sans limite, veuillez patienter un petit moment...");
+                new Generateur_profil(mod);
+            }
+        }
+        else{
+            mod.charger();
+        }
+        System.out.println(String.format("%d profils ont été générés",mod.listeProfil.size()));
 
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override

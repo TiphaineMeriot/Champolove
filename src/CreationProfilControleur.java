@@ -70,6 +70,10 @@ public class CreationProfilControleur  {
     public ArrayList<String> defaut;
     private ObservableList<String> qual;
     private ObservableList<String> def;
+    Modele mod;
+    public CreationProfilControleur(Modele mod){
+        this.mod=mod;
+    }
     // Initialisation des combobox en fonction des enum de Profil
     @FXML
     public void initialisationComboBox() {

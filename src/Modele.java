@@ -70,6 +70,8 @@ public class Modele {
 		this.listeImageF=new ArrayList<>(dirF.listFiles().length);
 		this.listeImageF.addAll(List.of(dirF.listFiles()));
 		this.listeImageH.addAll(List.of(dirH.listFiles()));
+		System.out.println(this.listeImageH.size());
+		System.out.println(this.listeImageF.size());
 		csv_transform(); //TODO faire ça que quand on a pas de .dat (sinon c'est inutile)
     }
 	///
