@@ -18,6 +18,7 @@ public class Selection extends Application {
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.centerOnScreen();
         SelectionControleur controller = new SelectionControleur(mod);
         controller.init(scene, primaryStage);
 

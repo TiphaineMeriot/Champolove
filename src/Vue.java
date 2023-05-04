@@ -21,10 +21,10 @@ public class Vue extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(CreationProfil.class.getResource("Vue.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200 , 800);
         stage.setResizable(false);
-        stage.centerOnScreen();
         stage.setTitle("Vue");
         stage.setScene(scene);
         stage.show();
+        stage.centerOnScreen();
         VueControleur controller = new VueControleur(this.mod, this.profil);
         controller.init(scene, stage);
     }
