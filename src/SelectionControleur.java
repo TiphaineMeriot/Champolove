@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class SelectionControleur {
@@ -42,6 +43,7 @@ public class SelectionControleur {
             ImageView imageView = new ImageView(image);
             imageView.setFitHeight(70);
             imageView.setFitWidth(70);
+            imageView = arrondirCoins(imageView, 70);
             gridPane.add(imageView, 0, i);
 
             // si le profil est cliqué
@@ -81,5 +83,15 @@ public class SelectionControleur {
 
 
 
+    }
+    public ImageView arrondirCoins(ImageView imageView, double radius) {
+        // Créer un rectangle avec des coins arrondis
+        Rectangle clip = new Rectangle(imageView.getFitWidth(), imageView.getFitHeight());
+        clip.setArcWidth(radius);
+        clip.setArcHeight(radius);
+
+        // Appliquer le rectangle comme un masque pour l'image
+        imageView.setClip(clip);
+        return imageView;
     }
 }

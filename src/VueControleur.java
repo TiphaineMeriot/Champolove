@@ -1,13 +1,13 @@
 import com.sun.webkit.Timer;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.net.URLEncoder;
@@ -23,12 +23,17 @@ public class VueControleur {
     Profil profilClick;
     Profil profilCourant;
     Modele mod;
+    boolean DarkMode = false;
+
     public VueControleur(Modele mod, Profil profil){
         this.mod=mod;
         this.profilCourant=profil;
     }
 
     public void init(Scene scene, Stage stage) throws Exception {
+
+
+
         boutonCreerProfil = (Button) scene.lookup("#boutonCreerProfil");
         boutonCreerProfil.setOnAction(event -> {
             try {
@@ -51,6 +56,8 @@ public class VueControleur {
         ///
 
         //Ajout des profils dans le gridPane
+        // les profils possèdent un
+
         int i = 1;
         for (Profil profil : this.mod.listeProfil) {
             Label labelNomPrenom = new Label(profil.nom + " " + profil.prenom);
@@ -60,6 +67,9 @@ public class VueControleur {
             try {
                 //Là je teste si le chemin est valide
                 image = new Image(profil.image);
+
+                // on donne a l'image des bordures arrondies
+
             } catch (IllegalArgumentException e) {
                 System.out.println("L'url est introuvable ou invalide:" + String.format("src/images/%s/%s_%s.jpeg", profil.genre, profil.nom, profil.prenom));
                 System.out.println("Current working directory: " + System.getProperty("user.dir"));
@@ -69,6 +79,7 @@ public class VueControleur {
             ImageView imageView = new ImageView(image);
             imageView.setFitHeight(70);
             imageView.setFitWidth(70);
+            imageView = arrondirCoins(imageView, 70);
             gridPane.add(imageView, 0, i);
             //si la souris clique sur l'image,on stocke le profil correspondant dans la variable profilClick
             imageView.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
@@ -77,7 +88,11 @@ public class VueControleur {
                     // le profil cliqué devient le profilclick
                     profilClick = profil;
 
-
+                    // l'imageView d'id ImageGrande est remplacé par l'image du profil cliqué
+                    ImageView imageGrande = (ImageView) scene.lookup("#ImageGrande");
+                    ImageView remplacement = new ImageView(profil.image);
+                    imageGrande.setImage(remplacement.getImage());
+                    imageGrande = arrondirCoins(imageGrande, 200);
 
                     // on ajoute dans le pane de droite les informations de profilClick avec des labels qui ont la police d'ecriture : Cambria
                     // on créé un label nomPrenom qui contient le nom et le prenom du profil cliqué avec la police d'ecriture : Cambria et un espace entre le nom et le prenom
@@ -154,4 +169,15 @@ public class VueControleur {
 
 
     }
+    public ImageView arrondirCoins(ImageView imageView, double radius) {
+        // Créer un rectangle avec des coins arrondis
+        Rectangle clip = new Rectangle(imageView.getFitWidth(), imageView.getFitHeight());
+        clip.setArcWidth(radius);
+        clip.setArcHeight(radius);
+
+        // Appliquer le rectangle comme un masque pour l'image
+        imageView.setClip(clip);
+        return imageView;
+    }
+
 }
