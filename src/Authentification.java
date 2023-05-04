@@ -7,12 +7,12 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
-
+import java.util.Scanner;
 
 
 public class Authentification extends Application {
     // un dictionnaire qui associe un username(=String) à un password(=String)
-    HashMap<String, String> data = new HashMap<String, String>();
+    HashMap<String, String> data = new HashMap<>();
     String username;
     String password;
     Button btn;
@@ -49,20 +49,52 @@ public class Authentification extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(Authentification.class.getResource("authentification.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 693 , 488);
+        Scene scene = new Scene(fxmlLoader.load(), 800 , 488);
         stage.setResizable(false);
         stage.setTitle("Authentification");
         stage.setScene(scene);
         stage.show();
+        stage.centerOnScreen();
+
+
 
         //ajout d'une icone
-        stage.getIcons().add(new javafx.scene.image.Image("images/logo.png"));
+        stage.getIcons().add(new javafx.scene.image.Image("images/logo_invisible.png"));
         //si le bouton "Se connecter" est cliqué
         //on récupère le username et le password
         //on vérifie si le username et le password sont dans le dictionnaire
         //si oui, on ouvre la vue
         //sinon, on affiche un message d'erreur
         btn = (Button) scene.lookup("#boutonSeConnecter");
+        // TODO : ON CREER UN MODELE ICI, comme ca le temps que l'user se log on charge les profils
+        Modele mod = new Modele();
+
+        //Vous en avez marre de commenter/décommenter? Plus besoin xP
+        System.out.println("Saisissez un type de démarrage:");
+        System.out.println("Si vous souhaitez démarrer en mode générateur de profil, tappez gen, gener, generateur ");
+        System.out.println("Ou tout simplement g. Sinon, tappez n'importe quoi x) ");
+        Scanner scanner=new Scanner(System.in);
+        String input=scanner.nextLine().toUpperCase();
+        if (input.equals("G") || input.equals("GENERATEUR") || input.equals("GEN") || input.equals("GENER")){
+            System.out.println("Vous avez choisi de générer des profils aléatoires. Maintenant, quel mode voulez vous?");
+            System.out.println("Si vous voulez le mode avec limitation tappez le nombre de profils que vous souhaitez");
+            System.out.println("générer. Sinon, tappez n'importe quoi");
+            Scanner scan=new Scanner(System.in);
+            if (scan.hasNextInt()){
+                int nbprofil=scan.nextInt();
+                System.out.println("Vous avez choisi de générer "+nbprofil+" Profils");
+                new Generateur_profil(mod,nbprofil);
+            }
+            else{
+                System.out.println("Vous avez choisi le mode sans limite, veuillez patienter un petit moment...");
+                new Generateur_profil(mod);
+            }
+        }
+        else{
+            mod.charger();
+        }
+        System.out.println(String.format("%d profils ont été générés",mod.listeProfil.size()));
+
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -74,9 +106,10 @@ public class Authentification extends Application {
                     password = passwordField.getText();
                     //vérifier si le username et le password sont dans le dictionnaire
                     if (data.containsKey(username) && data.get(username).equals(password)){
-                        //si oui, on ouvre la vue
-                        Vue vue = new Vue();
-                        vue.start(stage);
+                        //si oui, on ouvre la Selection (pour choisir le profil qu'on veut utiliser)
+                        Selection selection = new Selection(mod);
+                        selection.start(stage);
+
                     }
                     else{
                         //sinon, on affiche un message d'erreur
@@ -88,25 +121,6 @@ public class Authentification extends Application {
                 }
             }
         });
-        //ajout d'une image de fond sur le bouton d'id "btnDarkMode"
-        btnDarkMode = (ToggleButton) scene.lookup("#btnDarkMode");
-        //ajout d'une image de fond sur btnDarkMode sans modifier le css
-        btnDarkMode.setStyle("-fx-background-image: url('images/dark.png'); -fx-background-size: 100% 100%;");
-
-        //quand le bouton "btnDarkMode" est cliqué
-        //on change le css de la scene pour passer en mode sombre
-
-        btnDarkMode.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if(btnDarkMode.isSelected()){
-                    //on passe en mode sombre
-                    scene.getStylesheets().add("css/dark.css");
-                }
-
-            }
-        });
-
 
 
     }

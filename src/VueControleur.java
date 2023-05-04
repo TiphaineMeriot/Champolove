@@ -23,15 +23,16 @@ public class VueControleur {
     Profil profilClick;
     Profil profilCourant;
     Modele mod;
-    public VueControleur(Modele mod){
+    public VueControleur(Modele mod, Profil profil){
         this.mod=mod;
+        this.profilCourant=profil;
     }
 
     public void init(Scene scene, Stage stage) throws Exception {
         boutonCreerProfil = (Button) scene.lookup("#boutonCreerProfil");
         boutonCreerProfil.setOnAction(event -> {
             try {
-                CreationProfil creationProfil = new CreationProfil();
+                CreationProfil creationProfil = new CreationProfil(mod);
                 creationProfil.start(stage);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -47,32 +48,6 @@ public class VueControleur {
             this.mod.enregistrer();
         });
         GridPane gridPane = (GridPane) scene.lookup("#GridProfils");
-
-        //Vous en avez marre de commenter/décommenter? Plus besoin xP
-        System.out.println("Saisissez un type de démarrage:");
-        System.out.println("Si vous souhaitez démarrer en mode générateur de profil, tappez gen, gener, generateur ");
-        System.out.println("Ou tout simplement g. Sinon, tappez n'importe quoi x) ");
-        Scanner scanner=new Scanner(System.in);
-        String input=scanner.nextLine().toUpperCase();
-        if (input.equals("G") || input.equals("GENERATEUR") || input.equals("GEN") || input.equals("GENER")){
-            System.out.println("Vous avez choisi de générer des profils aléatoires. Maintenant, quel mode voulez vous?");
-            System.out.println("Si vous voulez le mode avec limitation tappez le nombre de profils que vous souhaitez");
-            System.out.println("générer. Sinon, tappez n'importe quoi");
-            Scanner scan=new Scanner(System.in);
-            if (scan.hasNextInt()){
-                int nbprofil=scan.nextInt();
-                System.out.println("Vous avez choisi de générer "+nbprofil+" Profils");
-                new Generateur_profil(this.mod,nbprofil);
-            }
-            else{
-                System.out.println("Vous avez choisi le mode sans limite, veuillez patienter un petit moment...");
-                new Generateur_profil(this.mod);
-            }
-        }
-        else{
-            this.mod.charger();
-        }
-        System.out.println(String.format("%d profils ont été générés",mod.listeProfil.size()));
         ///
 
         //Ajout des profils dans le gridPane
@@ -99,6 +74,11 @@ public class VueControleur {
             imageView.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
                 @Override
                 public void handle(javafx.scene.input.MouseEvent event) {
+                    // le profil cliqué devient le profilclick
+                    profilClick = profil;
+
+
+
                     // on ajoute dans le pane de droite les informations de profilClick avec des labels qui ont la police d'ecriture : Cambria
                     // on créé un label nomPrenom qui contient le nom et le prenom du profil cliqué avec la police d'ecriture : Cambria et un espace entre le nom et le prenom
                     Label labelNomPrenom = new Label(profil.prenom + " " + profil.nom);

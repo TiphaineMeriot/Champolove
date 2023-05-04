@@ -172,7 +172,9 @@ public class Generateur_profil {
 
     //Constructeur avec limitation de profils
     public Generateur_profil(Modele mod,int nbrProfil) throws Exception{
-        if (nbrProfil< (mod.listeImageF.size()+mod.listeImageH.size()) /2){ //Je prends la moyenne des 2 tailles comme ça je suis sûr que ça passera
+        System.out.println("G:"+mod.listeImageF.size());
+        System.out.println("G:"+mod.listeImageH.size());
+        if (nbrProfil<(mod.listeImageF.size()+mod.listeImageH.size()) /2){ //Je prends la moyenne des 2 tailles comme ça je suis sûr que ça passera
             for(int i=0;i<nbrProfil;i++){
                 creation_Profil(mod);
             }
