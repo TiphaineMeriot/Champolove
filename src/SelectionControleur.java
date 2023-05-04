@@ -11,10 +11,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.web.HTMLEditor;
 import javafx.stage.Stage;
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.Properties;
+
 
 // on importe javax.activation.DataHandler de la librairie javax.mail
 
