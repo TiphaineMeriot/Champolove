@@ -68,101 +68,90 @@ public class Matching{
     public Matching(Modele mod){
         Matching.mod =mod;
     }
-    //On dit que c'est une liste les qualités et défauts
-    //TODO Il faut faire une option avec ce que la personne recherche
-    //TODO Genre cherche homme >1.80m qui aime la musique et attentionné.
-    //TODO Je ne veux pas qu'il soit con.
-    //J'ai pensé à un dictionnaire pour le sexe que la personne recherche
-    //ça serait un truc du genre:
-    public TreeSet<Profil> matching1(Profil p1){
-
-        //Je mets des termes plus courts pour pas refaire à chaque fois le même appel
-        HashSet<String> recherchequal=p1.exi.choix_qualite;
-        HashSet<String> S_hobbies=p1.exi.choix_hobbies;
-        HashSet<String> pasdefaut=p1.exi.choix_defaut;
-        HashSet<String> attirance=p1.exi.attirance;
-        int agemin=p1.exi.agemin;
-        int agemax=p1.exi.agemax;
-        int distancemax=p1.exi.distance;
-        ///
-
-        p1.actif=false; // J'enlève le profil de la liste des profils trouvés (on sait jamais).
-
-        //Je trie l'arbre en fonction des plus compatibles puis les plus près puis les noms et enfin les prénoms,
-        //Afin d'être sûr que 2 personnes ayant la même compatibilité et dans la même ville ne soit compté comme doublons.
-        Comparator<ScoreCompatibilite> compat = Comparator.comparingDouble(ScoreCompatibilite::getScore).reversed()
-                .thenComparing(sc->sc.profil.compareTo(p1))
-                .thenComparing(sc -> sc.profil.nom)
-                .thenComparing(sc->sc.profil.prenom);
-
-        TreeSet<ScoreCompatibilite> match=new TreeSet<>(compat);
-        ///
-
-        for(Profil profil: mod.listeProfil){
-            String genre=profil.genre;
-            if(!mod.tripargenre.containsKey(genre)){
-                mod.tripargenre.put(genre, new TreeSet<>());
-            }
-            mod.tripargenre.get(genre).add(profil);
-        }
-        for(String genrer:attirance) {
-            TreeSet<Profil> rechercher = mod.tripargenre.get(genrer);
-            for (Profil profil : rechercher) {
-                //Teste si la personne est active + si elle satisfait toutes les exigences + si elle est attirée par le genre de p1
-                if (profil.actif && condition_match(profil,p1)) {
-                    double alpha = 1.3;
-                    double compatibilitep1 = (correspond(p1,profil) / (p1.exi.choix_hobbies.size() + p1.exi.choix_qualite.size()));
-                    double compatibilitepro= (correspond(profil,p1) /(profil.exi.choix_hobbies.size()+profil.exi.choix_qualite.size()));
-                    double compatibilite = Math.pow(alpha, (compatibilitep1+compatibilitepro)/2);
-                    compatibilite = (compatibilite / alpha);
-                    ScoreCompatibilite sc = new ScoreCompatibilite(profil, compatibilite);
-                    sc.profil.compatibilité = compatibilite;
-                    match.add(sc);
-                }
-            }
-        }
+    public TreeSet<Profil> matching2(Profil p1){
         TreeSet<Profil> resultat=new TreeSet<>();
-        for(ScoreCompatibilite scorec:match){
-            resultat.add(scorec.getProfil());
+        int ageMin = p1.agemin;
+        int scoremax = 0;
+
+
+        // le but de cette fonction est de trouver les profils qui correspondent à p1 en se basant
+        // sur les critères d'exigences de p1 ex p1.agemin,p1.choix_qualite,p1.choix_hobbies,p1.choix_defaut
+        // et de les trier par score de compatibilité
+        for (Profil profil : mod.listeProfil) {
+            // on vérifie si le profil est du genre de p1.attirance et s'il est actif
+            if (p1.attirance.contains(profil.genre) && profil.actif==true) {
+                // on calcule le score de compatibilité
+                int score = 25;
+                for(String q:p1.choix_qualite){
+                    if(profil.qualite.contains(q)){
+                        score+=20;
+                    }
+                }
+                for(String q:p1.choix_defaut){
+                    if(profil.defaut.contains(q)){
+                        score-=20;
+                    }
+                }
+                for(String h:p1.choix_hobbies){
+                    if(profil.hobbies.contains(h)){
+                        score+=20;
+                    }
+                }
+                // si la distance est prise en compte par l'un des deux profils
+                // on enleve -10 si celle ci n'est pas respectée
+                if (p1.distance != 0 || profil.distance != 0) {
+                    if (p1.distance != 0 && profil.distance != 0) {
+                        // on prend la plus petite distance --> celle du plus exigeant des deux
+                        if (p1.distance < profil.distance) {
+                            // puis on verifie si la distance est respectée
+                            if (p1.distance < profil.compareTo(p1)) {
+                                score += 10;
+                            }else{
+                                score-=10;
+                            }
+                        } else {
+                            if (profil.distance < p1.compareTo(profil)) {
+                                score += 10;
+                            }else{
+                                score-=10;
+                            }
+                        }}
+                }
+                // si l'age min / l'age max est pris en compte par p1
+                // on enleve -10 si celui ci n'est pas respecté
+                if(p1.agemax!=0){
+                    if(profil.age>p1.agemax){
+                        score-=10;
+                    }else {
+                        score += 10;
+                    }
+                }
+                if(p1.agemin!=0){
+                    if(profil.age<p1.agemin){
+                        score-=10;
+                    }else {
+                        score += 10;
+                    }
+                }
+                if (score > scoremax) {
+                    scoremax = score;
+                }
+                profil.compatibilité = score;
+                resultat.add(profil);
+            }
         }
-        p1.actif=true;
+
+        // pour chaque profil on ramene le score de compatibilité sur 100 a l'aide du scoremax
+        for (Profil pro : resultat) {
+            pro.compatibilité = (pro.compatibilité * 99) / scoremax;
+        }
+
         return resultat;
-        }
+    }
 
 
 
     public static void main(String[] args) throws Exception {
-        //TODO ce que je vais mettre sera à enlever c'est juste pour tester matching sans avoir besoin de tout refaire.
-        Generateur_profil g=new Generateur_profil();
-        Modele mod=new Modele();
-        mod.charger();
-        Matching m=new Matching(mod);
-        Profil p1 = new Profil("CHARLIES", "Tom", "01/03/1999", Genre.HOMME.name(), Statut.CELIBATAIRE.name(), "Bordeaux");
-        p1.calcul_latitude_longitude();
-        do{
-            p1.exi.agemin=g.entierAlea(18,80);
-            p1.exi.agemax=g.entierAlea(20,100);
-        }while (p1.exi.agemin>p1.exi.agemax);
-        p1.exi.distance=1000;
-        g.qualdefhobAlea(p1.exi.choix_hobbies,mod.hobbies);
-        g.qualdefhobAlea(p1.exi.choix_qualite,mod.qualite);
-        g.qualdefhobAlea(p1.exi.choix_defaut,mod.defaut);
-        System.out.println(p1.latitude);
-        System.out.println(p1.longitude);
-        System.out.println("RECHERCHE");
-        m.print(p1.exi.attirance);
-        m.print(p1.exi.choix_qualite);
-        m.print(p1.exi.choix_defaut);
-        m.print(p1.exi.choix_hobbies);
-        System.out.println("entre "+p1.exi.agemin+" et "+p1.exi.agemax);
-        System.out.println(p1.exi.distance);
-        System.out.println("///////////////////////");
-        for(Profil p:m.matching1(p1)){
-            System.out.println(p.compatibilité);
-            System.out.println(p.compareTo(p1));
-            System.out.println(p);
-            System.out.println(" ");
-            System.out.println();
-        }
+
     }
 }
