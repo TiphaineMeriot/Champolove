@@ -4,12 +4,18 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -26,6 +32,8 @@ public class VueControleur {
     Modele mod;
     boolean DarkMode = false;
     boolean opacite = false;
+    // on définit une variable pour stocker la couleur hex #fb7434
+    String couleur = "#fb7434";
 
     public VueControleur(Modele mod, Profil profil){
         this.mod=mod;
@@ -220,9 +228,6 @@ public class VueControleur {
 
 
         });
-
-
-
 
     }
     public ImageView arrondirCoins(ImageView imageView, double radius) {

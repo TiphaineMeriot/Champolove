@@ -48,6 +48,11 @@ public class DatingControleur {
         rdv.getItems().add("Concert");
 
 
+        scene.lookup("#valider").setOnMouseClicked(event -> {
+            // TODO: ici on enverra un mail aux deux personnes
+        });
+
+
 
 
 

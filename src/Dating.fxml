@@ -39,7 +39,7 @@
             <Font name="Times New Roman Bold Italic" size="14.0" />
          </font>
       </Label>
-      <Button layoutX="562.0" layoutY="605.0" mnemonicParsing="false" style="-fx-background-color: #fb7434; -fx-text-fill: #29252a;" text="Valider">
+      <Button id="valider" layoutX="562.0" layoutY="605.0" mnemonicParsing="false" style="-fx-background-color: #fb7434; -fx-text-fill: #29252a;" text="Valider">
          <font>
             <Font name="Candara Light" size="13.0" />
          </font>

@@ -79,7 +79,7 @@ public class Matching{
         // et de les trier par score de compatibilité
         for (Profil profil : mod.listeProfil) {
             // on vérifie si le profil est du genre de p1.attirance et s'il est actif
-            if (p1.attirance.contains(profil.genre) && profil.actif==true) {
+            if (p1.attirance.contains(profil.genre) && profil.actif==true && profil!=p1) {
                 // on calcule le score de compatibilité
                 int score = 25;
                 for(String q:p1.choix_qualite){
