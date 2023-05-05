@@ -161,8 +161,7 @@ public class VueControleur {
                     String taille = String.format("%1.2fm",profil.taille);
                     Label labelTaille = new Label(taille);
 
-                    //TODO : on modifie l'imageView avatar en fonction de l'image du profil cliqué
-                    //imageViewAvatar.setImage(profilClick.image);
+
 
                     //le label nomPrenom a une police de titre de taille 30 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelNomPrenom.setStyle("-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
@@ -200,6 +199,28 @@ public class VueControleur {
             });
             i++;
         }
+
+        // si on clique sur le Button d'id Match
+        Button buttonMatch = (Button) scene.lookup("#Match");
+        buttonMatch.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+                // si le profil cliqué n'est pas null
+                // on ouvre le Dating
+                if (profilClick != null) {
+                    Dating dating = new Dating(mod, profilCourant, profilClick);
+                    try {
+                        dating.start(stage);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+            }
+
+
+        });
+
 
 
 

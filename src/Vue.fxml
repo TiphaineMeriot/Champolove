@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -16,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="PanePrincipal" fx:id="PanePrincipal" prefHeight="746.0" prefWidth="1089.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vue">
+<AnchorPane id="PanePrincipal" fx:id="PanePrincipal" prefHeight="746.0" prefWidth="1089.0" style="-fx-background-color: #F5c295; -fx-border-color: #fb7434; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vue">
     <children>
         <Pane layoutX="34.0" layoutY="200.0">
             <children>
@@ -24,13 +25,12 @@
                     <children>
                         <ScrollPane>
                             <content>
-                                <Pane prefHeight="533.0" prefWidth="429.0" style="-fx-border-color: #fb7434;">
+                                <Pane prefHeight="533.0" prefWidth="429.0" style="-fx-border-color: #fb7434; -fx-background-color: #F5c295;">
                                     <children>
-                                        <GridPane id="GridPaneDroite" layoutX="12.0" layoutY="4.0" prefHeight="64.0" prefWidth="407.0">
+                                        <GridPane id="GridPaneDroite" layoutX="30.0" layoutY="4.0" prefHeight="64.0" prefWidth="373.0">
                                             <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="131.0" minWidth="10.0" prefWidth="58.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="265.0" minWidth="10.0" prefWidth="215.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.0" minWidth="10.0" prefWidth="134.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="131.0" minWidth="10.0" prefWidth="56.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="343.0" minWidth="10.0" prefWidth="340.0" />
                                             </columnConstraints>
                                             <rowConstraints>
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -41,7 +41,7 @@
                                                         <Image url="@images/loupe.png" />
                                                     </image>
                                                 </ImageView>
-                                                <TextField id="ZonedeRecherche" prefHeight="27.0" prefWidth="209.0" promptText="Rechercher par mots clés..." GridPane.columnIndex="1">
+                                                <TextField id="ZonedeRecherche" prefHeight="34.0" prefWidth="317.0" promptText="Rechercher par mots clés..." GridPane.columnIndex="1">
                                                     <font>
                                                         <Font name="Calibri Italic" size="18.0" />
                                                     </font>
@@ -50,7 +50,7 @@
                                         </GridPane>
                                         <ScrollPane layoutX="25.0" layoutY="68.0" prefHeight="444.0" prefWidth="378.0" style="-fx-border-color: #fb7434;">
                                             <content>
-                                                <GridPane id="GridProfils" prefHeight="90.0" prefWidth="378.0">
+                                                <GridPane id="GridProfils" prefHeight="90.0" prefWidth="378.0" style="-fx-background-color: #F5c295;">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="146.0" />
@@ -73,13 +73,13 @@
                 </Pane>
             </children>
         </Pane>
-        <ImageView fitHeight="81.0" fitWidth="75.0" layoutX="1024.0" layoutY="617.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="81.0" fitWidth="75.0" layoutX="1074.0" layoutY="657.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@images/logo_invisible.png" />
             </image>
         </ImageView>
-        <Button id="boutonCreerProfil" layoutX="31.0" layoutY="49.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="169.0" style="-fx-background-color: #fb7434;" text="Créer un nouveau profil" textFill="WHITE" />
-        <Button layoutX="31.0" layoutY="90.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" style="-fx-background-color: #fb7434;" text="Editer le profil" textFill="WHITE" />
+        <Button id="boutonCreerProfil" layoutX="59.0" layoutY="160.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" style="-fx-background-color: #fb7434;" text="Créer un nouveau profil" textFill="WHITE" />
+        <Button layoutX="315.0" layoutY="159.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" style="-fx-background-color: #fb7434;" text="Editer le profil" textFill="WHITE" />
         <Pane id="PaneDroite" fx:id="PaneDroite" layoutX="499.0" prefHeight="635.0" prefWidth="650.0">
             <children>
                 <GridPane id="gridPaneNom" fx:id="gridPaneNom" layoutX="79.0" layoutY="104.0" prefHeight="90.0" prefWidth="356.0">
@@ -149,7 +149,7 @@
             </GridPane>
             </children>
         </Pane>
-      <MenuBar id="MenuBar" layoutY="2.0" prefHeight="25.0" prefWidth="1163.0">
+      <MenuBar id="MenuBar" layoutX="3.0" layoutY="2.0" prefHeight="25.0" prefWidth="1160.0">
         <menus>
           <Menu id="Mode" text="Mode">
                <items>
@@ -169,5 +169,11 @@
             </Menu>
         </menus>
       </MenuBar>
+      <Button id="Match" layoutX="770.0" layoutY="681.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" style="-fx-background-color: #fb7434;" text="Match" textFill="WHITE" />
+      <Label layoutX="130.0" layoutY="68.0" prefHeight="69.0" prefWidth="239.0" text="P R O F I L S" textFill="#fb7434">
+         <font>
+            <Font name="Times New Roman Bold" size="40.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

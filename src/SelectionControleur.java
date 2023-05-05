@@ -51,7 +51,7 @@ public class SelectionControleur {
             ImageView imageView = new ImageView(image);
             imageView.setFitHeight(70);
             imageView.setFitWidth(70);
-            imageView = arrondirCoins(imageView, 70);
+            imageView = arrondirCoins(imageView, 50);
             gridPane.add(imageView, 0, i);
 
             // si le profil est cliqué
