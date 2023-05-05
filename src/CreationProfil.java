@@ -5,15 +5,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class CreationProfil extends Application {
-    Modele mod;
     public CreationProfil(){
         super();
     }
-    public CreationProfil(Modele mod){
-        this.mod=mod;
-    }
     @Override
     public void start(Stage stage) throws Exception {
+        Modele mod=new Modele();
+        mod.charger();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("creationp.fxml"));
         Parent root = loader.load();
         CreationProfilControleur controleur =new CreationProfilControleur(mod);
@@ -26,6 +24,7 @@ public class CreationProfil extends Application {
         stage.show();
         //stage.setResizable(false);
         stage.setTitle("Créer un nouveau profil");
+
 
 
     }

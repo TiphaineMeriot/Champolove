@@ -39,7 +39,7 @@ public class VueControleur {
         boutonCreerProfil = (Button) scene.lookup("#boutonCreerProfil");
         boutonCreerProfil.setOnAction(event -> {
             try {
-                CreationProfil creationProfil = new CreationProfil(mod);
+                CreationProfil creationProfil = new CreationProfil();
                 creationProfil.start(stage);
             } catch (Exception e) {
                 e.printStackTrace();
