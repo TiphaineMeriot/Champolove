@@ -60,6 +60,14 @@ public class SelectionControleur {
                 public void handle(javafx.scene.input.MouseEvent event) {
                     // le profil cliqué devient le profil courant
                     profilCourant = profil;
+                    // on affiche les exigences des profils dans la console
+                    System.out.println(profil.agemax);
+                    System.out.println(profil.agemin);
+                    System.out.println(profil.attirance);
+                    System.out.println(profil.distance
+                    );
+                    System.out.println(profil.choix_qualite);
+                    System.out.println(profil.choix_defaut);
 
                 }
             });

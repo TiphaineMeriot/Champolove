@@ -47,11 +47,19 @@ public class Profil implements Comparable<Profil>, Serializable {
     String image;
     String signe;
     Calendar date_de_creation;
+    HashSet<String> choix_hobbies;
+    HashSet<String> choix_qualite;
+    HashSet<String> choix_defaut;
+    HashSet<String> attirance;
+    int distance = 0;
+    int agemin=0;
+    int agemax= 0;
     ///
 
     //Attributs personnels
     ArrayList<String> hobbies,qualite,defaut;
-    double compatibilité;
+    int compatibilité;
+
     Exigence exi;
     ///
 
@@ -69,6 +77,13 @@ public class Profil implements Comparable<Profil>, Serializable {
         this.statut = statut;
         this.ville = ville.toUpperCase();
         this.actif=true;
+
+        //Exigences
+        this.attirance=new HashSet<>();
+        this.choix_hobbies=new HashSet<>();
+        this.choix_qualite=new HashSet<>();
+        this.choix_defaut=new HashSet<>();
+
         //J'appelle la méthode pour calculer l'âge
         calcul_age();
         calcul_signe();

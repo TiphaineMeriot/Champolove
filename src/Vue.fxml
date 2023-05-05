@@ -41,7 +41,6 @@
                                                         <Image url="@images/loupe.png" />
                                                     </image>
                                                 </ImageView>
-                                                <Button mnemonicParsing="false" style="-fx-background-color: #fb7434;" text="Recherche avancée" textAlignment="RIGHT" textFill="WHITE" GridPane.columnIndex="2" />
                                                 <TextField id="ZonedeRecherche" prefHeight="27.0" prefWidth="209.0" promptText="Rechercher par mots clés..." GridPane.columnIndex="1">
                                                     <font>
                                                         <Font name="Calibri Italic" size="18.0" />

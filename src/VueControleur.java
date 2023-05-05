@@ -64,7 +64,7 @@ public class VueControleur {
 
         // on va retourner un TreeSet de profils triés par compatibilité en fonction du profil courant
         Matching m = new Matching(this.mod);
-        TreeSet<Profil> listeProfilTrie = m.matching1(this.profilCourant);
+        TreeSet<Profil> listeProfilTrie = m.matching2(this.profilCourant);
 
         for (Profil profil : listeProfilTrie) {
             Label labelNomPrenom = new Label(profil.nom + " " + profil.prenom);
@@ -84,7 +84,10 @@ public class VueControleur {
 
             // on ajoute un ProgressIndicator pour chaque profil
             ProgressIndicator progressIndicator = new ProgressIndicator();
-            progressIndicator.setProgress(profil.compatibilité);
+            // la compatibilité du profil est sur 100, on la divise par 100 pour avoir un resultat entre 0 et 1
+            float compa = (float)(profil.compatibilité);
+            compa = compa/100;
+            progressIndicator.setProgress(compa);
             // on ajoute un label pour chaque profil qui contient le nom et le prenom du profil
             gridPane.add(progressIndicator, 2, i);
             gridPane.add(labelNomPrenom, 1, i);
@@ -181,6 +184,9 @@ public class VueControleur {
                     gridPaneDroite.getChildren().clear();
                     //on ajoute les labels dans la colonne 1 de gridPaneDroite
                     gridPaneDroite.add(labelNomPrenom, 0, 0);
+
+                    // on affiche tout les attributs du profil cliqué dans la console
+
 
                     GridPane gridPaneInfos = (GridPane) scene.lookup("#gridPaneInfos");
                     gridPaneInfos.getChildren().clear();
