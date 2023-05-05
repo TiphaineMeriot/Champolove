@@ -88,7 +88,13 @@ public class Generateur_profil {
 
         //Création du profil
         HashSet<String> attirance=new HashSet<>();
-        for(int i=0;i<entierAlea(1,3);i++){
+        int piece=entierAlea(1,50);
+        if (piece==12){
+            for(int i=0;i<entierAlea(1,3);i++){
+                attirance.add(recherche[new Random().nextInt(recherche.length)]);
+            }
+        }
+        else{
             attirance.add(recherche[new Random().nextInt(recherche.length)]);
         }
         Profil p = new Profil(nom, prenom, ddn, genre, statut[new Random().nextInt(statut.length)], location);
@@ -104,12 +110,13 @@ public class Generateur_profil {
         qualdefhobAlea(p.exi.choix_qualite,mod.qualite);
         ///
         //Exigence distance
-        p.exi.distance=entierAlea(50,1000);
+        p.exi.distance=entierAlea(100,1000);
         ///
+
         //Exigence age
         do{
-            p.exi.agemin=entierAlea(18,80);
-            p.exi.agemax=entierAlea(20,100);
+            p.exi.agemin=entierAlea(18,30);
+            p.exi.agemax=entierAlea(31,100);
         }while (p.exi.agemin>p.exi.agemax);
         ///
 
@@ -126,7 +133,7 @@ public class Generateur_profil {
             p.image=absolutePath.toString();
             p.taille=choix_images_et_taille(p,p.genre,mod.listeImageF,1.5,1.8);
         } else {
-            int piece = r.nextInt(2);
+            piece = r.nextInt(2);
             if (piece == 0) {
                 p.taille=choix_images_et_taille(p,p.genre,mod.listeImageF,1.5,1.8);
             } else {

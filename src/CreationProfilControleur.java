@@ -71,6 +71,9 @@ public class CreationProfilControleur  {
     private ObservableList<String> qual;
     private ObservableList<String> def;
     Modele mod;
+    public CreationProfilControleur(){
+        super();
+    }
     public CreationProfilControleur(Modele mod){
         this.mod=mod;
     }
@@ -193,7 +196,6 @@ public class CreationProfilControleur  {
         System.out.println(p);
         afficherMessage("Le profil a bien été créé");
         System.exit(0);
-
     }
 
 
