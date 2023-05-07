@@ -62,15 +62,19 @@ public class Matching{
         return (compatibilite/(10+20*p1.exi.choix_qualite.size()+p1.exi.choix_hobbies.size()));
     }
     public double correspondV2(Profil p1,Profil p2){
-        double compatage=0;
+        double compatage=0.5;
         int ageminp1=p1.exi.agemin;
         int agemaxp1=p1.exi.agemax;
-        int ageminp2=p2.exi.agemin;
-        int agemaxp2=p2.exi.agemax;
-        if (ageminp1<=p2.age && p2.age<=agemaxp1){
-            compatage+=10;
+        if (ageminp1!=0 && agemaxp1!=0){
+            if (ageminp1>p2.age || p2.age>agemaxp1){
+            if (agemaxp1<p2.age){
+                 double excesage = (double)(p2.age - agemaxp1) / agemaxp1;
+                compatage = -1 * excesage;
+            } else {
+                compatage=(double)(p2.age-ageminp1)/ageminp1;
+            }
         }
-         compatage=compatage/20;
+        }
          double qualiteJaccard = jaccard(p1.exi.choix_qualite, p2.qualite);
          double defautJaccard = jaccard(p1.exi.choix_defaut, p2.defaut);
          double hobbiesJaccard = jaccard(p1.exi.choix_hobbies, p2.hobbies);
@@ -80,6 +84,11 @@ public class Matching{
          double poidsAge=0.25;
          double poidsDist=0.25;
          double compatdist=0;
+        System.out.println("/////////////////////////////////////////////////////////////");
+         System.out.println("age:"+compatage*0.25);
+         System.out.println("qual:"+qualiteJaccard*0.25);
+         System.out.println("def:"+defautJaccard*0.25);
+         System.out.println("hob:"+hobbiesJaccard*0.25);
         double distanceMaxPoss;
         if (p1.exi.distance!=0 && p2.exi.distance!=0){
             distanceMaxPoss=Math.min(p1.exi.distance,p2.exi.distance);
@@ -91,9 +100,17 @@ public class Matching{
                 double excesdistance = (p1.compareTo(p2) - distanceMaxPoss) / distanceMaxPoss;
                 compatdist = -1 * excesdistance;
             }
+        else if (distanceMaxPoss!=0){
+            compatdist=(-1*(p1.compareTo(p2)-distanceMaxPoss)/distanceMaxPoss)/2;
+        }
+        else {
+            compatdist=0;
+        }
+        System.out.println("dist:"+compatdist);
+        System.out.println("////////////////////////////////////////////////////////////");
         double auxcompat= poidsQualite*qualiteJaccard-poidsDefaut*defautJaccard+poidsHobbies*hobbiesJaccard
                 +poidsAge*compatage+poidsDist*compatdist;
-        int coef=20;
+        int coef=18;
          return 1/(1+Math.exp(-auxcompat*coef))*100; //sigmoid (c'est sympa pour recentrer autour de [0,100];
     }
 
