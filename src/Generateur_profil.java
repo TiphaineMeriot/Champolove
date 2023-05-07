@@ -16,7 +16,7 @@ public class Generateur_profil {
 
     public void qualdefhobAlea(Collection<String> liste,ArrayList<String> source){
         Random r=new Random();
-        for(int j=0;j<entierAlea(1,3);j++){
+        for(int j=0;j<entierAlea(1,6);j++){
                 int ind=r.nextInt(source.size());
                 liste.add(source.get(ind));
             }
@@ -133,8 +133,8 @@ public class Generateur_profil {
             p.exi.agemax=1000;
         }
         else{
-            p.exi.agemin=entierAlea(18,50);
-            p.exi.agemax=entierAlea(30,80);
+            p.exi.agemin=entierAlea(18,30);
+            p.exi.agemax=entierAlea(31,100);
         }
         // 3) qualités : on tire un random entre 0 et 2 pour le nombre de qualités exigées puis on va chercher dans la liste des qualités 2 qualité au hasard
         // et on le stocke dans p.choix_qualites

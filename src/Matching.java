@@ -40,21 +40,71 @@ public class Matching{
         }
         for (String qualsearch : recherchequal) {
             if (p2.qualite.contains(qualsearch)) {
-                compatibilite++;
+                System.out.println("youpi qual");
+                System.out.println(p2);
+                compatibilite+=20;
             }
         }
         for (String notdefaut : pasdefaut) {
             if (p2.defaut.contains(notdefaut)) {
-                compatibilite--;
+                System.out.println("aie def");
+                System.out.println(p2);
+                compatibilite-=20;
             }
         }
         for (String hobsearch : S_hobbies) {
             if (p2.hobbies.contains(hobsearch)) {
-                compatibilite++;
+                System.out.println("youpi hobby");
+                System.out.println(p2);
+                compatibilite+=20;
             }
         }
-        return (compatibilite/(10+S_hobbies.size()+pasdefaut.size()+recherchequal.size()));
+        return (compatibilite/(10+20*p1.exi.choix_qualite.size()+p1.exi.choix_hobbies.size()));
     }
+    public double correspondV2(Profil p1,Profil p2){
+        double compatage=0;
+        int ageminp1=p1.exi.agemin;
+        int agemaxp1=p1.exi.agemax;
+        int ageminp2=p2.exi.agemin;
+        int agemaxp2=p2.exi.agemax;
+        if (ageminp1<=p2.age && p2.age<=agemaxp1){
+            compatage+=10;
+        }
+         compatage=compatage/20;
+         double qualiteJaccard = jaccard(p1.exi.choix_qualite, p2.qualite);
+         double defautJaccard = jaccard(p1.exi.choix_defaut, p2.defaut);
+         double hobbiesJaccard = jaccard(p1.exi.choix_hobbies, p2.hobbies);
+         double poidsQualite = 0.25; //TODO Changer les poids
+         double poidsDefaut = 0.25;
+         double poidsHobbies = 0.25;
+         double poidsAge=0.25;
+         double poidsDist=0.25;
+         double compatdist=0;
+        double distanceMaxPoss;
+        if (p1.exi.distance!=0 && p2.exi.distance!=0){
+            distanceMaxPoss=Math.min(p1.exi.distance,p2.exi.distance);
+        }
+        else{
+            distanceMaxPoss=Math.max(p1.exi.distance,p2.exi.distance);
+        }
+        if ( distanceMaxPoss!=0 && p1.compareTo(p2)>distanceMaxPoss){
+                double excesdistance = (p1.compareTo(p2) - distanceMaxPoss) / distanceMaxPoss;
+                compatdist = -1 * excesdistance;
+            }
+        double auxcompat= poidsQualite*qualiteJaccard-poidsDefaut*defautJaccard+poidsHobbies*hobbiesJaccard
+                +poidsAge*compatage+poidsDist*compatdist;
+        int coef=20;
+         return 1/(1+Math.exp(-auxcompat*coef))*100; //sigmoid (c'est sympa pour recentrer autour de [0,100];
+    }
+
+    private double jaccard(HashSet<String> cherche, ArrayList<String> trouve) {
+        Set<String> intersection=new HashSet<>(cherche);
+        intersection.retainAll(trouve);
+        Set<String> union=new HashSet<>(cherche);
+        union.addAll(trouve);
+        return (double)intersection.size()/ union.size();
+    }
+
     public Matching(Modele mod){
         Matching.mod =mod;
     }
@@ -216,31 +266,8 @@ public class Matching{
          for(String genrer:attirance) {
             TreeSet<Profil> rechercher = mod.tripargenre.get(genrer);
             for (Profil profil : rechercher) {
-                if (profil.actif && profil.exi.attirance.contains(p1.genre)){
-                    double compatp1=correspond(p1,profil);
-                    double compatpro=correspond(profil,p1);
-                    double compatdist=0;
-                    double distanceMaxPoss;
-                    if (p1.exi.distance!=0 && profil.exi.distance!=0){
-                        distanceMaxPoss=Math.min(p1.exi.distance,profil.exi.distance);
-                    }
-                    else{
-                        distanceMaxPoss=Math.max(p1.exi.distance,profil.exi.distance);
-                    }
-                    if ( distanceMaxPoss!=0 && p1.compareTo(profil)>distanceMaxPoss){
-                            double excesdistance = (p1.compareTo(profil) - distanceMaxPoss) / distanceMaxPoss;
-                            compatdist = -1 * excesdistance;
-                        }
-                    if (compatp1!=0 || compatpro!=0){
-                        System.out.println("THE WINNER IS ////////////////////////////////////////////////////////////////////////////////////////////////////////");
-                        System.out.println(profil);
-                        System.out.println("///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////");
-                    }
-//                    System.out.println("compatp1 envers pro "+compatp1);
-//                    System.out.println("compatpro envers p1 "+compatpro);
-//                    System.out.println("distance: "+compatdist);
-                    double compatibilite=1/(1+Math.exp(-(compatp1+compatpro)/2+compatdist)) *100; //sigmoid (c'est sympa pour recentrer autour de 0,1;
-                    System.out.println("Compat totale:"+compatibilite);
+                if (profil.actif && p1.exi.attirance.contains(profil.genre) && profil.exi.attirance.contains(p1.genre)){
+                    double compatibilite=(correspondV2(profil,p1)+correspondV2(p1,profil))/2;
                     ScoreCompatibilite sc=new ScoreCompatibilite(profil,compatibilite);
                     sc.profil.compatibilité=(int) compatibilite;
                     match.add(sc);
@@ -280,8 +307,8 @@ public static void main(String[] args) throws Exception {
         m.print(S_def);
         m.print(S_hob);
         System.out.println("///////////////////////");
-//        m.matching1v2(p1);
         for(Profil p:m.matching1v2(p1)){
+            System.out.println(p.compatibilité);
             System.out.println(p.compareTo(p1));
             System.out.println(p);
             System.out.println(" ");
