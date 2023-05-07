@@ -186,7 +186,7 @@ public class Matching{
             }
         }
 
-        // pour chaque profil on ramene le score de compatibilité sur 100 a l'aide du scoremax
+        // pour chaque profil on ramène le score de compatibilité sur 100 à l'aide du scoremax
         for (Profil pro : resultat) {
             pro.compatibilité = (pro.compatibilité * 99) / scoremax;
         }
@@ -194,14 +194,7 @@ public class Matching{
         return resultat;
     }
     public TreeSet<Profil> matching1v2(Profil p1){
-        //Je mets des termes plus courts pour pas refaire à chaque fois le même appel
-        HashSet<String> recherchequal=p1.exi.choix_qualite;
-        HashSet<String> S_hobbies=p1.exi.choix_hobbies;
-        HashSet<String> pasdefaut=p1.exi.choix_defaut;
         HashSet<String> attirance=p1.exi.attirance;
-        int agemin=p1.exi.agemin;
-        int agemax=p1.exi.agemax;
-        int distancemax=p1.exi.distance;
         p1.actif=false; // J'enlève le profil de la liste des profils trouvés (on sait jamais).
         ///
 
@@ -227,25 +220,27 @@ public class Matching{
                     double compatp1=correspond(p1,profil);
                     double compatpro=correspond(profil,p1);
                     double compatdist=0;
-                    double maxcompatdist=1;
-                    if (p1.exi.distance != 0 || profil.exi.distance != 0) {
-                        maxcompatdist=20;
-                        if (p1.exi.distance <= profil.exi.distance) {
-                            // puis on verifie si la distance est respectée
-                            if (p1.exi.distance <= profil.compareTo(p1)) {
-                                compatdist += 10;
-                            }else{
-                                compatdist-=10;
-                            }
-                        } else {
-                            if (profil.exi.distance <= p1.compareTo(profil)) {
-                                compatdist += 10;
-                            }else{
-                                compatdist-=10;
-                            }
-                        }
+                    double distanceMaxPoss;
+                    if (p1.exi.distance!=0 && profil.exi.distance!=0){
+                        distanceMaxPoss=Math.min(p1.exi.distance,profil.exi.distance);
                     }
-                    double compatibilite=(compatp1+compatpro+(compatdist/maxcompatdist))/3;
+                    else{
+                        distanceMaxPoss=Math.max(p1.exi.distance,profil.exi.distance);
+                    }
+                    if ( distanceMaxPoss!=0 && p1.compareTo(profil)>distanceMaxPoss){
+                            double excesdistance = (p1.compareTo(profil) - distanceMaxPoss) / distanceMaxPoss;
+                            compatdist = -1 * excesdistance;
+                        }
+                    if (compatp1!=0 || compatpro!=0){
+                        System.out.println("THE WINNER IS ////////////////////////////////////////////////////////////////////////////////////////////////////////");
+                        System.out.println(profil);
+                        System.out.println("///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////");
+                    }
+//                    System.out.println("compatp1 envers pro "+compatp1);
+//                    System.out.println("compatpro envers p1 "+compatpro);
+//                    System.out.println("distance: "+compatdist);
+                    double compatibilite=1/(1+Math.exp(-(compatp1+compatpro)/2+compatdist)) *100; //sigmoid (c'est sympa pour recentrer autour de 0,1;
+                    System.out.println("Compat totale:"+compatibilite);
                     ScoreCompatibilite sc=new ScoreCompatibilite(profil,compatibilite);
                     sc.profil.compatibilité=(int) compatibilite;
                     match.add(sc);
@@ -264,7 +259,32 @@ public class Matching{
 
 
 
-    public static void main(String[] args) throws Exception {
-
+public static void main(String[] args) throws Exception {
+        //TODO ce que je vais mettre sera à enlever c'est juste pour tester matching sans avoir besoin de tout refaire.
+        Generateur_profil g=new Generateur_profil();
+        Modele mod=new Modele();
+        mod.charger();
+        Matching m=new Matching(mod);
+        Profil p1 = new Profil("CHARLIES", "Tom", "01/03/1999", Genre.HOMME.name(), Statut.CELIBATAIRE.name(), "Bordeaux");
+        p1.calcul_latitude_longitude();
+        p1.exi.attirance.add("FEMME");
+        p1.exi.distance=200;
+        HashSet<String> S_qual = new HashSet<>();
+        HashSet<String> S_def = new HashSet<>();
+        HashSet<String> S_hob = new HashSet<>();
+        g.qualdefhobAlea(S_qual,mod.qualite);
+        g.qualdefhobAlea(S_def,mod.defaut);
+        g.qualdefhobAlea(S_hob,mod.hobbies);
+        System.out.println("RECHERCHE");
+        m.print(S_qual);
+        m.print(S_def);
+        m.print(S_hob);
+        System.out.println("///////////////////////");
+//        m.matching1v2(p1);
+        for(Profil p:m.matching1v2(p1)){
+            System.out.println(p.compareTo(p1));
+            System.out.println(p);
+            System.out.println(" ");
+        }
     }
 }

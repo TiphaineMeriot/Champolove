@@ -72,7 +72,7 @@ public class VueControleur {
 
         // on va retourner un TreeSet de profils triés par compatibilité en fonction du profil courant
         Matching m = new Matching(this.mod);
-        TreeSet<Profil> listeProfilTrie = m.matching2(this.profilCourant);
+        TreeSet<Profil> listeProfilTrie = m.matching1v2(this.profilCourant);
 
         for (Profil profil : listeProfilTrie) {
             Label labelNomPrenom = new Label(profil.nom + " " + profil.prenom);
@@ -103,7 +103,7 @@ public class VueControleur {
             ImageView imageView = new ImageView(image);
             imageView.setFitHeight(70);
             imageView.setFitWidth(70);
-            imageView = arrondirCoins(imageView, 70);
+            imageView = arrondirCoins(imageView, 50);
             gridPane.add(imageView, 0, i);
             //si la souris clique sur l'image,on stocke le profil correspondant dans la variable profilClick
             imageView.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {

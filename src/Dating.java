@@ -24,6 +24,5 @@ public class Dating extends Application {
         primaryStage.centerOnScreen();
         DatingControleur controller = new DatingControleur(mod, p1, p2);
         controller.init(scene,primaryStage);
-
     }
 }

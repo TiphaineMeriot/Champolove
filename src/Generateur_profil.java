@@ -138,19 +138,13 @@ public class Generateur_profil {
         }
         // 3) qualités : on tire un random entre 0 et 2 pour le nombre de qualités exigées puis on va chercher dans la liste des qualités 2 qualité au hasard
         // et on le stocke dans p.choix_qualites
-        int nbqualites=entierAlea(1,3);
-        for (int i=0;i<nbqualites;i++){
-            int rdmqualite=entierAlea(0,mod.qualite.size()-1);
-            p.exi.choix_qualite.add(mod.qualite.get(rdmqualite));
-        }
-        // 4) défauts : on rire un random entre 0 et 2 pour le nombre de défauts exigés puis on va chercher dans la liste des défauts 2 défauts au hasard
+        qualdefhobAlea(p.exi.choix_qualite,mod.qualite);
+        // 4) défauts : on tire un random entre 0 et 2 pour le nombre de défauts exigés puis on va chercher dans la liste des défauts 2 défauts au hasard
         // et on le stocke dans p.choix_defaut
-        int nbdefauts=entierAlea(1,3);
-        for (int i=0;i<nbdefauts;i++){
-            int rdmdefaut=entierAlea(0,mod.defaut.size()-1);
-            p.exi.choix_defaut.add(mod.defaut.get(rdmdefaut));
-        }
-        // 5) distance, on tire un random entre 0 et 1 pour savoir si la personne accorde de l'importance à la distance
+        qualdefhobAlea(p.exi.choix_defaut,mod.defaut);
+        //5) Hobbies (tu as oublié ^^)
+        qualdefhobAlea(p.exi.choix_hobbies,mod.hobbies);
+        // 6) distance, on tire un random entre 0 et 1 pour savoir si la personne accorde de l'importance à la distance
         // si c'est 0 on fait r
         // si c'est 1 on tire un random entre 100 et 700 pour la distance max
         int rdmimportancedistance=entierAlea(0,1);
@@ -185,7 +179,9 @@ public class Generateur_profil {
         qualdefhobAlea(p.hobbies,mod.hobbies);
         qualdefhobAlea(p.qualite,mod.qualite);
         ///
-
+        //Profession
+        p.profession=mod.metier.get(r.nextInt(mod.metier.size()));
+        ///
         //Choix de la date de création du profil
         SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
         String date_de_creation=String.format("%d/%d/%d",entierAlea(1,28),entierAlea(1,4),2023);

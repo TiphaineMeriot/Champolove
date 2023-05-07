@@ -5,17 +5,18 @@ import java.util.*;
 
 public class Modele {
 	//Déclaration des Structures utilisées
-	public ArrayList<String> qualite;
-	public ArrayList<String> defaut;
-	public ArrayList<String> hobbies;
-	public ArrayList<String> prenomH;
-	public ArrayList<String> prenomF;
-	public ArrayList<String> nom;
-	public ArrayList<Donnees> lieu;
-    public TreeSet<Profil> listeProfil;
-	public HashMap<String,TreeSet<Profil>> tripargenre; //Autre organisation des profils, utile dans Matching
-	public ArrayList<File> listeImageH;
-	public ArrayList<File> listeImageF;
+	ArrayList<String> qualite;
+	ArrayList<String> defaut;
+	ArrayList<String> hobbies;
+	ArrayList<String> prenomH;
+	ArrayList<String> prenomF;
+	ArrayList<String> nom;
+	ArrayList<Donnees> lieu;
+    TreeSet<Profil> listeProfil;
+	HashMap<String,TreeSet<Profil>> tripargenre; //Autre organisation des profils, utile dans Matching
+	ArrayList<File> listeImageH;
+	ArrayList<File> listeImageF;
+	ArrayList<String> metier;
 	///
 
 	//Cette méthode est indispensable pour pouvoir sérialiser le comparateur.
@@ -59,6 +60,7 @@ public class Modele {
 		this.prenomH=new ArrayList<>();
 		this.prenomF=new ArrayList<>();
 		this.lieu=new ArrayList<>();
+		this.metier=new ArrayList<>();
 		this.tripargenre=new HashMap<>();
 		Path relativePathH= Paths.get("src","images","HOMME");
 		Path relativePathF= Paths.get("src","images","FEMME");
@@ -97,6 +99,7 @@ public class Modele {
 			aux_enregistrer("donnees/prenomF.dat",this.prenomF);
 			aux_enregistrer("donnees/nom.dat",this.nom);
 			aux_enregistrer("donnees/ville.dat",this.lieu);
+			aux_enregistrer("donnees/metier.dat",this.metier);
 		} catch (IOException e) {
 			throw new RuntimeException("Impossible d'écrire les données");
 		}
@@ -127,6 +130,7 @@ public class Modele {
 			this.prenomF = aux_charger("donnees/prenomF.dat");
 			this.nom = aux_charger("donnees/nom.dat");
 			this.lieu=aux_charger("donnees/ville.dat");
+			this.metier=aux_charger("donnees/metier.dat");
 		} catch (Exception e) {
 			throw new RuntimeException("Lecture des données impossibles ou données corrompues");
 		}
@@ -142,6 +146,7 @@ public class Modele {
 		String chemprenomH="donnees/prenomH.csv";
 		String chemnom="donnees/nom.csv";
 		String chemville="donnees/villes_france.csv";
+		String chemmetier="donnees/metier.csv";
 		aux_csv_transform(chemqual, this.qualite);
 		aux_csv_transform(chemdef, this.defaut);
 		aux_csv_transform(chemhobbies,this.hobbies);
@@ -149,6 +154,7 @@ public class Modele {
 		aux_csv_transform(chemprenomH,this.prenomH);
 		aux_csv_transform(chemnom,this.nom);
 		aux_csv_transform_loc(chemville,this.lieu);
+		aux_csv_transform(chemmetier,this.metier);
 	}
 	///
 
