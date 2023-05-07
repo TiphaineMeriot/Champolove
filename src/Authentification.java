@@ -56,8 +56,6 @@ public class Authentification extends Application {
         stage.show();
         stage.centerOnScreen();
 
-
-
         //ajout d'une icone
         stage.getIcons().add(new javafx.scene.image.Image("images/logo_invisible.png"));
         //si le bouton "Se connecter" est cliqué

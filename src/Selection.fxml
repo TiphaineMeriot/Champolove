@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -9,6 +13,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="831.0" style="-fx-background-color: #F5c295; -fx-border-color: #fb7434; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
@@ -18,12 +23,12 @@
             <Image url="@images/logo_invisible.png" />
          </image>
       </ImageView>
-      <Label layoutX="207.0" layoutY="20.0" prefHeight="45.0" prefWidth="438.0" text="SELECTION DU PROFIL" textFill="#fb7434" underline="true">
+      <Label layoutX="191.0" layoutY="56.0" prefHeight="45.0" prefWidth="470.0" text="SELECTION DU PROFIL" textFill="#fb7434">
          <font>
-            <Font name="Times New Roman" size="40.0" />
+            <Font name="Times New Roman Bold" size="40.0" />
          </font>
       </Label>
-      <ScrollPane id="scroll" layoutX="266.0" layoutY="80.0" prefHeight="256.0" prefWidth="299.0" style="-fx-background-color: #fb7434;">
+      <ScrollPane id="scroll" layoutX="266.0" layoutY="117.0" prefHeight="256.0" prefWidth="299.0" style="-fx-background-color: #fb7434;">
          <content>
             <GridPane id="grid" prefHeight="80.0" prefWidth="293.0">
               <columnConstraints>
@@ -36,12 +41,42 @@
             </GridPane>
          </content>
       </ScrollPane>
-      <Button id="utiliser" layoutX="275.0" layoutY="372.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="73.0" style="-fx-background-color: #fb7434;" text="Utiliser" textAlignment="CENTER" />
-      <Button id="editer" layoutX="487.0" layoutY="372.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #fb7434;" text="Editer" textAlignment="CENTER" />
+      <Button id="utiliser" layoutX="275.0" layoutY="409.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="73.0" style="-fx-background-color: #fb7434;" text="Utiliser" textAlignment="CENTER" />
+      <Button id="editer" layoutX="487.0" layoutY="409.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #fb7434;" text="Editer" textAlignment="CENTER" />
       <Label id="erreur" layoutX="315.0" layoutY="422.0" opacity="0.0" prefHeight="27.0" prefWidth="221.0" text="Veuillez choisir un profil !" textFill="RED">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
       </Label>
+      <MenuBar id="MenuBar" layoutY="1.0" prefHeight="27.0" prefWidth="831.0">
+         <menus>
+            <Menu id="Mode" text="Couleur de fond">
+               <graphic>
+                  <ColorPicker id="backcolor">
+                     <value>
+                        <Color red="0.9607843160629272" green="0.7607843279838562" blue="0.5843137502670288" />
+                     </value>
+                  </ColorPicker>
+               </graphic>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Couleur de texte">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="About" />
+               </items>
+               <graphic>
+                  <ColorPicker>
+                     <value>
+                        <Color red="0.9843137264251709" green="0.45490196347236633" blue="0.20392157137393951" />
+                     </value>
+                  </ColorPicker>
+               </graphic>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Langue">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
    </children>
 </Pane>

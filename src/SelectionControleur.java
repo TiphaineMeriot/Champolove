@@ -23,9 +23,6 @@ public class SelectionControleur {
 
     public SelectionControleur(Modele mod) throws Exception {
         this.mod = mod;
-        //si le modele est vide on le rempli avec 25 profils sinon on le charge
-
-
     }
 
     public void init(Scene scene,Stage primaryStage) throws Exception {
