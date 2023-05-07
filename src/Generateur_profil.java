@@ -96,22 +96,67 @@ public class Generateur_profil {
 
         //Ajout admail
         p.admail=String.format("%s.%s@Champolove.fr",p.nom,p.prenom);
+
+
         //Ajout des exigences
-        p.exi.attirance=attirance;
-        //Exigences hobbies/qualités/défauts
-        qualdefhobAlea(p.exi.choix_defaut,mod.defaut);
-        qualdefhobAlea(p.exi.choix_hobbies,mod.hobbies);
-        qualdefhobAlea(p.exi.choix_qualite,mod.qualite);
-        ///
-        //Exigence distance
-        p.exi.distance=entierAlea(50,1000);
-        ///
-        //Exigence age
-        do{
-            p.exi.agemin=entierAlea(18,80);
-            p.exi.agemax=entierAlea(20,100);
-        }while (p.exi.agemin>p.exi.agemax);
-        ///
+        // 1) genre
+        // on tire un random entre 1 et 10 si c'est de 1 a 8 on prend le genre opposé de p, si c'est 9 on prend le genre de p, si c'est 10 on prend les deux (homme et femme)
+        // on stocke tout ça dans p.attirance
+        int rdmgenre=entierAlea(1,10);
+        if (rdmgenre<=8){
+            if (Objects.equals(p.genre,"HOMME")){
+                p.exi.attirance.add("FEMME");
+            }
+            else if (Objects.equals(p.genre,"FEMME")){
+                p.exi.attirance.add("HOMME");
+            }
+            else{
+                p.exi.attirance.add("HOMME");
+                p.exi.attirance.add("FEMME");
+            }
+        }
+        else if (rdmgenre==9){
+            p.exi.attirance.add(p.genre);
+        }
+        else{
+            p.exi.attirance.add("HOMME");
+            p.exi.attirance.add("FEMME");
+            p.exi.attirance.add("AUTRE");
+        }
+        // 2) age
+        // d'abord on tire un random entre 0 et 1 pour savoir si on veut un age en particulier ou pas
+        // on tire un random entre 18 et 50 pour l'age min et un autre entre 30 et 80 pour l'age max
+        // on stocke tout ça dans p.agemin et p.agemax
+        int rdmage=entierAlea(0,1);
+        if(rdmage==0){
+            p.exi.agemin=0;
+            p.exi.agemax=1000;
+        }
+        else{
+            p.exi.agemin=entierAlea(18,50);
+            p.exi.agemax=entierAlea(30,80);
+        }
+        // 3) qualités : on tire un random entre 0 et 2 pour le nombre de qualités exigées puis on va chercher dans la liste des qualités 2 qualité au hasard
+        // et on le stocke dans p.choix_qualites
+        int nbqualites=entierAlea(1,3);
+        for (int i=0;i<nbqualites;i++){
+            int rdmqualite=entierAlea(0,mod.qualite.size()-1);
+            p.exi.choix_qualite.add(mod.qualite.get(rdmqualite));
+        }
+        // 4) défauts : on rire un random entre 0 et 2 pour le nombre de défauts exigés puis on va chercher dans la liste des défauts 2 défauts au hasard
+        // et on le stocke dans p.choix_defaut
+        int nbdefauts=entierAlea(1,3);
+        for (int i=0;i<nbdefauts;i++){
+            int rdmdefaut=entierAlea(0,mod.defaut.size()-1);
+            p.exi.choix_defaut.add(mod.defaut.get(rdmdefaut));
+        }
+        // 5) distance, on tire un random entre 0 et 1 pour savoir si la personne accorde de l'importance à la distance
+        // si c'est 0 on fait r
+        // si c'est 1 on tire un random entre 100 et 700 pour la distance max
+        int rdmimportancedistance=entierAlea(0,1);
+        if (rdmimportancedistance==1){
+            p.exi.distance=entierAlea(100,700);
+        }
 
         ////
 
