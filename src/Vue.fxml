@@ -24,56 +24,48 @@
             <children>
                 <Pane>
                     <children>
-                  <Pane>
-                     <children>
-                              <ScrollPane>
-                                  <content>
-                                      <Pane prefHeight="533.0" prefWidth="429.0" style="-fx-border-color: #fb7434; -fx-background-color: #F5c295;">
-                                          <children>
-                                              <GridPane id="GridPaneDroite" layoutX="30.0" layoutY="4.0" prefHeight="64.0" prefWidth="373.0">
-                                                  <columnConstraints>
-                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="131.0" minWidth="10.0" prefWidth="56.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="343.0" minWidth="10.0" prefWidth="340.0" />
-                                                  </columnConstraints>
-                                                  <rowConstraints>
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                  </rowConstraints>
-                                                  <children>
-                                                      <ImageView id="ImageView" fitHeight="27.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
-                                                          <image>
-                                                              <Image url="@images/loupe.png" />
-                                                          </image>
-                                                      </ImageView>
-                                                      <TextField id="ZonedeRecherche" prefHeight="34.0" prefWidth="317.0" promptText="Rechercher par mots clés..." GridPane.columnIndex="1">
-                                                          <font>
-                                                              <Font name="Calibri Italic" size="18.0" />
-                                                          </font>
-                                                      </TextField>
-                                                  </children>
-                                              </GridPane>
-                                              <ScrollPane layoutX="25.0" layoutY="68.0" prefHeight="444.0" prefWidth="378.0" style="-fx-border-color: #fb7434;">
-                                                  <content>
-                                                      <GridPane id="GridProfils" prefHeight="90.0" prefWidth="378.0" style="-fx-background-color: #F5c295;">
-                                                          <columnConstraints>
-                                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="146.0" />
-                                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="119.0" minWidth="10.0" prefWidth="106.0" />
-                                                          </columnConstraints>
-                                                          <rowConstraints>
-                                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                          </rowConstraints>
-                                                          <children>
-                                                              <ImageView fx:id="imageView" fitHeight="94.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" />
-                                                          </children>
-                                                      </GridPane>
-                                                  </content>
-                                              </ScrollPane>
-                                          </children>
-                                      </Pane>
-                                  </content>
-                              </ScrollPane>
-                     </children>
-                  </Pane>
+                          <Pane prefHeight="533.0" prefWidth="429.0" style="-fx-border-color: #fb7434; -fx-background-color: #F5c295;">
+                              <children>
+                                  <GridPane id="GridPaneDroite" layoutX="30.0" layoutY="4.0" prefHeight="64.0" prefWidth="373.0">
+                                      <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="131.0" minWidth="10.0" prefWidth="56.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="343.0" minWidth="10.0" prefWidth="340.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                      <children>
+                                          <ImageView id="ImageView" fitHeight="27.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                                              <image>
+                                                  <Image url="@images/loupe.png" />
+                                              </image>
+                                          </ImageView>
+                                          <TextField id="ZonedeRecherche" prefHeight="34.0" prefWidth="317.0" promptText="Rechercher par mots clés..." GridPane.columnIndex="1">
+                                              <font>
+                                                  <Font name="Calibri Italic" size="18.0" />
+                                              </font>
+                                          </TextField>
+                                      </children>
+                                  </GridPane>
+                                  <ScrollPane layoutX="25.0" layoutY="68.0" prefHeight="444.0" prefWidth="378.0" style="-fx-border-color: #fb7434;">
+                                      <content>
+                                          <GridPane id="GridProfils" prefHeight="90.0" prefWidth="378.0" style="-fx-background-color: #F5c295;">
+                                              <columnConstraints>
+                                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="146.0" />
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="119.0" minWidth="10.0" prefWidth="106.0" />
+                                              </columnConstraints>
+                                              <rowConstraints>
+                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              </rowConstraints>
+                                              <children>
+                                                  <ImageView fx:id="imageView" fitHeight="94.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" />
+                                              </children>
+                                          </GridPane>
+                                      </content>
+                                  </ScrollPane>
+                              </children>
+                          </Pane>
                     </children>
                 </Pane>
             </children>
