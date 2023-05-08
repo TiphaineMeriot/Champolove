@@ -2,11 +2,20 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.web.HTMLEditor;
 import javafx.stage.Stage;
+
+
+
+// on importe javax.activation.DataHandler de la librairie javax.mail
+
+
 
 public class SelectionControleur {
     Modele mod;
@@ -14,9 +23,6 @@ public class SelectionControleur {
 
     public SelectionControleur(Modele mod) throws Exception {
         this.mod = mod;
-        //si le modele est vide on le rempli avec 25 profils sinon on le charge
-
-
     }
 
     public void init(Scene scene,Stage primaryStage) throws Exception {
@@ -42,6 +48,7 @@ public class SelectionControleur {
             ImageView imageView = new ImageView(image);
             imageView.setFitHeight(70);
             imageView.setFitWidth(70);
+            imageView = arrondirCoins(imageView, 50);
             gridPane.add(imageView, 0, i);
 
             // si le profil est cliqué
@@ -50,6 +57,32 @@ public class SelectionControleur {
                 public void handle(javafx.scene.input.MouseEvent event) {
                     // le profil cliqué devient le profil courant
                     profilCourant = profil;
+                    // on affiche les exigences des profils dans la console
+                    System.out.println(profil.exi.agemax);
+                    System.out.println(profil.exi.agemin);
+                    System.out.println(profil.exi.attirance);
+                    System.out.println(profil.exi.distance
+                    );
+                    System.out.println(profil.exi.choix_qualite);
+                    System.out.println(profil.exi.choix_defaut);
+                    System.out.println(profil.exi.choix_hobbies);
+
+                }
+            });
+            labelNomPrenom.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(javafx.scene.input.MouseEvent event) {
+                    // le profil cliqué devient le profil courant
+                    profilCourant = profil;
+                    // on affiche les exigences des profils dans la console
+                    System.out.println(profil.exi.agemax);
+                    System.out.println(profil.exi.agemin);
+                    System.out.println(profil.exi.attirance);
+                    System.out.println(profil.exi.distance
+                    );
+                    System.out.println(profil.exi.choix_qualite);
+                    System.out.println(profil.exi.choix_defaut);
+                    System.out.println(profil.exi.choix_hobbies);
 
                 }
             });
@@ -81,5 +114,15 @@ public class SelectionControleur {
 
 
 
+    }
+    public ImageView arrondirCoins(ImageView imageView, double radius) {
+        // Créer un rectangle avec des coins arrondis
+        Rectangle clip = new Rectangle(imageView.getFitWidth(), imageView.getFitHeight());
+        clip.setArcWidth(radius);
+        clip.setArcHeight(radius);
+
+        // Appliquer le rectangle comme un masque pour l'image
+        imageView.setClip(clip);
+        return imageView;
     }
 }

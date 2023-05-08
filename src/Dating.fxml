@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="794.0" prefWidth="1172.0" style="-fx-border-color: #fb7434; -fx-background-color: #F5c295; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView id="Image2" fitHeight="107.0" fitWidth="134.0" layoutX="630.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/pdp.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="482.0" layoutY="53.0" prefHeight="69.0" prefWidth="214.0" text="D A T I N G">
+         <font>
+            <Font name="Times New Roman Bold" size="40.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="86.0" fitWidth="92.0" layoutX="1053.0" layoutY="680.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/logo_invisible.png" />
+         </image>
+      </ImageView>
+      <Circle fill="#1f93ff00" layoutX="691.0" layoutY="208.0" radius="67.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+      <Label layoutX="487.0" layoutY="344.0" prefHeight="19.0" prefWidth="206.0" text="Sélectionnez le lieu du rendez-vous">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="14.0" />
+         </font>
+      </Label>
+      <ChoiceBox id="rdv" layoutX="515.0" layoutY="384.0" prefWidth="150.0" />
+      <Label layoutX="487.0" layoutY="455.0" prefHeight="19.0" prefWidth="222.0" text="Sélectionnez le jour de la rencontre">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="14.0" />
+         </font>
+      </Label>
+      <Button id="valider" layoutX="562.0" layoutY="605.0" mnemonicParsing="false" style="-fx-background-color: #fb7434; -fx-text-fill: #29252a;" text="Valider">
+         <font>
+            <Font name="Candara Light" size="13.0" />
+         </font>
+      </Button>
+      <ImageView id="Image1" fitHeight="107.0" fitWidth="134.0" layoutX="418.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/pdp.png" />
+         </image>
+      </ImageView>
+      <Circle fill="#1f93ff00" layoutX="479.0" layoutY="208.0" radius="67.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+      <DatePicker layoutX="503.0" layoutY="488.0" />
+      <MenuBar id="MenuBar" layoutY="2.0" prefHeight="25.0" prefWidth="1172.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="Langue">
+               <items>
+                  <MenuItem id="anglais" mnemonicParsing="false" text="English" />
+                  <MenuItem id="espagnol" mnemonicParsing="false" text="Spanish" />
+                  <MenuItem id="francais" mnemonicParsing="false" text="French" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="64.0" layoutX="458.0" layoutY="56.0" stroke="BLACK" strokeType="INSIDE" width="256.0" />
+   </children>
+</Pane>
