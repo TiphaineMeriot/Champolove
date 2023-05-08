@@ -16,7 +16,7 @@ public class Edition extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(CreationProfil.class.getResource("Edition.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 807 , 496);
+        Scene scene = new Scene(fxmlLoader.load(), 965 , 599);
         stage.setResizable(false);
         stage.setTitle("Vue");
         stage.setScene(scene);

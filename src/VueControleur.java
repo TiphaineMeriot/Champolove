@@ -361,20 +361,6 @@ public class VueControleur {
 
 
         });
-        // si on clique sur le button d'id edition
-        Button buttonEdition = (Button) scene.lookup("#edition");
-        // on ouvre l'edition
-        buttonEdition.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                Edition edition = new Edition(mod, profilCourant);
-                try {
-                    edition.start(stage);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
 
     }
     public ImageView arrondirCoins(ImageView imageView, double radius) {

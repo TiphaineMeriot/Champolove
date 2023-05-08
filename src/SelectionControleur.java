@@ -112,6 +112,28 @@ public class SelectionControleur {
             }
         });
 
+        // si on clique sur le bouton d'id editer
+        Button editer = (Button) scene.lookup("#editer");
+        // on ouvre l'Edition en lui passant le profil courant et le modele
+        editer.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+                if(profilCourant != null){
+                    Edition edition = new Edition(mod,profilCourant);
+                    try {
+                        edition.start(primaryStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        System.out.println("Erreur lors de l'ouverture de la vue");
+                    }
+                }else{
+                    Label erreur = (Label) scene.lookup("#erreur");
+                    erreur.setOpacity(1);
+                }
+            }
+        });
+
+
 
 
     }

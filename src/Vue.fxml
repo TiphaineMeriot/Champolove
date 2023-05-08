@@ -48,7 +48,7 @@
                                   </GridPane>
                                   <ScrollPane layoutX="25.0" layoutY="68.0" prefHeight="444.0" prefWidth="378.0" style="-fx-border-color: #fb7434;">
                                       <content>
-                                          <GridPane id="GridProfils" prefHeight="90.0" prefWidth="378.0" style="-fx-background-color: #F5c295;">
+                                          <GridPane id="GridProfils" prefHeight="90.0" prefWidth="378.0">
                                               <columnConstraints>
                                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="146.0" />
@@ -74,8 +74,7 @@
                 <Image url="@images/logo_invisible.png" />
             </image>
         </ImageView>
-        <Button id="boutonCreerProfil" layoutX="59.0" layoutY="151.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="171.0" style="-fx-background-color: #fb7434;" text="Créer un nouveau profil" textAlignment="CENTER" />
-        <Button id="edition" layoutX="315.0" layoutY="152.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="109.0" style="-fx-background-color: #fb7434;" text="Editer le profil" />
+        <Button id="boutonCreerProfil" layoutX="164.0" layoutY="153.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="171.0" style="-fx-background-color: #fb7434;" text="Créer un nouveau profil" textAlignment="CENTER" />
         <Pane id="PaneDroite" fx:id="PaneDroite" layoutX="499.0" prefHeight="635.0" prefWidth="650.0">
             <children>
                 <GridPane id="gridPaneNom" fx:id="gridPaneNom" layoutX="79.0" layoutY="104.0" prefHeight="90.0" prefWidth="356.0">
