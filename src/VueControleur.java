@@ -1,34 +1,21 @@
-import com.sun.webkit.Timer;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import java.awt.*;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Objects;
-import java.util.Scanner;
 import java.util.TreeSet;
-
-import static javafx.geometry.Pos.BOTTOM_CENTER;
-import static javafx.geometry.Pos.TOP_CENTER;
 
 public class VueControleur {
     Button boutonCreerProfil;
@@ -36,14 +23,16 @@ public class VueControleur {
     Profil profilClick;
     Profil profilCourant;
     Modele mod;
+    int precision;
     boolean DarkMode = false;
     boolean opacite = false;
     // on définit une variable pour stocker la couleur hex #fb7434
     String couleur = "#fb7434";
 
-    public VueControleur(Modele mod, Profil profil){
+    public VueControleur(Modele mod, Profil profil, String recherche){
         this.mod=mod;
         this.profilCourant=profil;
+        this.profilRecherche=recherche;
     }
 
     public void init(Scene scene, Stage stage) throws Exception {
@@ -59,9 +48,6 @@ public class VueControleur {
                 e.printStackTrace();
             }
         });
-        //stocker le texte de la zone de recherche dans la variable profilRecherche
-        profilRecherche = String.valueOf(scene.lookup("#ZonedeRecherche"));
-
         //ajout de l'icone
         stage.getIcons().add(new Image("images/logo_invisible.png"));
         //Modif dylan: ajout d'une instruction lors de la fermeture:
@@ -77,11 +63,23 @@ public class VueControleur {
         int i = 1;
 
         // on va retourner un TreeSet de profils triés par compatibilité en fonction du profil courant
-        Matching m = new Matching(this.mod);
-        TreeSet<Profil> listeProfilTrie = m.matching1v2(this.profilCourant);
-
+        TreeSet<Profil> listeProfilTrie;
+        if (Objects.equals(this.profilRecherche, "")){
+            Matching m = new Matching(this.mod);
+            listeProfilTrie = m.matching1v2(this.profilCourant);
+        }
+        else{
+            Recherche_Profil r=new Recherche_Profil(this.mod);
+            listeProfilTrie = r.rechercheProfil(this.profilRecherche);
+        }
+        Label labelNomPrenom;
         for (Profil profil : listeProfilTrie) {
-            Label labelNomPrenom = new Label(profil.nom + " " + profil.prenom);
+            if (Objects.equals(this.profilRecherche, "")){
+                labelNomPrenom = new Label(profil.nom + " " + profil.prenom);
+            }
+            else{
+                labelNomPrenom=new Label(profil.nom + " " + profil.prenom+" ("+profil.precision+" crit)"); // LA JE CHERCHE LA PRECISION)
+            }
             // on lui met la couleur -->  #fb7434 et en gras
             labelNomPrenom.setStyle(" -fx-font-weight: bold; -fx-text-fill: #fb7434");
             Image image = null;
@@ -96,7 +94,7 @@ public class VueControleur {
                 System.out.println("Current working directory: " + System.getProperty("user.dir"));
             }
             // on ajoute un ProgressIndicator pour chaque profil
-            ProgressIndicator progressIndicator=new ProgressIndicator();
+            ProgressIndicator progressIndicator = new ProgressIndicator();
             progressIndicator.setVisible(false);
             Image heartEmptyImage = new Image("images/icones/coeur_plein.png");
             ImageView heartEmptyImageView = new ImageView(heartEmptyImage);
@@ -111,21 +109,21 @@ public class VueControleur {
             heartFullImageView.setClip(clip);
             progressIndicator.progressProperty().addListener((observable, oldValue, newValue) -> {
                 double progress = newValue.doubleValue();
-                double adjustedProgress=Math.pow(progress,2);
+                double adjustedProgress = Math.pow(progress, 2);
                 clip.setHeight(45 * (1 - adjustedProgress));
             });
             StackPane stackPane = new StackPane();
             stackPane.getChildren().addAll(heartEmptyImageView, heartFullImageView, progressIndicator);
 
-            float compa = (float)(profil.compatibilité);
-            compa = compa/100;
+            float compa = (float) (profil.compatibilité);
+            compa = compa / 100;
             progressIndicator.setProgress(compa);
             Label percentageLabel = new Label();
             percentageLabel.setText(String.format("%.0f%%", compa * 100));
             percentageLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: white; -fx-font-weight: 600;"); // ajustez la taille de la police selon vos besoins
             StackPane.setAlignment(percentageLabel, Pos.CENTER);
             stackPane.getChildren().add(percentageLabel);
-//            gridPane.setVgap(10);
+            gridPane.setVgap(5);
             gridPane.add(stackPane, 2, i); // Remplacez progressIndicator par stackPane
             gridPane.add(labelNomPrenom, 1, i);
 
@@ -134,7 +132,6 @@ public class VueControleur {
             imageView.setFitWidth(70);
             imageView = arrondirCoins(imageView, 50);
             gridPane.add(imageView, 0, i);
-
 
 
             //si la souris clique sur l'image,on stocke le profil correspondant dans la variable profilClick ou si on click sur le labelNomPrenom
@@ -391,9 +388,6 @@ public class VueControleur {
                 }
             });
             i++;
-        }
-
-
         // si on clique sur le Button d'id Match
         Button buttonMatch = (Button) scene.lookup("#Match");
         buttonMatch.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -416,6 +410,20 @@ public class VueControleur {
         });
 
     }
+        TextField recherche = (TextField) scene.lookup("#ZonedeRecherche");
+        recherche.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                this.profilRecherche = recherche.getText();
+//                System.out.println(this.profilRecherche);
+                Vue v=new Vue(this.mod,this.profilCourant,this.profilRecherche);
+                try {
+                    v.start(stage);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }});
+
+        }
     public ImageView arrondirCoins(ImageView imageView, double radius) {
         // Créer un rectangle avec des coins arrondis
         Rectangle clip = new Rectangle(imageView.getFitWidth(), imageView.getFitHeight());

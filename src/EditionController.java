@@ -104,7 +104,7 @@ public class EditionController {
         // si on clique sur la comboBox on va ajouter toutes les villes du hashSet
         // histoire de pas les lister a chaque fois (dans les cas ou on clique pas dessus)
         cbVille.setOnMouseClicked(event -> {
-            if(this.villeModifiee==false) {
+            if(!this.villeModifiee) {
                 ArrayList<String> list = new ArrayList<String>();
                 // on va ajouter toutes les villes du modele dans le hashSet
                 for (Modele.Donnees d : this.mod.lieu) {
@@ -124,7 +124,7 @@ public class EditionController {
         cbProfession.setOnMouseClicked(event -> {
             // on attribue a la comboBox la profession sélectionnée
 
-            if(this.professionModifie==false) {
+            if(!this.professionModifie) {
                 ArrayList<String> list = new ArrayList<String>();
                 for (String d : this.mod.metier) {
                     list.add(d);
@@ -199,9 +199,9 @@ public class EditionController {
         // on va ajouter un listener sur la comboBox
         cbHobbies.setOnAction(event -> {
             // on va ajouter le hobby selectionné au textField
-            tfHobbies.setText(tfHobbies.getText() + cbHobbies.getValue() + " ");
+            tfHobbies.setText(tfHobbies.getText() + cbHobbies.getValue() + ",");
             // on va retirer le hobby selectionné de la comboBox
-            cbHobbies.getItems().remove(cbHobbies.getValue());
+//            cbHobbies.getItems().remove(cbHobbies.getValue());
         });
 
         // on va ajouter le textField et la comboBox au gridPane
@@ -221,7 +221,7 @@ public class EditionController {
         }
         cbQualites.setOnAction(event -> {
             tfQualites.setText(tfQualites.getText() + cbQualites.getValue() + " ");
-            cbQualites.getItems().remove(cbQualites.getValue());
+//            cbQualites.getItems().remove(cbQualites.getValue());
         });
         grid.add(tfQualites, 1, 9);
         grid.add(cbQualites, 2, 9);
@@ -239,7 +239,7 @@ public class EditionController {
         }
         cbDefauts.setOnAction(event -> {
             tfDefauts.setText(tfDefauts.getText() + cbDefauts.getValue() + " ");
-            cbDefauts.getItems().remove(cbDefauts.getValue());
+//            cbDefauts.getItems().remove(cbDefauts.getValue());
         });
         grid.add(tfDefauts, 1, 10);
         grid.add(cbDefauts, 2, 10);

@@ -39,7 +39,7 @@
                                                   <Image url="@images/loupe.png" />
                                               </image>
                                           </ImageView>
-                                          <TextField id="ZonedeRecherche" prefHeight="34.0" prefWidth="317.0" promptText="Rechercher par mots clés..." GridPane.columnIndex="1">
+                                          <TextField id="ZonedeRecherche" prefHeight="34.0" prefWidth="317.0" promptText="Rechercher par mots clés (avec '+') ..." GridPane.columnIndex="1">
                                               <font>
                                                   <Font name="Calibri Italic" size="18.0" />
                                               </font>

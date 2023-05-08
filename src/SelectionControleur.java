@@ -96,7 +96,7 @@ public class SelectionControleur {
                 // on verifie d'abord si le profilcourant est null
                 if(profilCourant != null){
                     // si oui on ouvre la Vue en lui passant le profil courant
-                    Vue vue = new Vue(mod,profilCourant);
+                    Vue vue = new Vue(mod,profilCourant,"");
                     try {
                         vue.start(primaryStage);
 
