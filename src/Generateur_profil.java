@@ -180,7 +180,12 @@ public class Generateur_profil {
         qualdefhobAlea(p.qualite,mod.qualite);
         ///
         //Profession
-        p.profession=mod.metier.get(r.nextInt(mod.metier.size()));
+        if (p.age<64){
+            p.profession=mod.metier.get(r.nextInt(mod.metier.size()));
+        }
+        else{
+            p.profession="Retraité";
+        }
         ///
         //Choix de la date de création du profil
         SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");

@@ -45,11 +45,6 @@ public class Matching {
         double poidsAge = 0.25;
         double poidsDist = 0.25;
         double compatdist;
-        System.out.println("/////////////////////////////////////////////////////////////");
-        System.out.println("age:" + compatage * 0.25);
-        System.out.println("qual:" + qualiteJaccard * 0.25);
-        System.out.println("def:" + defautJaccard * 0.25);
-        System.out.println("hob:" + hobbiesJaccard * 0.25);
         double distanceMaxPoss;
         if (p1.exi.distance != 0 && p2.exi.distance != 0) {
             distanceMaxPoss = Math.min(p1.exi.distance, p2.exi.distance);
@@ -64,8 +59,6 @@ public class Matching {
         } else {
             compatdist = 0;
         }
-        System.out.println("dist:" + compatdist);
-        System.out.println("////////////////////////////////////////////////////////////");
         double auxcompat = poidsQualite * qualiteJaccard - poidsDefaut * defautJaccard + poidsHobbies * hobbiesJaccard
                 + poidsAge * compatage + poidsDist * compatdist;
         int coef = 18;

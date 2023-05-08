@@ -10,8 +10,10 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -89,17 +91,34 @@ public class VueControleur {
                 System.out.println("L'url est introuvable ou invalide:" + String.format("src/images/%s/%s_%s.jpeg", profil.genre, profil.nom, profil.prenom));
                 System.out.println("Current working directory: " + System.getProperty("user.dir"));
             }
-
             // on ajoute un ProgressIndicator pour chaque profil
-            ProgressIndicator progressIndicator = new ProgressIndicator();
-            // la compatibilité du profil est sur 100, on la divise par 100 pour avoir un resultat entre 0 et 1
+            ProgressIndicator progressIndicator=new ProgressIndicator();
+            progressIndicator.setVisible(false);
+            Image heartEmptyImage = new Image("images/icones/coeur_plein.png");
+            ImageView heartEmptyImageView = new ImageView(heartEmptyImage);
+            heartEmptyImageView.setFitWidth(50);
+            heartEmptyImageView.setFitHeight(50);
+
+            Image heartFullImage = new Image("images/icones/Coeur_vide.png");
+            ImageView heartFullImageView = new ImageView(heartFullImage);
+            heartFullImageView.setFitWidth(50);
+            heartFullImageView.setFitHeight(50);
+            Rectangle clip = new Rectangle(50, 50);
+            heartFullImageView.setClip(clip);
+            progressIndicator.progressProperty().addListener((observable, oldValue, newValue) -> {
+                double progress = newValue.doubleValue();
+                clip.setHeight(50 * (1 - progress));
+            });
+            StackPane stackPane = new StackPane();
+            stackPane.getChildren().addAll(heartEmptyImageView, heartFullImageView, progressIndicator);
+
             float compa = (float)(profil.compatibilité);
             compa = compa/100;
             progressIndicator.setProgress(compa);
-            // on ajoute un label pour chaque profil qui contient le nom et le prenom du profil
-            gridPane.add(progressIndicator, 2, i);
+
+            gridPane.add(stackPane, 2, i); // Remplacez progressIndicator par stackPane
             gridPane.add(labelNomPrenom, 1, i);
-            //charger l'image dans l'imageview d'id ImageView
+
             ImageView imageView = new ImageView(image);
             imageView.setFitHeight(70);
             imageView.setFitWidth(70);
@@ -107,11 +126,12 @@ public class VueControleur {
             gridPane.add(imageView, 0, i);
 
 
+
             //si la souris clique sur l'image,on stocke le profil correspondant dans la variable profilClick ou si on click sur le labelNomPrenom
-            imageView.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
+            imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
                 @Override
-                public void handle(javafx.scene.input.MouseEvent event) {
+                public void handle(MouseEvent event) {
                     if(!opacite){
                         // on recupere les imageView d'id "like" "default" "job" "taille" "gateau" "plan" et on passe leur opacité à 1
                         ImageView like = (ImageView) scene.lookup("#like");
@@ -208,10 +228,10 @@ public class VueControleur {
                     gridPaneInfos.add(labelTaille, 0, 5);
                 }
             });
-            labelNomPrenom.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
+            labelNomPrenom.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
                 @Override
-                public void handle(javafx.scene.input.MouseEvent event) {
+                public void handle(MouseEvent event) {
                     if(!opacite){
                         // on recupere les imageView d'id "like" "default" "job" "taille" "gateau" "plan" et on passe leur opacité à 1
                         ImageView like = (ImageView) scene.lookup("#like");
@@ -313,9 +333,9 @@ public class VueControleur {
 
         // si on clique sur le Button d'id Match
         Button buttonMatch = (Button) scene.lookup("#Match");
-        buttonMatch.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
+        buttonMatch.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(javafx.scene.input.MouseEvent event) {
+            public void handle(MouseEvent event) {
                 // si le profil cliqué n'est pas null
                 // on ouvre le Dating
                 if (profilClick != null) {
@@ -334,9 +354,9 @@ public class VueControleur {
         // si on clique sur le button d'id edition
         Button buttonEdition = (Button) scene.lookup("#edition");
         // on ouvre l'edition
-        buttonEdition.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
+        buttonEdition.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(javafx.scene.input.MouseEvent event) {
+            public void handle(MouseEvent event) {
                 Edition edition = new Edition(mod, profilCourant);
                 try {
                     edition.start(stage);
