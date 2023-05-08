@@ -69,6 +69,23 @@ public class SelectionControleur {
 
                 }
             });
+            labelNomPrenom.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(javafx.scene.input.MouseEvent event) {
+                    // le profil cliqué devient le profil courant
+                    profilCourant = profil;
+                    // on affiche les exigences des profils dans la console
+                    System.out.println(profil.exi.agemax);
+                    System.out.println(profil.exi.agemin);
+                    System.out.println(profil.exi.attirance);
+                    System.out.println(profil.exi.distance
+                    );
+                    System.out.println(profil.exi.choix_qualite);
+                    System.out.println(profil.exi.choix_defaut);
+                    System.out.println(profil.exi.choix_hobbies);
+
+                }
+            });
             i++;
         }
         // on récupere le bouton d'id "utiliser"
