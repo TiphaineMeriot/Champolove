@@ -156,6 +156,13 @@ public class VueControleur {
                         gateau.setOpacity(1);
                         ImageView plan = (ImageView) scene.lookup("#plan");
                         plan.setOpacity(1);
+                        ImageView imageViewHobbies = (ImageView) scene.lookup("#hobbies");
+                        imageViewHobbies.setOpacity(1);
+                        // le bouton d'id "Match"
+                        Button match = (Button) scene.lookup("#Match");
+                        // on passe son opacité à 1
+                        match.setOpacity(1);
+
                         opacite = true;
                     }
                     // le profil cliqué devient le profilclick
@@ -201,6 +208,18 @@ public class VueControleur {
                     //label taille qui contient la taille du profil cliqué
                     String taille = String.format("%1.2fm",profil.taille);
                     Label labelTaille = new Label(taille);
+                    // hobbies
+                    Label labelHobbies = new Label();
+                    if(profil.hobbies.size() == 0){
+                        labelHobbies.setText("Aucun hobbies renseigné");
+                    }else{
+                        String hobbies = "";
+                        for(String hobby : profil.hobbies){
+                            hobbies = hobbies + hobby + ", ";
+                        }
+                        hobbies = hobbies.substring(0, hobbies.length() - 2);
+                        labelHobbies.setText(hobbies);
+                    }
 
 
 
@@ -218,6 +237,8 @@ public class VueControleur {
                     labelDefauts.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
                     //le label taille a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelTaille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    // la label hobbies a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
+                    labelHobbies.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
 
                     GridPane gridPaneDroite = (GridPane) scene.lookup("#gridPaneNom");
                     //on clear le gridPaneDroite pour qu'il ne contienne que les informations du profil précédemment cliqué
@@ -236,6 +257,7 @@ public class VueControleur {
                     gridPaneInfos.add(labelQualites, 0, 3);
                     gridPaneInfos.add(labelDefauts, 0, 4);
                     gridPaneInfos.add(labelTaille, 0, 5);
+                    gridPaneInfos.add(labelHobbies, 0, 6);
                 }
             });
             labelNomPrenom.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -256,6 +278,12 @@ public class VueControleur {
                         gateau.setOpacity(1);
                         ImageView plan = (ImageView) scene.lookup("#plan");
                         plan.setOpacity(1);
+                        ImageView imageViewHobbies = (ImageView) scene.lookup("#hobbies");
+                        imageViewHobbies.setOpacity(1);
+                        // le bouton d'id "Match"
+                        Button match = (Button) scene.lookup("#Match");
+                        // on passe son opacité à 1
+                        match.setOpacity(1);
                         opacite = true;
                     }
                     // le profil cliqué devient le profilclick
@@ -302,6 +330,21 @@ public class VueControleur {
                     String taille = String.format("%1.2fm",profil.taille);
                     Label labelTaille = new Label(taille);
 
+                    // hobbies
+                    Label labelHobbies = new Label();
+                    if(profil.hobbies.size() == 0){
+                        labelHobbies.setText("Aucun hobbies renseigné");
+                    }else{
+                        String hobbies = "";
+                        for(String hobby : profil.hobbies){
+                            hobbies = hobbies + hobby + ", ";
+                        }
+                        hobbies = hobbies.substring(0, hobbies.length() - 2);
+                        labelHobbies.setText(hobbies);
+                    }
+
+
+
 
 
                     //le label nomPrenom a une police de titre de taille 30 et est centré a droite et en gras et une couleur de police #fb7434;
@@ -318,6 +361,11 @@ public class VueControleur {
                     labelDefauts.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
                     //le label taille a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelTaille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    // le label hobbies a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
+                    labelHobbies.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+
+
+
 
                     GridPane gridPaneDroite = (GridPane) scene.lookup("#gridPaneNom");
                     //on clear le gridPaneDroite pour qu'il ne contienne que les informations du profil précédemment cliqué
@@ -325,8 +373,11 @@ public class VueControleur {
                     //on ajoute les labels dans la colonne 1 de gridPaneDroite
                     gridPaneDroite.add(labelNomPrenom, 0, 0);
 
-                    // on affiche tout les attributs du profil cliqué dans la console
 
+
+
+
+                    // on affiche tout les attributs du profil cliqué dans la console
 
                     GridPane gridPaneInfos = (GridPane) scene.lookup("#gridPaneInfos");
                     gridPaneInfos.getChildren().clear();
@@ -336,6 +387,7 @@ public class VueControleur {
                     gridPaneInfos.add(labelQualites, 0, 3);
                     gridPaneInfos.add(labelDefauts, 0, 4);
                     gridPaneInfos.add(labelTaille, 0, 5);
+                    gridPaneInfos.add(labelHobbies, 0, 6);
                 }
             });
             i++;
