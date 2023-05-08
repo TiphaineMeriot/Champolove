@@ -18,6 +18,11 @@ public class FinControleur {
         // on recupere le label d'id txt1
         // on recupere le label d'id txt2
 
+        this.profil1.actif = false;
+        this.profil2.actif = false;
+
+        this.mod.enregistrer();
+
 
         Label txt1 = (Label) scene.lookup("#txt1");
         Label txt2 = (Label) scene.lookup("#txt2");
