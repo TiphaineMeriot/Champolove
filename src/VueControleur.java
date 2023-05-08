@@ -393,6 +393,7 @@ public class VueControleur {
             i++;
         }
 
+
         // si on clique sur le Button d'id Match
         Button buttonMatch = (Button) scene.lookup("#Match");
         buttonMatch.setOnMouseClicked(new EventHandler<MouseEvent>() {
