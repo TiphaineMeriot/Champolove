@@ -2,6 +2,7 @@ import com.sun.webkit.Timer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -25,6 +26,9 @@ import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.TreeSet;
+
+import static javafx.geometry.Pos.BOTTOM_CENTER;
+import static javafx.geometry.Pos.TOP_CENTER;
 
 public class VueControleur {
     Button boutonCreerProfil;
@@ -96,18 +100,19 @@ public class VueControleur {
             progressIndicator.setVisible(false);
             Image heartEmptyImage = new Image("images/icones/coeur_plein.png");
             ImageView heartEmptyImageView = new ImageView(heartEmptyImage);
-            heartEmptyImageView.setFitWidth(50);
-            heartEmptyImageView.setFitHeight(50);
+            heartEmptyImageView.setFitWidth(45);
+            heartEmptyImageView.setFitHeight(45);
 
             Image heartFullImage = new Image("images/icones/Coeur_vide.png");
             ImageView heartFullImageView = new ImageView(heartFullImage);
-            heartFullImageView.setFitWidth(50);
-            heartFullImageView.setFitHeight(50);
-            Rectangle clip = new Rectangle(50, 50);
+            heartFullImageView.setFitWidth(45);
+            heartFullImageView.setFitHeight(45);
+            Rectangle clip = new Rectangle(45, 45);
             heartFullImageView.setClip(clip);
             progressIndicator.progressProperty().addListener((observable, oldValue, newValue) -> {
                 double progress = newValue.doubleValue();
-                clip.setHeight(50 * (1 - progress));
+                double adjustedProgress=Math.pow(progress,2);
+                clip.setHeight(45 * (1 - adjustedProgress));
             });
             StackPane stackPane = new StackPane();
             stackPane.getChildren().addAll(heartEmptyImageView, heartFullImageView, progressIndicator);
@@ -115,7 +120,12 @@ public class VueControleur {
             float compa = (float)(profil.compatibilité);
             compa = compa/100;
             progressIndicator.setProgress(compa);
-
+            Label percentageLabel = new Label();
+            percentageLabel.setText(String.format("%.0f%%", compa * 100));
+            percentageLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: white; -fx-font-weight: 600;"); // ajustez la taille de la police selon vos besoins
+            StackPane.setAlignment(percentageLabel, Pos.CENTER);
+            stackPane.getChildren().add(percentageLabel);
+//            gridPane.setVgap(10);
             gridPane.add(stackPane, 2, i); // Remplacez progressIndicator par stackPane
             gridPane.add(labelNomPrenom, 1, i);
 
