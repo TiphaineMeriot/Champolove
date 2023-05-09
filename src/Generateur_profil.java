@@ -11,7 +11,7 @@ public class Generateur_profil {
     }
     public double doubleAlea(double min,double max){
         Random rdm=new Random();
-        return(rdm.nextDouble()+min);
+        return(rdm.nextDouble(max - min)+min);
     }
 
     public void qualdefhobAlea(Collection<String> liste,ArrayList<String> source){

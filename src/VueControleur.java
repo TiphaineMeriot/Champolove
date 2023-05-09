@@ -534,5 +534,4 @@ public class VueControleur {
         imageView.setClip(clip);
         return imageView;
     }
-
 }
