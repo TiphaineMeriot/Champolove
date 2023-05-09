@@ -356,7 +356,10 @@ public class EditionController {
             this.profil.nom = tfNom.getText();
             this.profil.prenom = tfPrenom.getText();
             // on transforme la date de DatePicker en String
-            this.profil.date_de_naissance = datePicker.getValue().toString();
+            // le datePicker.getValue().toString() renvoie une date au format yyyy-mm-dd
+            // on va donc la transformer en dd/mm/yyyy
+            String[] datee = datePicker.getValue().toString().split("-");
+            this.profil.date_de_naissance = datee[2] + "/" + datee[1] + "/" + datee[0];
             // on instancie l'age en calculant la différence entre l'année actuelle et l'année de naissance
             this.profil.age = Year.now().getValue() - datePicker.getValue().getYear();
             this.profil.ville = cbVille.getValue();
