@@ -1,29 +1,20 @@
-import com.sun.webkit.Timer;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import java.awt.*;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Objects;
-import java.util.Scanner;
 import java.util.TreeSet;
 
 public class VueControleur {
@@ -32,14 +23,16 @@ public class VueControleur {
     Profil profilClick;
     Profil profilCourant;
     Modele mod;
+    int precision;
     boolean DarkMode = false;
     boolean opacite = false;
     // on définit une variable pour stocker la couleur hex #fb7434
     String couleur = "#fb7434";
 
-    public VueControleur(Modele mod, Profil profil){
+    public VueControleur(Modele mod, Profil profil, String recherche){
         this.mod=mod;
         this.profilCourant=profil;
+        this.profilRecherche=recherche;
     }
 
     public void init(Scene scene, Stage stage) throws Exception {
@@ -55,9 +48,6 @@ public class VueControleur {
                 e.printStackTrace();
             }
         });
-        //stocker le texte de la zone de recherche dans la variable profilRecherche
-        profilRecherche = String.valueOf(scene.lookup("#ZonedeRecherche"));
-
         //ajout de l'icone
         stage.getIcons().add(new Image("images/logo_invisible.png"));
         //Modif dylan: ajout d'une instruction lors de la fermeture:
@@ -73,11 +63,23 @@ public class VueControleur {
         int i = 1;
 
         // on va retourner un TreeSet de profils triés par compatibilité en fonction du profil courant
-        Matching m = new Matching(this.mod);
-        TreeSet<Profil> listeProfilTrie = m.matching1v2(this.profilCourant);
-
+        TreeSet<Profil> listeProfilTrie;
+        if (Objects.equals(this.profilRecherche, "")){
+            Matching m = new Matching(this.mod);
+            listeProfilTrie = m.matching1v2(this.profilCourant);
+        }
+        else{
+            Recherche_Profil r=new Recherche_Profil(this.mod);
+            listeProfilTrie = r.rechercheProfil(this.profilRecherche);
+        }
+        Label labelNomPrenom;
         for (Profil profil : listeProfilTrie) {
-            Label labelNomPrenom = new Label(profil.nom + " " + profil.prenom);
+            if (Objects.equals(this.profilRecherche, "")){
+                labelNomPrenom = new Label(profil.nom + " " + profil.prenom);
+            }
+            else{
+                labelNomPrenom=new Label(profil.nom + " " + profil.prenom+" ("+profil.precision+" crit)"); // LA JE CHERCHE LA PRECISION)
+            }
             // on lui met la couleur -->  #fb7434 et en gras
             labelNomPrenom.setStyle(" -fx-font-weight: bold; -fx-text-fill: #fb7434");
             Image image = null;
@@ -92,30 +94,36 @@ public class VueControleur {
                 System.out.println("Current working directory: " + System.getProperty("user.dir"));
             }
             // on ajoute un ProgressIndicator pour chaque profil
-            ProgressIndicator progressIndicator=new ProgressIndicator();
+            ProgressIndicator progressIndicator = new ProgressIndicator();
             progressIndicator.setVisible(false);
             Image heartEmptyImage = new Image("images/icones/coeur_plein.png");
             ImageView heartEmptyImageView = new ImageView(heartEmptyImage);
-            heartEmptyImageView.setFitWidth(50);
-            heartEmptyImageView.setFitHeight(50);
+            heartEmptyImageView.setFitWidth(45);
+            heartEmptyImageView.setFitHeight(45);
 
             Image heartFullImage = new Image("images/icones/Coeur_vide.png");
             ImageView heartFullImageView = new ImageView(heartFullImage);
-            heartFullImageView.setFitWidth(50);
-            heartFullImageView.setFitHeight(50);
-            Rectangle clip = new Rectangle(50, 50);
+            heartFullImageView.setFitWidth(45);
+            heartFullImageView.setFitHeight(45);
+            Rectangle clip = new Rectangle(45, 45);
             heartFullImageView.setClip(clip);
             progressIndicator.progressProperty().addListener((observable, oldValue, newValue) -> {
                 double progress = newValue.doubleValue();
-                clip.setHeight(50 * (1 - progress));
+                double adjustedProgress = Math.pow(progress, 2);
+                clip.setHeight(45 * (1 - adjustedProgress));
             });
             StackPane stackPane = new StackPane();
             stackPane.getChildren().addAll(heartEmptyImageView, heartFullImageView, progressIndicator);
 
-            float compa = (float)(profil.compatibilité);
-            compa = compa/100;
+            float compa = (float) (profil.compatibilité);
+            compa = compa / 100;
             progressIndicator.setProgress(compa);
-
+            Label percentageLabel = new Label();
+            percentageLabel.setText(String.format("%.0f%%", compa * 100));
+            percentageLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: white; -fx-font-weight: 600;"); // ajustez la taille de la police selon vos besoins
+            StackPane.setAlignment(percentageLabel, Pos.CENTER);
+            stackPane.getChildren().add(percentageLabel);
+            gridPane.setVgap(5);
             gridPane.add(stackPane, 2, i); // Remplacez progressIndicator par stackPane
             gridPane.add(labelNomPrenom, 1, i);
 
@@ -124,7 +132,6 @@ public class VueControleur {
             imageView.setFitWidth(70);
             imageView = arrondirCoins(imageView, 50);
             gridPane.add(imageView, 0, i);
-
 
 
             //si la souris clique sur l'image,on stocke le profil correspondant dans la variable profilClick ou si on click sur le labelNomPrenom
@@ -146,6 +153,14 @@ public class VueControleur {
                         gateau.setOpacity(1);
                         ImageView plan = (ImageView) scene.lookup("#plan");
                         plan.setOpacity(1);
+                        ImageView imageViewHobbies = (ImageView) scene.lookup("#hobbies");
+                        imageViewHobbies.setOpacity(1);
+                        // le bouton d'id "Match"
+                        Button match = (Button) scene.lookup("#Match");
+                        // on passe son opacité à 1
+                        match.setOpacity(1);
+
+
                         opacite = true;
                     }
                     // le profil cliqué devient le profilclick
@@ -191,11 +206,33 @@ public class VueControleur {
                     //label taille qui contient la taille du profil cliqué
                     String taille = String.format("%1.2fm",profil.taille);
                     Label labelTaille = new Label(taille);
+                    // hobbies
+                    Label labelHobbies = new Label();
+                    if(profil.hobbies.size() == 0){
+                        labelHobbies.setText("Aucun hobbies renseigné");
+                    }else{
+                        String hobbies = "";
+                        for(String hobby : profil.hobbies){
+                            hobbies = hobbies + hobby + ", ";
+                        }
+                        hobbies = hobbies.substring(0, hobbies.length() - 2);
+                        labelHobbies.setText(hobbies);
+                    }
+
+                    if(profil.genre.equals("HOMME")){
+                        labelNomPrenom.setText(labelNomPrenom.getText() + " \u2642");
+                    } else if (profil.genre.equals("FEMME")){
+                        labelNomPrenom.setText(labelNomPrenom.getText() + " \u2640");
+                    }else{
+                        labelNomPrenom.setText(labelNomPrenom.getText() + " \u26B2");
+                    }
+
+
 
 
 
                     //le label nomPrenom a une police de titre de taille 30 et est centré a droite et en gras et une couleur de police #fb7434;
-                    labelNomPrenom.setStyle("-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    labelNomPrenom.setStyle("-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
                     //le label date de naissance a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelDateDeNaissance.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
                     //le label ville a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
@@ -208,12 +245,59 @@ public class VueControleur {
                     labelDefauts.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
                     //le label taille a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelTaille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    // la label hobbies a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
+                    labelHobbies.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
 
                     GridPane gridPaneDroite = (GridPane) scene.lookup("#gridPaneNom");
                     //on clear le gridPaneDroite pour qu'il ne contienne que les informations du profil précédemment cliqué
                     gridPaneDroite.getChildren().clear();
                     //on ajoute les labels dans la colonne 1 de gridPaneDroite
                     gridPaneDroite.add(labelNomPrenom, 0, 0);
+                    // SIGNE ASTROLOGIQUE §§§
+                    // on recupere l'imageView d'id "signe"
+
+
+
+                    ImageView signeAstro = new ImageView();
+                    signeAstro.setFitHeight(60);
+                    signeAstro.setFitWidth(60);
+                    if(profil.signe.equals("Verseau")){
+                        signeAstro.setImage(new Image("images/icones/signes/verseau.png"));
+                    }
+                    if(profil.signe.equals("Poissons")){
+                        signeAstro.setImage(new Image("images/icones/signes/poisson.png"));
+                    }
+                    if(profil.signe.equals("Bélier")){
+                        signeAstro.setImage(new Image("images/icones/signes/belier.png"));
+                    }
+                    if(profil.signe.equals("Taureau")){
+                        signeAstro.setImage(new Image("images/icones/signes/taureau.png"));
+                    }
+                    if(profil.signe.equals("Gémeaux")){
+                        signeAstro.setImage(new Image("images/icones/signes/gemeaux.png"));
+                    }
+                    if (profil.signe.equals("Cancer")){
+                        signeAstro.setImage(new Image("images/icones/signes/cancer.png"));
+                    }
+                    if(profil.signe.equals("Lion")){
+                        signeAstro.setImage(new Image("images/icones/signes/lion.png"));
+                    }
+                    if(profil.signe.equals("Vierge")){
+                        signeAstro.setImage(new Image("images/icones/signes/vierge.png"));
+                    }
+                    if(profil.signe.equals("Balance")){
+                        signeAstro.setImage(new Image("images/icones/signes/balance.png"));
+                    }
+                    if(profil.signe.equals("Scorpion")){
+                        signeAstro.setImage(new Image("images/icones/signes/scorpion.png"));
+                    }
+                    if(profil.signe.equals("Sagitaire")){
+                        signeAstro.setImage(new Image("images/icones/signes/sagittaire.png"));
+                    }
+                    if(profil.signe.equals("Capricorne")){
+                        signeAstro.setImage(new Image("images/icones/signes/capricorne.png"));
+                    }
+                    gridPaneDroite.add(signeAstro, 1, 0);
 
                     // on affiche tout les attributs du profil cliqué dans la console
 
@@ -226,6 +310,7 @@ public class VueControleur {
                     gridPaneInfos.add(labelQualites, 0, 3);
                     gridPaneInfos.add(labelDefauts, 0, 4);
                     gridPaneInfos.add(labelTaille, 0, 5);
+                    gridPaneInfos.add(labelHobbies, 0, 6);
                 }
             });
             labelNomPrenom.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -246,6 +331,13 @@ public class VueControleur {
                         gateau.setOpacity(1);
                         ImageView plan = (ImageView) scene.lookup("#plan");
                         plan.setOpacity(1);
+                        ImageView imageViewHobbies = (ImageView) scene.lookup("#hobbies");
+                        imageViewHobbies.setOpacity(1);
+                        // le bouton d'id "Match"
+                        Button match = (Button) scene.lookup("#Match");
+                        // on passe son opacité à 1
+                        match.setOpacity(1);
+
                         opacite = true;
                     }
                     // le profil cliqué devient le profilclick
@@ -292,6 +384,21 @@ public class VueControleur {
                     String taille = String.format("%1.2fm",profil.taille);
                     Label labelTaille = new Label(taille);
 
+                    // hobbies
+                    Label labelHobbies = new Label();
+                    if(profil.hobbies.size() == 0){
+                        labelHobbies.setText("Aucun hobbies renseigné");
+                    }else{
+                        String hobbies = "";
+                        for(String hobby : profil.hobbies){
+                            hobbies = hobbies + hobby + ", ";
+                        }
+                        hobbies = hobbies.substring(0, hobbies.length() - 2);
+                        labelHobbies.setText(hobbies);
+                    }
+
+
+
 
 
                     //le label nomPrenom a une police de titre de taille 30 et est centré a droite et en gras et une couleur de police #fb7434;
@@ -308,15 +415,68 @@ public class VueControleur {
                     labelDefauts.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
                     //le label taille a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelTaille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    // le label hobbies a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
+                    labelHobbies.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+
+
+
 
                     GridPane gridPaneDroite = (GridPane) scene.lookup("#gridPaneNom");
                     //on clear le gridPaneDroite pour qu'il ne contienne que les informations du profil précédemment cliqué
                     gridPaneDroite.getChildren().clear();
                     //on ajoute les labels dans la colonne 1 de gridPaneDroite
                     gridPaneDroite.add(labelNomPrenom, 0, 0);
+                    // SIGNE ASTROLOGIQUE §§§
+                    // on recupere l'imageView d'id "signe"
+
+
+
+                    ImageView signeAstro = new ImageView();
+                    signeAstro.setFitHeight(60);
+                    signeAstro.setFitWidth(60);
+                    if(profil.signe.equals("Verseau")){
+                        signeAstro.setImage(new Image("images/icones/signes/verseau.png"));
+                    }
+                    if(profil.signe.equals("Poissons")){
+                        signeAstro.setImage(new Image("images/icones/signes/poisson.png"));
+                    }
+                    if(profil.signe.equals("Bélier")){
+                        signeAstro.setImage(new Image("images/icones/signes/belier.png"));
+                    }
+                    if(profil.signe.equals("Taureau")){
+                        signeAstro.setImage(new Image("images/icones/signes/taureau.png"));
+                    }
+                    if(profil.signe.equals("Gémeaux")){
+                        signeAstro.setImage(new Image("images/icones/signes/gemeaux.png"));
+                    }
+                    if (profil.signe.equals("Cancer")){
+                        signeAstro.setImage(new Image("images/icones/signes/cancer.png"));
+                    }
+                    if(profil.signe.equals("Lion")){
+                        signeAstro.setImage(new Image("images/icones/signes/lion.png"));
+                    }
+                    if(profil.signe.equals("Vierge")){
+                        signeAstro.setImage(new Image("images/icones/signes/vierge.png"));
+                    }
+                    if(profil.signe.equals("Balance")){
+                        signeAstro.setImage(new Image("images/icones/signes/balance.png"));
+                    }
+                    if(profil.signe.equals("Scorpion")){
+                        signeAstro.setImage(new Image("images/icones/signes/scorpion.png"));
+                    }
+                    if(profil.signe.equals("Sagitaire")){
+                        signeAstro.setImage(new Image("images/icones/signes/sagittaire.png"));
+                    }
+                    if(profil.signe.equals("Capricorne")){
+                        signeAstro.setImage(new Image("images/icones/signes/capricorne.png"));
+                    }
+                    gridPaneDroite.add(signeAstro, 1, 0);
+
+
+
+
 
                     // on affiche tout les attributs du profil cliqué dans la console
-
 
                     GridPane gridPaneInfos = (GridPane) scene.lookup("#gridPaneInfos");
                     gridPaneInfos.getChildren().clear();
@@ -326,11 +486,10 @@ public class VueControleur {
                     gridPaneInfos.add(labelQualites, 0, 3);
                     gridPaneInfos.add(labelDefauts, 0, 4);
                     gridPaneInfos.add(labelTaille, 0, 5);
+                    gridPaneInfos.add(labelHobbies, 0, 6);
                 }
             });
             i++;
-        }
-
         // si on clique sur le Button d'id Match
         Button buttonMatch = (Button) scene.lookup("#Match");
         buttonMatch.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -351,22 +510,22 @@ public class VueControleur {
 
 
         });
-        // si on clique sur le button d'id edition
-        Button buttonEdition = (Button) scene.lookup("#edition");
-        // on ouvre l'edition
-        buttonEdition.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                Edition edition = new Edition(mod, profilCourant);
+
+    }
+        TextField recherche = (TextField) scene.lookup("#ZonedeRecherche");
+        recherche.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                this.profilRecherche = recherche.getText();
+//                System.out.println(this.profilRecherche);
+                Vue v=new Vue(this.mod,this.profilCourant,this.profilRecherche);
                 try {
-                    edition.start(stage);
+                    v.start(stage);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
-            }
-        });
+            }});
 
-    }
+        }
     public ImageView arrondirCoins(ImageView imageView, double radius) {
         // Créer un rectangle avec des coins arrondis
         Rectangle clip = new Rectangle(imageView.getFitWidth(), imageView.getFitHeight());

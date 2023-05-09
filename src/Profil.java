@@ -59,6 +59,7 @@ public class Profil implements Comparable<Profil>, Serializable {
     //Attributs personnels
     ArrayList<String> hobbies,qualite,defaut;
     int compatibilité;
+    int precision;
 
     Exigence exi;
     ///

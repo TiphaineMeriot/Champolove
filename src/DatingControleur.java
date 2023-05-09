@@ -1,4 +1,5 @@
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
@@ -52,8 +53,18 @@ public class DatingControleur {
             // TODO: ici on enverra un mail aux deux personnes
         });
 
-
-
+        // si on clique sur le bouton d'id valider
+        Button valider = (Button) scene.lookup("#valider");
+        // on ouvre Fin en lui passant le modele et les deux profils
+        valider.setOnMouseClicked(event -> {
+            Fin fin = new Fin(mod,p1,p2);
+            try {
+                fin.start(primaryStage);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Erreur lors de l'ouverture de la vue");
+            }
+        });
 
 
 

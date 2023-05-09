@@ -8,12 +8,14 @@ import java.util.Objects;
 public class Vue extends Application {
     Modele mod;
     Profil profil;
+    String recherche;
     public Vue(){
         super();
     }
-    public Vue(Modele mod, Profil profil) {
+    public Vue(Modele mod, Profil profil,String recherche) {
         this.mod = mod;
         this.profil = profil;
+        this.recherche=recherche;
     }
     @Override
     public void start(Stage stage) throws Exception {
@@ -24,7 +26,7 @@ public class Vue extends Application {
         stage.setScene(scene);
         stage.show();
         stage.centerOnScreen();
-        VueControleur controller = new VueControleur(this.mod, this.profil);
+        VueControleur controller = new VueControleur(this.mod, this.profil,this.recherche);
         controller.init(scene, stage);
     }
 }
