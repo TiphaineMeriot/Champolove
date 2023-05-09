@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="831.0" style="-fx-background-color: #F5c295;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="831.0" style="-fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #f5c295 0.0%, #f5c295 43.6242%, #fa7334f4 100.0%);" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button id="selection" layoutX="238.0" layoutY="394.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="98.0" style="-fx-background-color: #fb7434; -fx-text-fill: #29252a;" text="Selection">
          <font>
@@ -25,12 +25,12 @@
             <Font name="Times New Roman Bold Italic" size="27.0" />
          </font>
       </Label>
-      <Label id="txt1" layoutX="447.0" layoutY="64.0" prefHeight="44.0" prefWidth="289.0" text="mmm" textFill="#8d3a11">
+      <Label id="txt1" layoutX="447.0" layoutY="64.0" prefHeight="44.0" prefWidth="289.0" text="." textFill="#8d3a11">
          <font>
             <Font name="Times New Roman Bold Italic" size="23.0" />
          </font>
       </Label>
-      <Label id="txt2" layoutX="250.0" layoutY="126.0" prefHeight="44.0" prefWidth="377.0" text="mmm" textFill="#8d3a11">
+      <Label id="txt2" layoutX="250.0" layoutY="126.0" prefHeight="44.0" prefWidth="377.0" text="." textFill="#8d3a11">
          <font>
             <Font name="Times New Roman Bold Italic" size="23.0" />
          </font>

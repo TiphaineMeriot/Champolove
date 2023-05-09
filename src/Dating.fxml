@@ -4,9 +4,6 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
@@ -14,7 +11,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="794.0" prefWidth="1172.0" style="-fx-border-color: #fb7434; -fx-background-color: #F5c295; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="794.0" prefWidth="1172.0" style="-fx-border-color: #fb7434; -fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #f5c295 0.0%, #f5c295 43.6242%, #fa7334f4 100.0%); -fx-border-width: 2;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView id="Image2" fitHeight="107.0" fitWidth="134.0" layoutX="630.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -55,17 +52,6 @@
       </ImageView>
       <Circle fill="#1f93ff00" layoutX="479.0" layoutY="208.0" radius="67.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
       <DatePicker layoutX="503.0" layoutY="488.0" />
-      <MenuBar id="MenuBar" layoutY="2.0" prefHeight="25.0" prefWidth="1172.0">
-         <menus>
-            <Menu mnemonicParsing="false" text="Langue">
-               <items>
-                  <MenuItem id="anglais" mnemonicParsing="false" text="English" />
-                  <MenuItem id="espagnol" mnemonicParsing="false" text="Spanish" />
-                  <MenuItem id="francais" mnemonicParsing="false" text="French" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="64.0" layoutX="458.0" layoutY="56.0" stroke="BLACK" strokeType="INSIDE" width="256.0" />
    </children>
 </Pane>

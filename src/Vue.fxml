@@ -2,9 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -17,7 +14,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="PanePrincipal" fx:id="PanePrincipal" prefHeight="746.0" prefWidth="1167.0" style="-fx-background-color: #F5c295; -fx-border-color: #fb7434; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vue">
+<AnchorPane id="PanePrincipal" fx:id="PanePrincipal" prefHeight="746.0" prefWidth="1167.0" style="-fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #f5c295 0.0%, #f5c295 43.6242%, #fa7334f4 100.0%); -fx-border-color: #fb7434; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vue">
     <children>
         <Pane layoutX="34.0" layoutY="200.0">
             <children>
@@ -48,7 +45,7 @@
                                   </GridPane>
                                   <ScrollPane layoutX="25.0" layoutY="68.0" prefHeight="444.0" prefWidth="378.0" style="-fx-border-color: #fb7434;">
                                       <content>
-                                          <GridPane id="GridProfils" prefHeight="90.0" prefWidth="378.0">
+                                          <GridPane id="GridProfils" prefHeight="90.0" prefWidth="378.0" style="-fx-background-color: #F5c295;">
                                               <columnConstraints>
                                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="146.0" />
@@ -153,17 +150,6 @@
             <Rectangle id="rec" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="96.0" layoutX="344.0" layoutY="102.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="102.0" />
             </children>
         </Pane>
-      <MenuBar id="MenuBar" layoutX="3.0" layoutY="2.0" prefHeight="25.0" prefWidth="1160.0">
-        <menus>
-            <Menu mnemonicParsing="false" text="Langue">
-               <items>
-                  <MenuItem id="anglais" mnemonicParsing="false" text="English" />
-                  <MenuItem id="espagnol" mnemonicParsing="false" text="Spanish" />
-                  <MenuItem id="francais" mnemonicParsing="false" text="French" />
-               </items>
-            </Menu>
-        </menus>
-      </MenuBar>
       <Button id="Match" layoutX="770.0" layoutY="681.0" mnemonicParsing="false" opacity="0.0" prefHeight="27.0" prefWidth="109.0" style="-fx-background-color: #fb7434;" text="Match" />
       <Label layoutX="130.0" layoutY="68.0" prefHeight="69.0" prefWidth="239.0" text="P R O F I L S">
          <font>

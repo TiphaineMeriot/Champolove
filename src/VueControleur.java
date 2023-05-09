@@ -229,24 +229,22 @@ public class VueControleur {
 
 
 
-
-
                     //le label nomPrenom a une police de titre de taille 30 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelNomPrenom.setStyle("-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
                     //le label date de naissance a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
-                    labelDateDeNaissance.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    labelDateDeNaissance.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
                     //le label ville a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
-                    labelVille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    labelVille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
                     //le label travail a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
-                    labelTravail.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    labelTravail.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
                     //le label qualitées a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
-                    labelQualites.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    labelQualites.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
                     //le label defauts a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
-                    labelDefauts.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    labelDefauts.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
                     //le label taille a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
-                    labelTaille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
-                    // la label hobbies a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
-                    labelHobbies.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    labelTaille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
+                    // le label hobbies a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
+                    labelHobbies.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
 
                     GridPane gridPaneDroite = (GridPane) scene.lookup("#gridPaneNom");
                     //on clear le gridPaneDroite pour qu'il ne contienne que les informations du profil précédemment cliqué
@@ -402,21 +400,21 @@ public class VueControleur {
 
 
                     //le label nomPrenom a une police de titre de taille 30 et est centré a droite et en gras et une couleur de police #fb7434;
-                    labelNomPrenom.setStyle("-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    labelNomPrenom.setStyle("-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
                     //le label date de naissance a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
-                    labelDateDeNaissance.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    labelDateDeNaissance.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
                     //le label ville a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
-                    labelVille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    labelVille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
                     //le label travail a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
-                    labelTravail.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    labelTravail.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
                     //le label qualitées a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
-                    labelQualites.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    labelQualites.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
                     //le label defauts a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
-                    labelDefauts.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    labelDefauts.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
                     //le label taille a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
-                    labelTaille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    labelTaille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
                     // le label hobbies a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
-                    labelHobbies.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    labelHobbies.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
 
 
 
