@@ -1,25 +1,24 @@
+package controleur;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
+import modele.Modele;
+import vue.Genre;
+import vue.Profil;
+import vue.Statut;
 
 public class CreationProfilControleur  {
 
@@ -77,10 +76,10 @@ public class CreationProfilControleur  {
     public CreationProfilControleur(Modele mod){
         this.mod=mod;
     }
-    // Initialisation des combobox en fonction des enum de Profil
+    // Initialisation des combobox en fonction des enum de vue.Profil
     @FXML
     public void initialisationComboBox() {
-        // Genre
+        // vue.vue.Genre
         ArrayList<Genre> genre = new ArrayList();
         Collections.addAll(genre, Genre.values());
         EnumSet.allOf(Genre.class).forEach(g -> genretxt.getItems().addAll(String.valueOf((g))));
@@ -88,7 +87,7 @@ public class CreationProfilControleur  {
         // Recherche
         EnumSet.allOf(Genre.class).forEach(g -> recherchetxt.getItems().addAll(String.valueOf((g))));
 
-        // Statut
+        // vue.vue.Statut
         ArrayList<Statut> statut = new ArrayList();
         Collections.addAll(statut, Statut.values());
         EnumSet.allOf(Statut.class).forEach(s -> statuttxt.getItems().addAll(String.valueOf((s))));

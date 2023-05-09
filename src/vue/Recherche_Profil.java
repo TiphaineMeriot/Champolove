@@ -1,3 +1,7 @@
+package vue;
+
+import modele.Modele;
+
 import java.util.Comparator;
 import java.util.Scanner;
 import java.util.TreeSet;
@@ -93,7 +97,7 @@ public class Recherche_Profil {
         Modele mod=new Modele();
         Recherche_Profil b=new Recherche_Profil(mod);
         mod.charger();
-//        for(Profil p: mod.listeProfil){
+//        for(vue.Profil p: mod.listeProfil){
 //            System.out.println(p);
 //        }
         Scanner scanner=new Scanner(System.in);

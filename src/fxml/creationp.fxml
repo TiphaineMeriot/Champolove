@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CreationProfilControleur">
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.CreationProfilControleur">
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -50,11 +50,11 @@
                               <Image url="@images/FEMME/ADAM_Diane.jpeg" />
                            </image>
                         </ImageView>
-                        <ComboBox fx:id="statuttxt" prefWidth="150.0" promptText="Statut" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="statuttxt" prefWidth="150.0" promptText="vue.Statut" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <ComboBox fx:id="recherchetxt" prefWidth="150.0" promptText="Recherche" GridPane.rowIndex="2" />
                         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                            <children>
-                              <ComboBox fx:id="genretxt" prefWidth="150.0" promptText="Genre" />
+                              <ComboBox fx:id="genretxt" prefWidth="150.0" promptText="vue.Genre" />
                               <TextField maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="150.0" promptText="Taille">
                                  <VBox.margin>
                                     <Insets top="10.0" />

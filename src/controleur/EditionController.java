@@ -1,5 +1,5 @@
-import javafx.fxml.FXML;
-import javafx.scene.Node;
+package controleur;
+
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -8,6 +8,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import modele.Modele;
+import vue.Profil;
+import vue.Selection;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -45,9 +48,9 @@ public class EditionController {
         grid.add(label, 0, 0);
 
         // on ajoute les choix
-        // on ajoute un label Genre colonne 0 ligne 0
+        // on ajoute un label vue.vue.Genre colonne 0 ligne 0
         // puis on ajoute une choiceBox colonne 1 ligne 0
-        Label genre = new Label("Genre");
+        Label genre = new Label("vue.vue.Genre");
         grid.add(genre, 0, 1);
         ChoiceBox<String> cbGenre = new ChoiceBox<>();
         cbGenre.getItems().addAll("Homme", "Femme", "Autre");

@@ -1,3 +1,8 @@
+package controleur;
+
+import modele.Modele;
+import vue.Profil;
+
 import java.util.*;
 
 public class Matching {

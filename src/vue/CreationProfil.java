@@ -1,3 +1,5 @@
+package vue;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,10 +10,10 @@ public class CreationProfil extends Application {
 
         @Override
         public void start(Stage stage) throws Exception {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("creationp.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/creationp.fxml"));
             Parent root = loader.load();
-            CreationProfilControleur controleur = loader.getController();
-            controleur.initialisationComboBox();
+            controleur.CreationProfilControleur c = loader.getController();
+            c.initialisationComboBox();
             stage.setScene(new Scene(root));
             stage.show();
             stage.setResizable(false);

@@ -1,7 +1,10 @@
+package vue;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import modele.Modele;
 
 public class Dating extends Application {
     Modele mod;
@@ -15,14 +18,14 @@ public class Dating extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(Selection.class.getResource("Dating.fxml"));
-        primaryStage.setTitle("Dating");
+        FXMLLoader fxmlLoader = new FXMLLoader(Selection.class.getResource("fxml/Dating.fxml"));
+        primaryStage.setTitle("vue.Dating");
         Scene scene = new Scene(fxmlLoader.load(), 1172 , 794);
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.centerOnScreen();
-        DatingControleur controller = new DatingControleur(mod, p1, p2);
+        controleur.DatingControleur controller = new controleur.DatingControleur(mod, p1, p2);
         controller.init(scene,primaryStage);
     }
 }

@@ -15,7 +15,7 @@
    <children>
       <ImageView id="Image2" fitHeight="107.0" fitWidth="134.0" layoutX="630.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/pdp.png" />
+            <Image url="@../images/pdp.png" />
          </image>
       </ImageView>
       <Label layoutX="482.0" layoutY="53.0" prefHeight="69.0" prefWidth="214.0" text="D A T I N G">
@@ -25,7 +25,7 @@
       </Label>
       <ImageView fitHeight="86.0" fitWidth="92.0" layoutX="1053.0" layoutY="680.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/logo_invisible.png" />
+            <Image url="@../images/logo_invisible.png" />
          </image>
       </ImageView>
       <Circle fill="#1f93ff00" layoutX="691.0" layoutY="208.0" radius="67.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
@@ -47,7 +47,7 @@
       </Button>
       <ImageView id="Image1" fitHeight="107.0" fitWidth="134.0" layoutX="418.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/pdp.png" />
+            <Image url="@../images/pdp.png" />
          </image>
       </ImageView>
       <Circle fill="#1f93ff00" layoutX="479.0" layoutY="208.0" radius="67.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />

@@ -1,3 +1,5 @@
+package controleur;
+
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,6 +15,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import vue.*;
+import modele.Modele;
 
 import java.util.Objects;
 import java.util.TreeSet;
@@ -494,7 +498,7 @@ public class VueControleur {
             @Override
             public void handle(MouseEvent event) {
                 // si le profil cliqué n'est pas null
-                // on ouvre le Dating
+                // on ouvre le vue.Dating
                 if (profilClick != null) {
                     Dating dating = new Dating(mod, profilCourant, profilClick);
                     try {
