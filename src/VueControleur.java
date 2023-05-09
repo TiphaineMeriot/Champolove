@@ -160,6 +160,7 @@ public class VueControleur {
                         // on passe son opacité à 1
                         match.setOpacity(1);
 
+
                         opacite = true;
                     }
                     // le profil cliqué devient le profilclick
@@ -218,10 +219,20 @@ public class VueControleur {
                         labelHobbies.setText(hobbies);
                     }
 
+                    if(profil.genre.equals("HOMME")){
+                        labelNomPrenom.setText(labelNomPrenom.getText() + " \u2642");
+                    } else if (profil.genre.equals("FEMME")){
+                        labelNomPrenom.setText(labelNomPrenom.getText() + " \u2640");
+                    }else{
+                        labelNomPrenom.setText(labelNomPrenom.getText() + " \u26B2");
+                    }
+
+
+
 
 
                     //le label nomPrenom a une police de titre de taille 30 et est centré a droite et en gras et une couleur de police #fb7434;
-                    labelNomPrenom.setStyle("-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
+                    labelNomPrenom.setStyle("-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
                     //le label date de naissance a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelDateDeNaissance.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #fb7434; -fx-alignment: center-right");
                     //le label ville a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
@@ -242,6 +253,51 @@ public class VueControleur {
                     gridPaneDroite.getChildren().clear();
                     //on ajoute les labels dans la colonne 1 de gridPaneDroite
                     gridPaneDroite.add(labelNomPrenom, 0, 0);
+                    // SIGNE ASTROLOGIQUE §§§
+                    // on recupere l'imageView d'id "signe"
+
+
+
+                    ImageView signeAstro = new ImageView();
+                    signeAstro.setFitHeight(60);
+                    signeAstro.setFitWidth(60);
+                    if(profil.signe.equals("Verseau")){
+                        signeAstro.setImage(new Image("images/icones/signes/verseau.png"));
+                    }
+                    if(profil.signe.equals("Poissons")){
+                        signeAstro.setImage(new Image("images/icones/signes/poisson.png"));
+                    }
+                    if(profil.signe.equals("Bélier")){
+                        signeAstro.setImage(new Image("images/icones/signes/belier.png"));
+                    }
+                    if(profil.signe.equals("Taureau")){
+                        signeAstro.setImage(new Image("images/icones/signes/taureau.png"));
+                    }
+                    if(profil.signe.equals("Gémeaux")){
+                        signeAstro.setImage(new Image("images/icones/signes/gemeaux.png"));
+                    }
+                    if (profil.signe.equals("Cancer")){
+                        signeAstro.setImage(new Image("images/icones/signes/cancer.png"));
+                    }
+                    if(profil.signe.equals("Lion")){
+                        signeAstro.setImage(new Image("images/icones/signes/lion.png"));
+                    }
+                    if(profil.signe.equals("Vierge")){
+                        signeAstro.setImage(new Image("images/icones/signes/vierge.png"));
+                    }
+                    if(profil.signe.equals("Balance")){
+                        signeAstro.setImage(new Image("images/icones/signes/balance.png"));
+                    }
+                    if(profil.signe.equals("Scorpion")){
+                        signeAstro.setImage(new Image("images/icones/signes/scorpion.png"));
+                    }
+                    if(profil.signe.equals("Sagitaire")){
+                        signeAstro.setImage(new Image("images/icones/signes/sagittaire.png"));
+                    }
+                    if(profil.signe.equals("Capricorne")){
+                        signeAstro.setImage(new Image("images/icones/signes/capricorne.png"));
+                    }
+                    gridPaneDroite.add(signeAstro, 1, 0);
 
                     // on affiche tout les attributs du profil cliqué dans la console
 
@@ -281,6 +337,7 @@ public class VueControleur {
                         Button match = (Button) scene.lookup("#Match");
                         // on passe son opacité à 1
                         match.setOpacity(1);
+
                         opacite = true;
                     }
                     // le profil cliqué devient le profilclick
@@ -369,6 +426,51 @@ public class VueControleur {
                     gridPaneDroite.getChildren().clear();
                     //on ajoute les labels dans la colonne 1 de gridPaneDroite
                     gridPaneDroite.add(labelNomPrenom, 0, 0);
+                    // SIGNE ASTROLOGIQUE §§§
+                    // on recupere l'imageView d'id "signe"
+
+
+
+                    ImageView signeAstro = new ImageView();
+                    signeAstro.setFitHeight(60);
+                    signeAstro.setFitWidth(60);
+                    if(profil.signe.equals("Verseau")){
+                        signeAstro.setImage(new Image("images/icones/signes/verseau.png"));
+                    }
+                    if(profil.signe.equals("Poissons")){
+                        signeAstro.setImage(new Image("images/icones/signes/poisson.png"));
+                    }
+                    if(profil.signe.equals("Bélier")){
+                        signeAstro.setImage(new Image("images/icones/signes/belier.png"));
+                    }
+                    if(profil.signe.equals("Taureau")){
+                        signeAstro.setImage(new Image("images/icones/signes/taureau.png"));
+                    }
+                    if(profil.signe.equals("Gémeaux")){
+                        signeAstro.setImage(new Image("images/icones/signes/gemeaux.png"));
+                    }
+                    if (profil.signe.equals("Cancer")){
+                        signeAstro.setImage(new Image("images/icones/signes/cancer.png"));
+                    }
+                    if(profil.signe.equals("Lion")){
+                        signeAstro.setImage(new Image("images/icones/signes/lion.png"));
+                    }
+                    if(profil.signe.equals("Vierge")){
+                        signeAstro.setImage(new Image("images/icones/signes/vierge.png"));
+                    }
+                    if(profil.signe.equals("Balance")){
+                        signeAstro.setImage(new Image("images/icones/signes/balance.png"));
+                    }
+                    if(profil.signe.equals("Scorpion")){
+                        signeAstro.setImage(new Image("images/icones/signes/scorpion.png"));
+                    }
+                    if(profil.signe.equals("Sagitaire")){
+                        signeAstro.setImage(new Image("images/icones/signes/sagittaire.png"));
+                    }
+                    if(profil.signe.equals("Capricorne")){
+                        signeAstro.setImage(new Image("images/icones/signes/capricorne.png"));
+                    }
+                    gridPaneDroite.add(signeAstro, 1, 0);
 
 
 

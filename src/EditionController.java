@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.time.Year;
 import java.util.*;
 
 import static java.util.Calendar.*;
@@ -356,6 +357,8 @@ public class EditionController {
             this.profil.prenom = tfPrenom.getText();
             // on transforme la date de DatePicker en String
             this.profil.date_de_naissance = datePicker.getValue().toString();
+            // on instancie l'age en calculant la différence entre l'année actuelle et l'année de naissance
+            this.profil.age = Year.now().getValue() - datePicker.getValue().getYear();
             this.profil.ville = cbVille.getValue();
             this.profil.profession = cbProfession.getValue();
             // on recupere uniquement le chemin d'accès de l'imageView

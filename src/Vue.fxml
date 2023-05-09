@@ -77,9 +77,10 @@
         <Button id="boutonCreerProfil" layoutX="164.0" layoutY="153.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="171.0" style="-fx-background-color: #fb7434;" text="Créer un nouveau profil" textAlignment="CENTER" />
         <Pane id="PaneDroite" fx:id="PaneDroite" layoutX="499.0" prefHeight="635.0" prefWidth="650.0">
             <children>
-                <GridPane id="gridPaneNom" fx:id="gridPaneNom" layoutX="79.0" layoutY="104.0" prefHeight="90.0" prefWidth="356.0">
+                <GridPane id="gridPaneNom" fx:id="gridPaneNom" layoutX="14.0" layoutY="104.0" prefHeight="90.0" prefWidth="421.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="363.0" minWidth="10.0" prefWidth="335.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="86.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -149,6 +150,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
+            <Rectangle id="rec" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="96.0" layoutX="344.0" layoutY="102.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="102.0" />
             </children>
         </Pane>
       <MenuBar id="MenuBar" layoutX="3.0" layoutY="2.0" prefHeight="25.0" prefWidth="1160.0">
