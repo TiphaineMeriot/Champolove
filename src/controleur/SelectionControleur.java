@@ -1,16 +1,19 @@
+package controleur;
+
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.web.HTMLEditor;
 import javafx.stage.Stage;
-
+import modele.Modele;
+import vue.Edition;
+import vue.Profil;
+import vue.Vue;
 
 
 // on importe javax.activation.DataHandler de la librairie javax.mail
@@ -106,7 +109,7 @@ public class SelectionControleur {
             public void handle(javafx.scene.input.MouseEvent event) {
                 // on verifie d'abord si le profilcourant est null
                 if(profilCourant != null){
-                    // si oui on ouvre la Vue en lui passant le profil courant
+                    // si oui on ouvre la vue.Vue en lui passant le profil courant
                     Vue vue = new Vue(mod,profilCourant,"");
                     try {
                         vue.start(primaryStage);
@@ -125,7 +128,7 @@ public class SelectionControleur {
 
         // si on clique sur le bouton d'id editer
         Button editer = (Button) scene.lookup("#editer");
-        // on ouvre l'Edition en lui passant le profil courant et le modele
+        // on ouvre l'vue.Edition en lui passant le profil courant et le modele
         editer.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {

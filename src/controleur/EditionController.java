@@ -1,38 +1,28 @@
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
+package controleur;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Year;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
-
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import modele.Modele;
+import vue.Profil;
+import vue.Selection;
 
-import static java.util.Calendar.getInstance;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.time.Year;
+import java.util.*;
 
-public class CreationProfilControleur {
+import static java.util.Calendar.*;
+
+public class EditionController {
 
     Modele mod;
-    Profil profil = new Profil("null" ,"null", "11/12/2003", "null", "null", "null");
+    Profil profil;
     ChoiceBox<String> cb;
     boolean villeModifiee = false;
     boolean professionModifie = false;
@@ -40,14 +30,16 @@ public class CreationProfilControleur {
     boolean qualitesModifiees = false;
     boolean defautsModifies = false;
 
-
-    public CreationProfilControleur(Modele mod) throws Exception {;
+    public EditionController(Modele mod, Profil profil) {
         this.mod = mod;
+        this.profil = profil;
+        // on ajoute les modifs possibles
+
 
     }
-    public void init(Scene scene, Stage stage) throws Exception {
-        // on recupere le gridPane d'id gridBOX et on lui ajoute une ChoiceBox
+    public void init(Scene scene, Stage stage) {
 
+    // on recupere le gridPane d'id gridBOX et on lui ajoute une ChoiceBox
         GridPane grid = (GridPane) scene.lookup("#gridBOX");
 
         // on ajoute un label couleur blanche dans le 0,0 du gridPane
@@ -56,12 +48,13 @@ public class CreationProfilControleur {
         grid.add(label, 0, 0);
 
         // on ajoute les choix
-        // on ajoute un label Genre colonne 0 ligne 0
+        // on ajoute un label vue.vue.Genre colonne 0 ligne 0
         // puis on ajoute une choiceBox colonne 1 ligne 0
-        Label genre = new Label("Genre");
+        Label genre = new Label("vue.vue.Genre");
         grid.add(genre, 0, 1);
         ChoiceBox<String> cbGenre = new ChoiceBox<>();
         cbGenre.getItems().addAll("Homme", "Femme", "Autre");
+        cbGenre.setValue(this.profil.genre);
         grid.add(cbGenre, 1, 1);
 
         // Nom
@@ -69,6 +62,7 @@ public class CreationProfilControleur {
         grid.add(nom, 0, 2);
         // on va ajouter un textField
         TextField tfNom = new TextField();
+        tfNom.setText(this.profil.nom);
         grid.add(tfNom, 1, 2);
 
         // Prenom
@@ -76,6 +70,7 @@ public class CreationProfilControleur {
         grid.add(prenom, 0, 3);
         // on va ajouter un textField
         TextField tfPrenom = new TextField();
+        tfPrenom.setText(this.profil.prenom);
         grid.add(tfPrenom, 1, 3);
 
         // Date de naissance
@@ -83,19 +78,25 @@ public class CreationProfilControleur {
         grid.add(dateNaissance, 0, 4);
         // on va ajouter une datePicker
         DatePicker datePicker = new DatePicker();
-        // le datePicker comporte que les dates entre 1900 et 2003
-        datePicker.setDayCellFactory(param -> new DateCell() {
-            @Override
-            public void updateItem(LocalDate item, boolean empty) {
-                super.updateItem(item, empty);
-                // on va instancier une date de 1900 et une date de 2003
-                LocalDate dateDebut = LocalDate.of(1900, 1, 1);
-                LocalDate dateFin = LocalDate.of(2003, 12, 31);
-                // si la date est avant 1900 ou apres 2003 on la desactive
-                setDisable(item.isBefore(dateDebut) || item.isAfter(dateFin));
-            }
-        });
-        // on ajoute le datePicker
+        String[] dateNaissanceSplit = this.profil.date_de_naissance.split("/");
+        // le day sera le premier element du tableau
+        int day = Integer.parseInt(dateNaissanceSplit[0]);
+        // le month sera le deuxieme element du tableau
+        int month = Integer.parseInt(dateNaissanceSplit[1]);
+        // le year sera le troisieme element du tableau
+        int year = Integer.parseInt(dateNaissanceSplit[2]);
+        // on va créer un objet calendar
+        Calendar calendar = getInstance();
+        // on va lui set la date de naissance
+        calendar.set(year, month, day);
+        // on va créer un objet date
+        Date date = calendar.getTime();
+        // on va créer un objet simpleDateFormat
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        // on va formatter la date
+        String dateNaissanceFormat = simpleDateFormat.format(date);
+        // on va set la date de naissance
+        datePicker.setValue(datePicker.getConverter().fromString(dateNaissanceFormat));
         grid.add(datePicker, 1, 4);
 
         // Ville
@@ -117,6 +118,7 @@ public class CreationProfilControleur {
                 cbVille.getItems().addAll(list);
                 this.villeModifiee = true;
             }});
+        cbVille.setValue(this.profil.ville);
         grid.add(cbVille, 1, 5);
 
         //profession, on va suivre le meme principe que pour la ville
@@ -137,8 +139,9 @@ public class CreationProfilControleur {
             }
         });
         cbProfession.setOnAction(event -> {
-            cbProfession.setValue("Banque");
+            cbProfession.setValue(cb.getValue());
         });
+        cbProfession.setValue(this.profil.profession);
         grid.add(cbProfession, 1, 6);
 
         //image
@@ -177,12 +180,19 @@ public class CreationProfilControleur {
         //hobbies
         Label hobbies = new Label("Hobbies");
         grid.add(hobbies, 0, 8);
+        // on va mettre un textField et une comboBox a coté le textField comporte les hobbies du profil
+        // la combo box comporte tous les hobbies du modele
+        // des qu'on clique sur un des hobbies du modele, il est ajouté au textField et retiré de la comboBox
+        // le textField est editable, on peut donc supprimer les hobbies qu'on veut mais pas en ajouter
+        // il faut que le text Field soit équipé d'une scrollbar pour qu'il ne soit pas trop long
 
         // on va creer un textField
         TextField tfHobbies = new TextField();
-        tfHobbies.setEditable(false);
 
-
+        // on va ajouter les hobbies du profil dans le textField
+        for (String s : this.profil.hobbies) {
+            tfHobbies.setText(tfHobbies.getText() + s + ",");
+        }
         // on va creer une comboBox
         ComboBox<String> cbHobbies = new ComboBox<>();
         // on va ajouter tous les hobbies du modele dans la comboBox
@@ -206,7 +216,9 @@ public class CreationProfilControleur {
         Label qualites = new Label("Qualité(s)");
         grid.add(qualites, 0, 9);
         TextField tfQualites = new TextField();
-        tfQualites.setEditable(false);
+        for (String s : this.profil.qualite) {
+            tfQualites.setText(tfQualites.getText() + s + ",");
+        }
         ComboBox<String> cbQualites = new ComboBox<>();
         for (String s : this.mod.qualite) {
             cbQualites.getItems().add(s);
@@ -222,8 +234,9 @@ public class CreationProfilControleur {
         Label defauts = new Label("Défaut(s)");
         grid.add(defauts, 0, 10);
         TextField tfDefauts = new TextField();
-        // on rend le TextField non editable
-        tfDefauts.setEditable(false);
+        for (String s : this.profil.defaut) {
+            tfDefauts.setText(tfDefauts.getText() + s + ",");
+        }
         ComboBox<String> cbDefauts = new ComboBox<>();
         for (String s : this.mod.defaut) {
             cbDefauts.getItems().add(s);
@@ -252,11 +265,17 @@ public class CreationProfilControleur {
         for (String s : attirances) {
             cbAttirance.getItems().add(s);
         }
+        for(String s:this.profil.exi.attirance){
+            if(s.equals("HOMME")){
+                cbAttirance.setValue("Homme");
+            }
+            if(s.equals("FEMME")){
+                cbAttirance.setValue("Femme");
+            }else{
+                cbAttirance.setValue("Les deux");
+            }
+        }
         grid.add(cbAttirance, 1, 12);
-        cbAttirance.setOnAction(event -> {
-            cbAttirance.setValue(cbAttirance.getValue());
-        });
-
 
         // age
         Label age = new Label("Age Min / Age Max");
@@ -266,24 +285,19 @@ public class CreationProfilControleur {
         // si l'age max est 1000 la combobox est instanciée avec "desactivé pour ce profil"
         // sinon on instancie la combobox avec l'age du this.profil.exigence.ageMin et ageMax respectivement
         // tout en laissant un choix allant de 0 a 99
-        ComboBox<String> cbAgeMin = new ComboBox<>();
-        ComboBox<String> cbAgeMax = new ComboBox<>();
-
-        for (int i = 18; i < 100; i++) {
+         ComboBox<String> cbAgeMin = new ComboBox<>();
+         ComboBox<String> cbAgeMax = new ComboBox<>();
+        if(this.profil.exi.agemin==0 || this.profil.exi.agemin==1000){
+            cbAgeMin.setValue("Desactivé pour ce profil");
+        }else{
+            for (int i = 18; i < 100; i++) {
                 cbAgeMin.getItems().add(String.valueOf(i));
                 cbAgeMax.getItems().add(String.valueOf(i));
+            }
+            cbAgeMin.setValue(String.valueOf(this.profil.exi.agemin));
+            cbAgeMax.setValue(String.valueOf(this.profil.exi.agemax));
+
         }
-        cbAgeMax.setOnAction(event -> {
-            cbAgeMax.setValue(cbAgeMax.getValue());
-        });
-        cbAgeMin.setOnAction(event -> {
-
-            cbAgeMin.setValue(cbAgeMin.getValue());
-            cbAgeMax.setValue(cbAgeMax.getValue());
-
-
-        });
-
         grid.add(cbAgeMin, 1, 13);
         grid.add(cbAgeMax, 2, 13);
 
@@ -292,15 +306,20 @@ public class CreationProfilControleur {
         Label qualitesExi = new Label("Qualité(s)");
         grid.add(qualitesExi, 0, 14);
         TextField tfQualitesExi = new TextField();
-        tfQualitesExi.setEditable(false);
-
+        if(this.profil.exi.choix_qualite.size()==0){
+            tfQualitesExi.setText("Aucune Exigée");
+        }else{
+            for (String s : this.profil.exi.choix_qualite) {
+                tfQualitesExi.setText(tfQualitesExi.getText() + s + ",");
+            }
+        }
         ComboBox<String> cbQualitesExi = new ComboBox<>();
         for (String s : this.mod.qualite) {
             cbQualitesExi.getItems().add(s);
         }
         cbQualitesExi.setOnAction(event -> {
-            tfQualitesExi.setText(cbQualitesExi.getValue());
-            cbQualitesExi.setValue("Aimable");
+            tfQualitesExi.setText(tfQualitesExi.getText() + cbQualitesExi.getValue() + " ");
+            cbQualitesExi.getItems().remove(cbQualitesExi.getValue());
         });
         grid.add(tfQualitesExi, 1, 14);
         grid.add(cbQualitesExi, 2, 14);
@@ -310,46 +329,23 @@ public class CreationProfilControleur {
         Label defautsExi = new Label("Défaut(s)");
         grid.add(defautsExi, 0, 15);
         TextField tfDefautsExi = new TextField();
-        tfDefautsExi.setEditable(false);
-
+        if(this.profil.exi.choix_defaut.size()==0){
+            tfDefautsExi.setText("Aucun Exigé");
+        }else{
+            for (String s : this.profil.exi.choix_defaut) {
+                tfDefautsExi.setText(tfDefautsExi.getText() + s + ",");
+            }
+        }
         ComboBox<String> cbDefautsExi = new ComboBox<>();
         for (String s : this.mod.defaut) {
             cbDefautsExi.getItems().add(s);
         }
         cbDefautsExi.setOnAction(event -> {
-            tfDefautsExi.setText(cbDefautsExi.getValue());
-            cbDefautsExi.setValue("Bavard");
+            tfDefautsExi.setText(tfDefautsExi.getText() + cbDefautsExi.getValue() + " ");
+            cbDefautsExi.getItems().remove(cbDefautsExi.getValue());
         });
         grid.add(tfDefautsExi, 1, 15);
         grid.add(cbDefautsExi, 2, 15);
-
-        // exigences choix hobbies
-        Label hobbiesExi = new Label("Hobbie(s)");
-        grid.add(hobbiesExi, 0, 16);
-        TextField tfHobbiesExi = new TextField();
-        tfHobbiesExi.setEditable(false);
-        ComboBox<String> cbHobbiesExi = new ComboBox<>();
-        for (String s : this.mod.hobbies) {
-            cbHobbiesExi.getItems().add(s);
-        }
-        cbHobbiesExi.setOnAction(event -> {
-            tfHobbiesExi.setText(cbHobbiesExi.getValue());
-        });
-        // distance
-        Label distance = new Label("Distance Max");
-        grid.add(distance, 0, 17);
-        // on va mettre une comboBox avec toutes les centaines de 0 a 1500
-
-        ComboBox<String> cbDistance = new ComboBox<>();
-        for (int i = 0; i < 16; i++) {
-            cbDistance.getItems().add(String.valueOf(i*100));
-        }
-        grid.add(cbDistance, 1, 17);
-        cbDistance.setOnAction(event -> {
-            cbDistance.setValue(cbDistance.getValue());
-        });
-
-
 
         // on passe aux boutons
         // on met un bouton Valider qui va enregistrer les modifications
@@ -358,9 +354,8 @@ public class CreationProfilControleur {
         Button valider = (Button)scene.lookup("#valider");
         Button annuler = (Button)scene.lookup("#annuler");
 
-        valider.setOnMouseClicked(event -> {
-            // on enregistre les modifications dans le profil puis on l'implante dans le modele
-            this.profil.genre = cbGenre.getValue();
+        // si on clique sur le bouton on récupére toutes les valeurs des comboBox et textField et on remplace les valeurs correspondantes du this.profil
+        valider.setOnAction(event -> {
             this.profil.nom = tfNom.getText();
             this.profil.prenom = tfPrenom.getText();
             // on transforme la date de DatePicker en String
@@ -369,49 +364,58 @@ public class CreationProfilControleur {
             String[] datee = datePicker.getValue().toString().split("-");
             this.profil.date_de_naissance = datee[2] + "/" + datee[1] + "/" + datee[0];
             // on instancie l'age en calculant la différence entre l'année actuelle et l'année de naissance
-
+            this.profil.age = Year.now().getValue() - datePicker.getValue().getYear();
             this.profil.ville = cbVille.getValue();
-            this.profil.profession = "Banque";
+            this.profil.profession = cbProfession.getValue();
             // on recupere uniquement le chemin d'accès de l'imageView
             if(imageView.getImage()!=null){
                 this.profil.image = imageView.getImage().getUrl();
             }
-            this.profil.hobbies.add("randonnée");
-            this.profil.hobbies.add("jardinage");
-
-            this.profil.qualite.add("Accompli");
-            this.profil.qualite.add("Actif");
-            this.profil.qualite.add("Brave");
-
-            this.profil.defaut.add("Aigri");
-            this.profil.defaut.add("Distrait");
-
-            // on va ajouter les exigences du profil
-            // attirance
-            this.profil.exi.attirance.add(cbAttirance.getValue());
-            this.profil.taille = 180;
-            // age Min
-            this.profil.exi.agemin = 19;
-            // age Max
-            this.profil.exi.distance = 0;
-            this.profil.exi.agemax = 60;
-
-            // on ajoute le profil au modele
-
-            this.mod.ajouter(this.profil);
-            this.mod.enregistrer();
-            // on revient a la Selection
-            Selection selection = new Selection(this.mod);
-            try {
-                selection.start(stage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+            // on clear les listes de qualite et defaut
+            /*
+            this.profil.qualite.clear();
+            this.profil.defaut.clear();
+            // on les instancie avec les valeurs des textField
+            for (String s : tfQualites.getText().split(",")) {
+                this.profil.qualite.add(s);
             }
+            for (String s : tfDefauts.getText().split(",")) {
+                this.profil.defaut.add(s);
+            }
+            // on fait pareil pour les exigences
+            this.profil.exi.attirance.clear();
+            this.profil.exi.choix_qualite.clear();
+            this.profil.exi.choix_defaut.clear();
+            this.profil.exi.agemin = Integer.parseInt(cbAgeMin.getValue());
+            this.profil.exi.agemax = Integer.parseInt(cbAgeMax.getValue());
 
+            // on update l'attirance avec la cbAttirance
+            this.profil.exi.attirance.add(cbAttirance.getValue());
+            for (String s : tfQualitesExi.getText().split(",")) {
+                this.profil.exi.choix_qualite.add(s);
+            }
+            for (String s : tfDefautsExi.getText().split(",")) {
+                this.profil.exi.choix_defaut.add(s);
+            }*/
+
+            // on enregistre les modifications
+            this.mod.enregistrer();
+            // on revient au menu principal
+            Selection s = new Selection(this.mod);
+            try {
+                s.start(stage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
-
+        annuler.setOnAction(event -> {
+            // on revient au menu principal
+            Selection s = new Selection(this.mod);
+            try {
+                s.start(stage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
-
 }
-
-

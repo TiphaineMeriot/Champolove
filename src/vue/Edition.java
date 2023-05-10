@@ -1,7 +1,10 @@
+package vue;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import modele.Modele;
 
 public class Edition extends Application {
     Modele mod;
@@ -15,14 +18,14 @@ public class Edition extends Application {
     }
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(CreationProfil.class.getResource("Edition.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(CreationProfil.class.getResource("fxml/Edition.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 965 , 599);
         stage.setResizable(false);
-        stage.setTitle("Vue");
+        stage.setTitle("vue.Vue");
         stage.setScene(scene);
         stage.show();
         stage.centerOnScreen();
-        EditionController controller = new EditionController(this.mod, this.profil);
+        controleur.EditionController controller = new controleur.EditionController(this.mod, this.profil);
         controller.init(scene, stage);
     }
 }

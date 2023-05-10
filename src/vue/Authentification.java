@@ -1,3 +1,5 @@
+package vue;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -48,10 +50,10 @@ public class Authentification extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(Authentification.class.getResource("authentification.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Authentification.class.getResource("../fxml/authentification.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 693 , 488);
         stage.setResizable(false);
-        stage.setTitle("Authentification");
+        stage.setTitle("vue.Authentification");
         stage.setScene(scene);
         stage.show();
         stage.centerOnScreen();
@@ -65,7 +67,7 @@ public class Authentification extends Application {
         //sinon, on affiche un message d'erreur
         btn = (Button) scene.lookup("#boutonSeConnecter");
         // TODO : ON CREER UN MODELE ICI, comme ca le temps que l'user se log on charge les profils
-        Modele mod = new Modele();
+        modele.Modele mod = new modele.Modele();
 
         //Vous en avez marre de commenter/décommenter? Plus besoin xP
         System.out.println("Saisissez un type de démarrage:");
@@ -81,11 +83,11 @@ public class Authentification extends Application {
             if (scan.hasNextInt()){
                 int nbprofil=scan.nextInt();
                 System.out.println("Vous avez choisi de générer "+nbprofil+" Profils");
-                new Generateur_profil(mod,nbprofil);
+                new controleur.Generateur_profil(mod,nbprofil);
             }
             else{
                 System.out.println("Vous avez choisi le mode sans limite, veuillez patienter un petit moment...");
-                new Generateur_profil(mod);
+                new controleur.Generateur_profil(mod);
             }
         }
         else{
@@ -104,7 +106,7 @@ public class Authentification extends Application {
                     password = passwordField.getText();
                     //vérifier si le username et le password sont dans le dictionnaire
                     if (data.containsKey(username) && data.get(username).equals(password)){
-                        //si oui, on ouvre la Selection (pour choisir le profil qu'on veut utiliser)
+                        //si oui, on ouvre la vue.Selection (pour choisir le profil qu'on veut utiliser)
                         Selection selection = new Selection(mod);
                         selection.start(stage);
 

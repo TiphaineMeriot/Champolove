@@ -10,7 +10,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="831.0" style="-fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #f5c295 0.0%, #f5c295 43.6242%, #fa7334f4 100.0%);" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button id="selection" layoutX="238.0" layoutY="394.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="98.0" style="-fx-background-color: #fb7434; -fx-text-fill: #29252a;" text="Selection">
+      <Button id="selection" layoutX="238.0" layoutY="394.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="98.0" style="-fx-background-color: #fb7434; -fx-text-fill: #29252a;" text="vue.Selection">
          <font>
             <Font name="Times New Roman" size="19.0" />
          </font>
@@ -47,7 +47,7 @@
       </Label>
       <ImageView fitHeight="97.0" fitWidth="123.0" layoutX="720.0" layoutY="394.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/logo_invisible.png" />
+            <Image url="@../images/logo_invisible.png" />
          </image>
       </ImageView>
       <Label layoutX="287.0" layoutY="265.0" prefHeight="44.0" prefWidth="419.0" text="ou prendre une pause bien méritée...">

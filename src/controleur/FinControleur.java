@@ -1,7 +1,12 @@
+package controleur;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import modele.Modele;
+import vue.Profil;
+import vue.Selection;
 
 public class FinControleur {
     Modele mod;

@@ -1,9 +1,14 @@
+package controleur;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import modele.Modele;
+import vue.Fin;
+import vue.Profil;
 
 public class DatingControleur {
     Modele mod;
@@ -67,7 +72,7 @@ public class DatingControleur {
 
         // si on clique sur le bouton d'id valider
         Button valider = (Button) scene.lookup("#valider");
-        // on ouvre Fin en lui passant le modele et les deux profils
+        // on ouvre vue.Fin en lui passant le modele et les deux profils
         valider.setOnMouseClicked(event -> {
             Fin fin = new Fin(mod,p1,p2);
             try {

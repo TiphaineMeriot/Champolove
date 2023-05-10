@@ -1,3 +1,8 @@
+package controleur;
+
+import modele.Modele;
+import vue.Profil;
+
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,7 +16,7 @@ public class Generateur_profil {
     }
     public double doubleAlea(double min,double max){
         Random rdm=new Random();
-        return(rdm.nextDouble()+min);
+        return(rdm.nextDouble(max - min)+min);
     }
 
     public void qualdefhobAlea(Collection<String> liste,ArrayList<String> source){

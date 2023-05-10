@@ -1,3 +1,5 @@
+package modele;
+
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -5,26 +7,26 @@ import java.util.*;
 
 public class Modele {
 	//Déclaration des Structures utilisées
-	ArrayList<String> qualite;
-	ArrayList<String> defaut;
-	ArrayList<String> hobbies;
-	ArrayList<String> prenomH;
-	ArrayList<String> prenomF;
-	ArrayList<String> nom;
-	ArrayList<Donnees> lieu;
-    TreeSet<Profil> listeProfil;
-	HashMap<String,TreeSet<Profil>> tripargenre; //Autre organisation des profils, utile dans Matching
-	ArrayList<File> listeImageH;
-	ArrayList<File> listeImageF;
-	ArrayList<String> metier;
+	public ArrayList<String> qualite;
+	public ArrayList<String> defaut;
+	public ArrayList<String> hobbies;
+	public ArrayList<String> prenomH;
+	public ArrayList<String> prenomF;
+	public ArrayList<String> nom;
+	public ArrayList<Donnees> lieu;
+    public TreeSet<vue.Profil> listeProfil;
+	public HashMap<String,TreeSet<vue.Profil>> tripargenre; //Autre organisation des profils, utile dans controleur.Matching
+	public ArrayList<File> listeImageH;
+	public ArrayList<File> listeImageF;
+	public ArrayList<String> metier;
 	///
 
 	//Cette méthode est indispensable pour pouvoir sérialiser le comparateur.
 	//Elle fait la même chose qu'un comparateur classique à part qu'il faut dire chaque étape de la comparaison
 	//Rien n'est implicite
-	private static class SerializableComparator implements Comparator<Profil>, Serializable {
+	public static class SerializableComparator implements Comparator<vue.Profil>, Serializable {
         @Override
-        public int compare(Profil p1, Profil p2) {
+        public int compare(vue.Profil p1, vue.Profil p2) {
             int result = p1.date_de_creation.compareTo(p2.date_de_creation);
             if (result == 0) {
                 result = p1.nom.compareTo(p2.nom);
@@ -39,8 +41,8 @@ public class Modele {
 
 	//Cette méthode permet de stocker le nom de la ville mais également la latitude et la longitude dans une seule liste
 	public static class Donnees implements Serializable{
-		String location;
-		double latitude,longitude;
+		public String location;
+		public double latitude,longitude;
 		public Donnees(String loc,double lat,double longi){
 			this.location=loc;
 			this.latitude=lat;
@@ -51,7 +53,7 @@ public class Modele {
 
 	///Constructeur de modèle qui instancie les objets mis en jeu.
     public Modele() {
-		Comparator<Profil> ddc= new SerializableComparator(); // Compare en fonction de la date de création
+		Comparator<vue.Profil> ddc= new SerializableComparator(); // Compare en fonction de la date de création
         this.listeProfil=new TreeSet<>(ddc);
 		this.qualite=new ArrayList<>();
 		this.defaut=new ArrayList<>();

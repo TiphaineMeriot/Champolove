@@ -16,7 +16,7 @@
    <children>
       <ImageView fitHeight="73.0" fitWidth="74.0" layoutX="743.0" layoutY="412.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/logo_invisible.png" />
+            <Image url="@../images/logo_invisible.png" />
          </image>
       </ImageView>
       <Label layoutX="227.0" layoutY="33.0" prefHeight="45.0" prefWidth="398.0" text="SELECTION DU PROFIL">

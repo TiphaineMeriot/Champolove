@@ -1,3 +1,5 @@
+package vue;
+
 import java.io.InputStream;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
@@ -7,22 +9,17 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-enum Statut{
-        CELIBATAIRE,MARIE,VEUF,CONCUBINAGE
-    }
-    enum Genre{
-        HOMME,FEMME,AUTRE
-    }
+
 public class Profil implements Comparable<Profil>, Serializable {
     //Classe qui regroupe toutes les exigences d'un profil donné.
     public static class Exigence implements Serializable{
         //A voir si on met le statut aussi ainsi que d'autres attributs.
-        HashSet<String> choix_hobbies;
-        HashSet<String> choix_qualite;
-        HashSet<String> choix_defaut;
-        HashSet<String> attirance;
-        int distance;
-        int agemin,agemax;
+        public HashSet<String> choix_hobbies;
+        public HashSet<String> choix_qualite;
+        public HashSet<String> choix_defaut;
+        public HashSet<String> attirance;
+        public int distance;
+        public int agemin,agemax;
         public Exigence(){
             this.attirance=new HashSet<>();
             this.choix_hobbies=new HashSet<>();
@@ -33,35 +30,35 @@ public class Profil implements Comparable<Profil>, Serializable {
     //C'est package par défaut, on verra si on les met en privé plus tard
 
     //Attribut administratif
-    double latitude,longitude;
-    double taille;
-    int age;
-    String nom,prenom;
-    String admail;
-    String genre;
-    String date_de_naissance;
-    String statut;
-    String profession;
-    String ville;
-    Boolean actif;
-    String image;
-    String signe;
-    Calendar date_de_creation;
-    HashSet<String> choix_hobbies;
-    HashSet<String> choix_qualite;
-    HashSet<String> choix_defaut;
-    HashSet<String> attirance;
+    public double latitude,longitude;
+    public double taille;
+    public int age;
+    public String nom,prenom;
+    public String admail;
+    public String genre;
+    public String date_de_naissance;
+    public String statut;
+    public String profession;
+    public String ville;
+    public Boolean actif;
+    public String image;
+    public String signe;
+    public Calendar date_de_creation;
+    public HashSet<String> choix_hobbies;
+    public HashSet<String> choix_qualite;
+    public HashSet<String> choix_defaut;
+    public HashSet<String> attirance;
     int distance = 0;
-    int agemin=0;
-    int agemax= 0;
+    public int agemin=0;
+    public int agemax= 0;
     ///
 
     //Attributs personnels
-    ArrayList<String> hobbies,qualite,defaut;
-    int compatibilité;
-    int precision;
+    public ArrayList<String> hobbies,qualite,defaut;
+    public int compatibilité;
+    public int precision;
 
-    Exigence exi;
+    public Exigence exi;
     ///
 
     public Profil(String nom,String prenom,String date_de_naissance,String genre,String statut,String ville) throws Exception {
@@ -187,18 +184,18 @@ public class Profil implements Comparable<Profil>, Serializable {
                 this.longitude = Double.parseDouble(s[0]);
             } else {
                 System.out.println(text);
-                throw new ExceptionVilleInexistante();
+                throw new exception.ExceptionVilleInexistante();
             }
         } catch (Exception e) {
             System.out.println(this.ville);
             System.out.println(saucisse);
             e.printStackTrace();
             System.exit(0);
-            //throw new ExceptionVilleInexistante();
+            //throw new exception.ExceptionVilleInexistante();
         }
     }
     public String toString(){
-        StringBuilder exit= new StringBuilder(String.format("Nom:%s\nPrenom:%s\nSexe:%s\nAge:%d\nTaille:%1.2fm\nSigne Astrologique:%s\nStatut:%s\nVille:%s\nLatitude:%f\nLongitude:%f",
+        StringBuilder exit= new StringBuilder(String.format("Nom:%s\nPrenom:%s\nSexe:%s\nAge:%d\nTaille:%1.2fm\nSigne Astrologique:%s\nvue.vue.Statut:%s\nVille:%s\nLatitude:%f\nLongitude:%f",
                 this.nom, this.prenom,this.genre, this.age,this.taille, this.signe, this.statut, this.ville, this.latitude, this.longitude));
         if(this.exi.attirance.size()!=0){
             exit.append("\nRecherche:");
