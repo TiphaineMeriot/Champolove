@@ -71,7 +71,7 @@
                 <Image url="@images/logo_invisible.png" />
             </image>
         </ImageView>
-        <Button id="boutonCreerProfil" layoutX="164.0" layoutY="153.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="171.0" style="-fx-background-color: #fb7434;" text="Créer un nouveau profil" textAlignment="CENTER" />
+        <Button id="boutonCreerProfil" layoutX="164.0" layoutY="153.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="146.0" style="-fx-background-color: #fb7434;" text="Editer le profil " textAlignment="CENTER" />
         <Pane id="PaneDroite" fx:id="PaneDroite" layoutX="499.0" prefHeight="635.0" prefWidth="650.0">
             <children>
                 <GridPane id="gridPaneNom" fx:id="gridPaneNom" layoutX="14.0" layoutY="104.0" prefHeight="90.0" prefWidth="421.0">
@@ -157,5 +157,6 @@
          </font>
       </Label>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="64.0" layoutX="121.0" layoutY="70.0" stroke="BLACK" strokeType="INSIDE" width="256.0" />
+      <Button id="back" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: #fb7434;" text="&lt;--" />
     </children>
 </AnchorPane>

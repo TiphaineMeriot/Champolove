@@ -1,164 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CreationProfilControleur">
-   <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Informations">
-               <content>
-                  <GridPane style="-fx-border-color: red;">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="169.0" prefWidth="296.0">
                      <children>
-                        <TextField fx:id="nomtxt" promptText="Nom" GridPane.columnIndex="1">
-                           <GridPane.margin>
-                              <Insets left="5.0" right="5.0" />
-                           </GridPane.margin></TextField>
-                        <TextField fx:id="prénomtxt" promptText="Prénom" GridPane.columnIndex="2">
-                           <GridPane.margin>
-                              <Insets left="5.0" right="5.0" />
-                           </GridPane.margin></TextField>
-                        <ImageView fitHeight="92.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
-                           <image>
-                              <Image url="@images/FEMME/ADAM_Diane.jpeg" />
-                           </image>
-                        </ImageView>
-                        <ComboBox fx:id="statuttxt" prefWidth="150.0" promptText="Statut" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="recherchetxt" prefWidth="150.0" promptText="Recherche" GridPane.rowIndex="2" />
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
-                           <children>
-                              <ComboBox fx:id="genretxt" prefWidth="150.0" promptText="Genre" />
-                              <TextField maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="150.0" promptText="Taille">
-                                 <VBox.margin>
-                                    <Insets top="10.0" />
-                                 </VBox.margin>
-                              </TextField>
-                           </children>
-                        </VBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <children>
-                              <DatePicker fx:id="dateNaissancetxt" />
-                              <TextField fx:id="villetxt" prefHeight="26.0" prefWidth="183.0" promptText="Ville">
-                                 <VBox.margin>
-                                    <Insets left="5.0" right="5.0" top="10.0" />
-                                 </VBox.margin>
-                              </TextField>
-                           </children>
-                        </VBox>
+                        <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="347.0" prefWidth="578.0">
+                           <content>
+                              <GridPane id="gridPane" prefHeight="90.0" prefWidth="576.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="138.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="439.0" minWidth="10.0" prefWidth="438.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                              </GridPane>
+                           </content>
+                        </ScrollPane>
                      </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </GridPane>
-               </content>
+                  </AnchorPane>
+            </content>
           </Tab>
-          <Tab text="Compléments">
-               <content>
-                  <GridPane>
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+          <Tab text="Exigences">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ComboBox fx:id="professiontxt" prefWidth="150.0" promptText="Profession" GridPane.rowIndex="2" />
-                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="104.0" prefWidth="277.0">
-                           <children>
-                              <Label text="Qualités">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <ScrollPane id="scrollqd" fx:id="scrollqd" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="113.0" prefWidth="133.0">
-                                 <content>
-                                    <ListView id="listqd" fx:id="listqd" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="130.0" />
-                                 </content>
-                              </ScrollPane>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
-                           <children>
-                              <Label text="Centres d'intérêt">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <ScrollPane id="scroll" fx:id="scroll" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="113.0" prefWidth="133.0">
-                                 <content>
-                                    <ListView id="list" fx:id="list" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="130.0" />
-                                 </content>
-                              </ScrollPane>
-                           </children>
-                        </VBox>
-                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="104.0" prefWidth="277.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <children>
-                              <Label text="Défauts">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <ScrollPane id="scrolld" fx:id="scrolld" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="113.0" prefWidth="133.0">
-                                 <content>
-                                    <ListView id="listd" fx:id="listd" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="130.0" />
-                                 </content>
-                              </ScrollPane>
-                           </children>
-                        </VBox>
+                        <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="347.0" prefWidth="569.0" />
                      </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </GridPane>
-               </content>
+                  </AnchorPane>
+            </content>
           </Tab>
         </tabs>
       </TabPane>
-   </center>
-   <bottom>
-      <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <Button mnemonicParsing="false" text="Suivant">
-               <HBox.margin>
-                  <Insets bottom="10.0" right="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button disable="true" mnemonicParsing="false" text="Créer">
-               <HBox.margin>
-                  <Insets bottom="10.0" right="10.0" />
-               </HBox.margin>
-            </Button>
-         </children>
-      </HBox>
-   </bottom>
-</BorderPane>
+   </children>
+</AnchorPane>

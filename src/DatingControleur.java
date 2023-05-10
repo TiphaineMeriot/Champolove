@@ -17,6 +17,18 @@ public class DatingControleur {
     }
 
     public void init(Scene scene, Stage primaryStage){
+
+        Button back = (Button) scene.lookup("#back");
+        // si il est actionné on reviens a la Vue
+        back.setOnAction(event -> {
+            try {
+                new Vue(this.mod,this.p1,"").start(primaryStage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+
         ImageView image1 = (ImageView) scene.lookup("#Image1");
         ImageView remplacement = new ImageView(this.p1.image);
         image1.setImage(remplacement.getImage());

@@ -75,14 +75,25 @@ public class SelectionControleur {
                     // le profil cliqué devient le profil courant
                     profilCourant = profil;
                     // on affiche les exigences des profils dans la console
-                    System.out.println(profil.exi.agemax);
-                    System.out.println(profil.exi.agemin);
-                    System.out.println(profil.exi.attirance);
-                    System.out.println(profil.exi.distance
-                    );
-                    System.out.println(profil.exi.choix_qualite);
-                    System.out.println(profil.exi.choix_defaut);
-                    System.out.println(profil.exi.choix_hobbies);
+
+
+                    System.out.println("je print toutes les caractéristiques du profil courant");
+                    System.out.println("nom: " + profilCourant.nom);
+                    System.out.println("prenom: " + profilCourant.prenom);
+                    System.out.println("age: " + profilCourant.age);
+                    System.out.println("genre: " + profilCourant.genre);
+                    System.out.println("image: " + profilCourant.image);
+                    System.out.println("hobbies: " + profilCourant.hobbies);
+                    System.out.println("qualites: " + profilCourant.qualite);
+                    System.out.println("defauts: " + profilCourant.defaut);
+                    System.out.println("attirance: " + profilCourant.attirance);
+                    System.out.println("distance: " + profilCourant.distance);
+                    System.out.println("agemin: " + profilCourant.agemin);
+                    System.out.println("agemax: " + profilCourant.agemax);
+                    System.out.println("choix_qualite: " + profilCourant.choix_qualite);
+                    System.out.println("choix_defaut: " + profilCourant.choix_defaut);
+                    System.out.println("choix_hobbies: " + profilCourant.choix_hobbies);
+
 
                 }
             });
@@ -118,19 +129,17 @@ public class SelectionControleur {
         editer.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
-                if(profilCourant != null){
-                    Edition edition = new Edition(mod,profilCourant);
+
+                    CreationProfil crea = new CreationProfil(mod);
                     try {
-                        edition.start(primaryStage);
+                        crea.start(primaryStage);
                     } catch (Exception e) {
                         e.printStackTrace();
                         System.out.println("Erreur lors de l'ouverture de la vue");
                     }
-                }else{
-                    Label erreur = (Label) scene.lookup("#erreur");
-                    erreur.setOpacity(1);
                 }
-            }
+
+
         });
 
 

@@ -191,6 +191,9 @@ public class Modele {
 			throw new RuntimeException(e);
 		}
 	}
+	public void ajouter(Profil profil) {
+		this.listeProfil.add(profil);
+	}
 	///
 }
 

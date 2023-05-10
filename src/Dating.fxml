@@ -53,5 +53,6 @@
       <Circle fill="#1f93ff00" layoutX="479.0" layoutY="208.0" radius="67.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
       <DatePicker layoutX="503.0" layoutY="488.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="64.0" layoutX="458.0" layoutY="56.0" stroke="BLACK" strokeType="INSIDE" width="256.0" />
+      <Button id="back" layoutX="24.0" layoutY="24.0" mnemonicParsing="false" style="-fx-background-color: #fb7434;" text="&lt;--" />
    </children>
 </Pane>

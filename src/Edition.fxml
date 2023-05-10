@@ -14,7 +14,7 @@
    <children>
       <TabPane id="TabPane" layoutX="35.0" layoutY="16.0" prefHeight="508.0" prefWidth="894.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab id="Editer" text="Editer">
+          <Tab id="Editer" text="Informations">
             <content>
               <AnchorPane id="anchor" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

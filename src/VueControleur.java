@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.util.Objects;
@@ -36,14 +37,22 @@ public class VueControleur {
     }
 
     public void init(Scene scene, Stage stage) throws Exception {
-
-
+        Button btnback = (Button) scene.lookup("#back");
+        // si il est actionné on reviens a Selection
+        btnback.setOnAction(event -> {
+            try {
+                Selection selection = new Selection(this.mod);
+                selection.start(stage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
         boutonCreerProfil = (Button) scene.lookup("#boutonCreerProfil");
         boutonCreerProfil.setOnAction(event -> {
             try {
-                CreationProfil creationProfil = new CreationProfil();
-                creationProfil.start(stage);
+                Edition edition = new Edition(this.mod,this.profilCourant);
+                edition.start(stage);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -231,20 +240,36 @@ public class VueControleur {
 
                     //le label nomPrenom a une police de titre de taille 30 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelNomPrenom.setStyle("-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
+                    // on setup Times New Roman
+                    labelNomPrenom.setFont(Font.font("Times New Roman"));
                     //le label date de naissance a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelDateDeNaissance.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
+                    // on setup Times New Roman
+                    labelDateDeNaissance.setFont(Font.font("Times New Roman"));
                     //le label ville a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelVille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
+                    // on setup Times New Roman
+                    labelVille.setFont(Font.font("Times New Roman"));
                     //le label travail a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelTravail.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
+                    // on setup Times New Roman
+                    labelTravail.setFont(Font.font("Times New Roman"));
                     //le label qualitées a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelQualites.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
+                    // on setup Times New Roman
+                    labelQualites.setFont(Font.font("Times New Roman"));
                     //le label defauts a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelDefauts.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
+                    // on setup Times New Roman
+                    labelDefauts.setFont(Font.font("Times New Roman"));
                     //le label taille a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelTaille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
+                    // on setup Times New Roman
+                    labelTaille.setFont(Font.font("Times New Roman"));
                     // le label hobbies a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelHobbies.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
+                    // on setup Times New Roman
+                    labelHobbies.setFont(Font.font("Times New Roman"));
 
                     GridPane gridPaneDroite = (GridPane) scene.lookup("#gridPaneNom");
                     //on clear le gridPaneDroite pour qu'il ne contienne que les informations du profil précédemment cliqué
@@ -396,25 +421,38 @@ public class VueControleur {
                     }
 
 
-
-
-
                     //le label nomPrenom a une police de titre de taille 30 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelNomPrenom.setStyle("-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
+                    // on setup Times New Roman
+                    labelNomPrenom.setFont(Font.font("Times New Roman"));
                     //le label date de naissance a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelDateDeNaissance.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
+                    // on setup Times New Roman
+                    labelDateDeNaissance.setFont(Font.font("Times New Roman"));
                     //le label ville a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelVille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
+                    // on setup Times New Roman
+                    labelVille.setFont(Font.font("Times New Roman"));
                     //le label travail a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelTravail.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
+                    // on setup Times New Roman
+                    labelTravail.setFont(Font.font("Times New Roman"));
                     //le label qualitées a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelQualites.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
+                    // on setup Times New Roman
+                    labelQualites.setFont(Font.font("Times New Roman"));
                     //le label defauts a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelDefauts.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
+                    // on setup Times New Roman
+                    labelDefauts.setFont(Font.font("Times New Roman"));
                     //le label taille a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelTaille.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
+                    // on setup Times New Roman
+                    labelTaille.setFont(Font.font("Times New Roman"));
                     // le label hobbies a une police de taille 20 et est centré a droite et en gras et une couleur de police #fb7434;
                     labelHobbies.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center-right");
+                    // on setup Times New Roman
+                    labelHobbies.setFont(Font.font("Times New Roman"));
 
 
 
@@ -469,10 +507,6 @@ public class VueControleur {
                         signeAstro.setImage(new Image("images/icones/signes/capricorne.png"));
                     }
                     gridPaneDroite.add(signeAstro, 1, 0);
-
-
-
-
 
                     // on affiche tout les attributs du profil cliqué dans la console
 

@@ -5,18 +5,22 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class CreationProfil extends Application {
+    Modele mod;
+    public CreationProfil(Modele mod){
+        this.mod = mod;
+    }
 
         @Override
         public void start(Stage stage) throws Exception {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("creationp.fxml"));
-            Parent root = loader.load();
-            CreationProfilControleur controleur = loader.getController();
-            controleur.initialisationComboBox();
-            stage.setScene(new Scene(root));
-            stage.show();
+            FXMLLoader fxmlLoader = new FXMLLoader(CreationProfil.class.getResource("Edition.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 965 , 599);
             stage.setResizable(false);
-            stage.setTitle("Créer un nouveau profil");
-
+            stage.setTitle("Création de profil");
+            stage.setScene(scene);
+            stage.show();
+            stage.centerOnScreen();
+            CreationProfilControleur controller = new CreationProfilControleur(this.mod);
+            controller.init(scene, stage);
 
         }
 
